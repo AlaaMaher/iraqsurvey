@@ -186,13 +186,11 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         iniGovSpinner();
 
         databaseDisReference = FirebaseDatabase.getInstance().getReference("District");
-
-
         ////////////////////////////////////////////////////////////////////////////////////////
-
         btnMorning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // edt_morning_shift_to.setVisibility(View.VISIBLE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
                 edt_morning_shift_to.setVisibility(View.VISIBLE);

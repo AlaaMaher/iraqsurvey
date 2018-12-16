@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+            ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
+            ConstMethods.saveInDoorPhotos(LoginActivity.this,"");
+            ConstMethods.saveSketch(LoginActivity.this,"");
             finish();
         }
         if (!checkPermission()) {
@@ -89,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
 
         userProjectsDB=Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
+
+
 
     }
 

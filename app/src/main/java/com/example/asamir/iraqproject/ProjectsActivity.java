@@ -56,7 +56,7 @@ public class ProjectsActivity extends AppCompatActivity {
         Database survayDB = Room.databaseBuilder(ProjectsActivity.this,
                 Database.class, "survayTable").allowMainThreadQueries().build();
 
-        //Log.e("Saved Data-->",survayDB.userDao().getAllSurvies().toString()+"\n");
+
 
         userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();

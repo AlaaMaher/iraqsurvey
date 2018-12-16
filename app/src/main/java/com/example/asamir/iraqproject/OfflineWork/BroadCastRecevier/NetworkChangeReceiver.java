@@ -16,12 +16,14 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.asamir.iraqproject.AddFormData.NoticeActivity;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.Models.DataCollectionModel;
 import com.example.asamir.iraqproject.Models.SketchModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.SurvayEntity;
+import com.example.asamir.iraqproject.ViewFormData.ViewSketchImageActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -123,6 +125,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                     }
 
 
+                    if (!survayEntity.getSketchData().isEmpty())
+                    {
+                        JSONObject sketchObject = new JSONObject(survayEntity.getSketchData());
+                        uploadImage(context, Uri.parse(sketchObject.getString("sketchImageUrl")),"1");
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -161,7 +170,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                             survayEntity.getVisitDate(),
                             survayEntity.getLat(),
                             survayEntity.getLng(),
-                            survayEntity.getSketchData(),
+                            String.valueOf(sketchJsonObject),
                             outDoorArray,
                             inDoorArray,
                             survayEntity.getPostionData(),
@@ -170,8 +179,11 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                             survayEntity.getOtherDistric()
                     );
                     survayDB.userDao().update("true", survayEntity.getId());
+                    ConstMethods.saveOutDoorPhotos(context,"");
+                    ConstMethods.saveInDoorPhotos(context,"");
+                    ConstMethods.saveSketch(context,"");
                 }
-            }, 5000);
+            }, 9000);
 
         }
 
