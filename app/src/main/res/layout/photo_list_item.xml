@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="10dp"
+        card_view:cardMaxElevation="10dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPadding="3dp">
+
+
+        <LinearLayout
+            android:id="@+id/relativeLayoutPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+          >
+
+            <ImageView
+
+                android:id="@+id/imageOffice"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+
+                android:padding="10dp"
+                android:src="@drawable/survey"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="5dp"/>
+
+            <Button
+                android:id="@+id/txt_delete"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="حذف الصورة"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:background="#4d0b0b"
+                android:textColor="@color/colorRow"
+                />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/edt_roomName"
+        android:text="اختار الوظيفة "
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerJobs"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edt_roomCount"
+        android:hint="العدد"
+        android:layout_width="match_parent"
+        android:background="@drawable/editback"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:inputType="number"
+        />
+    <EditText
+        android:id="@+id/edt_job_note"
+        android:hint="ملاحظات"
+        android:layout_width="match_parent"
+        android:background="@drawable/editback"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:inputType="text"
+
+        />
+</LinearLayout>

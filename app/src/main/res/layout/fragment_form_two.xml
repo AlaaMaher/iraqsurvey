@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_both_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="الداومين معا"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btn_afternoon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="مسائى فقط"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btn_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="صباحى فقط"
+            android:background="@color/colorPrimary"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="349dp"
+        android:layout_height="301dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="#000"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:text="نوع الدوام " />-->
+            <!--<RadioGroup-->
+            <!--android:id="@+id/radioShiftType"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="10dp"-->
+            <!--&gt;-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/shiftMorning"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="صباحي"-->
+            <!--android:checked="true" />-->
+
+            <!--<RadioButton-->
+            <!--android:id="@+id/shiftNight"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="مسائي" />-->
+
+            <!--</RadioGroup>-->
+            <EditText
+                android:id="@+id/edt_morning_shift_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editback"
+                android:clickable="true"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="بداية وقت الدوام الصباحي  "
+                android:inputType="number" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/edt_morning_shift_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editback"
+                android:clickable="true"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+
+                android:hint="نهاية وقت العمل الصباحي"
+                android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <EditText
+                android:id="@+id/edt_evening_shift_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editback"
+                android:clickable="true"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="بداية وقت الدوام المسائي  "
+                android:inputType="text" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
+
+            <EditText
+                android:id="@+id/edt_evening_shift_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editback"
+                android:clickable="true"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="نهاية وقت الدوام المسائي  "
+                android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "434175019794",
+    "firebase_url": "https://iraqapp-12a7b.firebaseio.com",
+    "project_id": "iraqapp-12a7b",
+    "storage_bucket": "iraqapp-12a7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434175019794:android:b986c05fb75ba8d1",
+        "android_client_info": {
+          "package_name": "com.example.asamir.iraqproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434175019794-l8oi83mqqf4p4v60mpsk7p4r737sdnhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3OPQ0i_sbnTPFPTR3LktnCtKxBh4ZHSI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

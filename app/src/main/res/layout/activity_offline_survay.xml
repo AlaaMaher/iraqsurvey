@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:layoutDirection="rtl"
+    tools:openDrawer="start">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            layout="@layout/app_bar_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+
+
+            <ImageView
+                android:id="@+id/logoXmarks"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:paddingLeft="10dp"
+                android:src="@drawable/logoicon"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="150dp"
+                android:layout_marginRight="150dp"
+                android:layout_marginEnd="0dp"
+                android:gravity="right"
+                android:text="المسح الميدانى"
+                android:textColor="@color/colorRow"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            >
+            <ScrollView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layoutDirection="ltr"
+                android:layout_above="@+id/btnSendData"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal"
+                        >
+                        <Spinner
+                            android:id="@+id/spinnerGov"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:spinnerMode="dialog"
+                            android:background="@drawable/spinnerborder"
+
+                            />
+
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="المحافظة :"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorPrimary"
+
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal"
+                        >
+
+
+
+                        <Spinner
+                            android:id="@+id/spinnerCities"
+                            android:layout_width="0dp"
+                            android:layout_weight=".8"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:spinnerMode="dialog"
+                            android:background="@drawable/spinnerborder"
+
+                            />
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="المدينة :"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+
+
+
+
+
+                    <EditText
+                        android:id="@+id/edt_other_cities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="text"
+                        android:hint="أضافة مدينة غير موجودة" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorPrimary"
+
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal"
+                        >
+
+                        <Spinner
+                            android:id="@+id/spinnerDistrict"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:spinnerMode="dialog"
+                            android:background="@drawable/spinnerborder"
+
+                            />
+
+                        <TextView
+
+                            android:text="الحي :"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+
+
+                    <EditText
+                        android:id="@+id/edt_other_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="text"
+                        android:hint="أضافة حي غير موجود" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorPrimary"
+
+                            />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1"
+                        android:orientation="horizontal"
+                        >
+                        <Spinner
+                            android:id="@+id/spinnerOfficeName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".8"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:spinnerMode="dialog"
+                            android:background="@drawable/spinnerborder"
+
+                            />
+
+                        <TextView
+
+                            android:text="اسم المكتب :"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorPrimary"
+
+                            />
+
+                    </LinearLayout>
+
+
+
+                    <EditText
+                        android:id="@+id/edt_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="text"
+                        android:hint="العنوان" />
+                    <EditText
+                        android:id="@+id/edt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="phone"
+
+                        android:hint="رقم الهاتف" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#000"
+                        android:layout_marginTop="10dp"
+                        android:text="به شبكة داخلية " />
+                    <RadioGroup
+                        android:id="@+id/radioIsNetWork"
+                        android:layout_gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/isNetworkYes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="نعم"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:id="@+id/isNetworkNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="لا" />
+
+                    </RadioGroup>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#000"
+                        android:layout_marginTop="10dp"
+                        android:text="لديه أنترنت " />
+                    <RadioGroup
+                        android:id="@+id/radioHasInternet"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/hasinternetYes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:text="نعم"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:id="@+id/hasinternetNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="لا" />
+
+                    </RadioGroup>
+
+                    <EditText
+                        android:id="@+id/edt_internetSeed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="number"
+                        android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/colorDivider"/>
+                    <TextView
+                        android:text="مواعيد العمل"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_both_time"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="الداومين معا"
+                            android:background="@color/colorPrimary"
+                            android:textColor="#fff" />
+
+                        <Button
+                            android:id="@+id/btn_afternoon"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="مسائى فقط"
+                            android:background="@color/colorPrimary"
+                            android:textColor="#fff" />
+
+                        <Button
+                            android:id="@+id/btn_morning"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="صباحى فقط"
+                            android:background="@color/colorPrimary"
+                            android:textColor="#fff" />
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/edt_morning_shift_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="بداية وقت الدوام الصباحي  "
+                        android:inputType="number" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+
+                        <EditText
+                            android:id="@+id/edt_morning_shift_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/editback"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:ems="10"
+                            android:focusable="false"
+
+                            android:hint="نهاية وقت العمل الصباحي"
+                            android:inputType="text" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <EditText
+                        android:id="@+id/edt_evening_shift_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="10"
+                        android:focusable="false"
+                        android:hint="بداية وقت الدوام المسائي  "
+                        android:inputType="text" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true">
+
+                        <EditText
+                            android:id="@+id/edt_evening_shift_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/editback"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:hint="نهاية وقت الدوام المسائي  "
+                            android:inputType="text" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/colorDivider"/>
+                    <TextView
+                        android:text="اخرى"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"/>
+
+                    <EditText
+                        android:id="@+id/edt_computer_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="number"
+                        android:hint="عدد اجهزه الحاسب الآلي   " />
+                    <EditText
+                        android:id="@+id/edt_computer_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="textMultiLine"
+                        android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
+                    <EditText
+                        android:id="@+id/edt_printers_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="number"
+                        android:hint="عدد الطابعات "  />
+                    <EditText
+                        android:id="@+id/edt_printers_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="textMultiLine"
+                        android:hint="ملاحظات علي عدد الطابعات "  />
+                    <EditText
+                        android:id="@+id/edt_scanners_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="number"
+                        android:hint="عدد الماسحات الضوئية  "  />
+                    <EditText
+                        android:id="@+id/edt_scanners_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:ems="10"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:inputType="textMultiLine"
+                        android:hint="ملاحظات علي عدد الماسحات الضوئية "  />
+
+
+
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/btnSendData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="goTONext"
+                android:background="@drawable/corner"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_alignParentBottom="true"
+                android:textStyle="bold"
+                android:text="التالي" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layoutDirection="rtl"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_home"
+        app:menu="@menu/activity_home_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+

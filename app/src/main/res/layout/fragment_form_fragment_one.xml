@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:layoutDirection="ltr"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="المحافظة"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            />
+        <Spinner
+            android:id="@+id/spinnerGov"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="المدينة"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            />
+        <Spinner
+            android:id="@+id/spinnerCities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            />
+
+        <EditText
+            android:id="@+id/edt_other_cities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="text"
+            android:hint="اخرى" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الحي"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            />
+        <Spinner
+            android:id="@+id/spinnerDistrict"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            />
+        <EditText
+            android:id="@+id/edt_other_district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="text"
+            android:hint="اخرى" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="اسم المشروع"-->
+            <!--android:textColor="#000"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--/>-->
+        <!--<Spinner-->
+            <!--android:id="@+id/spinnerProjects"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:spinnerMode="dialog"-->
+            <!--/>-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e3e3e3"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+        <EditText
+            android:id="@+id/edt_office_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="text"
+            android:hint="اسم المكتب" />
+        <EditText
+            android:id="@+id/edt_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="text"
+            android:hint="العنوان" />
+        <EditText
+            android:id="@+id/edt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="phone"
+
+            android:hint="رقم الهاتف" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"
+            android:text="به شبكة داخلية " />
+        <RadioGroup
+            android:id="@+id/radioIsNetWork"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            >
+
+            <RadioButton
+                android:id="@+id/isNetworkYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نعم"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/isNetworkNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="لا" />
+
+        </RadioGroup>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"
+            android:text="لديه أنترنت " />
+        <RadioGroup
+            android:id="@+id/radioHasInternet"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            >
+
+            <RadioButton
+                android:id="@+id/hasinternetYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="نعم"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/hasinternetNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="لا" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/edt_internetSeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/editback"
+            android:inputType="number"
+            android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
+
+    </LinearLayout>
+
+</ScrollView>
