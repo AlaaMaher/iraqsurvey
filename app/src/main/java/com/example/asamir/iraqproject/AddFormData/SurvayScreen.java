@@ -148,15 +148,17 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     List<CitiesModels> citiesList = new ArrayList<>();
     final List<DistrictsModels> districsList = new ArrayList<>();
     private List<DistrictsModels> officesList = new ArrayList<>();
-    String strShiftType ;
+    String strShiftType="+" ;
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
     /**
+     *
      * NOTE :
      * Shift type ---> 1 Morning
      * Shift type ---> 2 Evening
      * Shift type ---> 3 Both
      * */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -403,15 +405,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
-    protected boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
 
     @Override
@@ -471,14 +465,50 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     }
     public void goTONext(View view) {
 
-        if(!validateEditText(ids))
+
+        /**
+         *
+         * NOTE :
+         * Shift type ---> 1 Morning
+         * Shift type ---> 2 Evening
+         * Shift type ---> 3 Both
+         * */
+
+
+        if (strShiftType.equals("1"))
         {
-        saveData();
-        startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
-            Toast.makeText(this, "Next", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "Please Fill Empty Fields", Toast.LENGTH_SHORT).show();
+            if(!validateEditText(idsMor))
+            {
+                saveData();
+                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+
+            }else{
+                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+            }
+        }else if (strShiftType.equals("2"))
+        {
+            if(!validateEditText(idsEv))
+            {
+                saveData();
+                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+
+            }else{
+                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+            }
+        }else if (strShiftType.equals("3"))
+        {
+            if(!validateEditText(ids))
+            {
+                saveData();
+                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+
+            }else{
+
+            }
+        }else if (strShiftType.equals("+")){
+            Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
         }
+
 
 
     }
@@ -530,10 +560,30 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
                     R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
                     R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_evening_shift_from, R.id.edt_evening_shift_to, R.id.edt_morning_shift_from,
+                    R.id.edt_morning_shift_to
 
 
             };
+    int[] idsEv = new int[]
+            {
+                    R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
+                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
+                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_evening_shift_from, R.id.edt_evening_shift_to
 
+
+            };
+    int[] idsMor= new int[]
+            {
+                    R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
+                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
+                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                     R.id.edt_morning_shift_from,
+                    R.id.edt_morning_shift_to
+
+
+            };
 
     public boolean validateEditText(int[] ids) {
         boolean isEmpty = false;
@@ -542,7 +592,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             EditText et = (EditText) findViewById(id);
 
             if (TextUtils.isEmpty(et.getText().toString())) {
-                et.setError("Must enter Value");
+                et.setError("برجاء ادخال الحقول المطلوبة");
                 isEmpty = true;
             }
         }
