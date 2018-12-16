@@ -14,12 +14,13 @@ import static android.content.Context.MODE_PRIVATE;
 
     public static final String MyPREFERENCES = "PREF" ;
 
-
+    public static final String MyPREFERENCEdadsS = "PREF" ;
     public  static  void saveBasicInformationData(String value, Context context)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences(MyPREFERENCES,MODE_PRIVATE).edit();
         editor.putString("basicinfo", value);
         editor.apply();
+
     }
     public  static  String getSavedBasicInformationData( Context context)
     {
