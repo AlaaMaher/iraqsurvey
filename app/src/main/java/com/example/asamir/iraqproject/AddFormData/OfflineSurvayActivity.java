@@ -142,7 +142,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     List<CityEntity> citiesList = new ArrayList<>();
     final List<DistricEntity> districsList = new ArrayList<>();
     private List<OfficeEntity> officesList = new ArrayList<>();
-    String strShiftType;
+    String strShiftType="+" ;
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
 
@@ -169,6 +169,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        edt_morning_shift_from.setVisibility(View.GONE);
+        edt_morning_shift_to.setVisibility(View.GONE);
+        edt_evening_shift_from.setVisibility(View.GONE);
+        edt_evening_shift_to.setVisibility(View.GONE);
 
         iniRadio();
 
@@ -399,10 +403,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             }
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-        edt_morning_shift_from.setVisibility(View.GONE);
-        edt_morning_shift_to.setVisibility(View.GONE);
-        edt_evening_shift_from.setVisibility(View.GONE);
-        edt_evening_shift_to.setVisibility(View.GONE);
+
 
     }
 
@@ -465,13 +466,48 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     public void goTONext(View view) {
 
-        if(!validateEditText(ids))
+
+        /**
+         *
+         * NOTE :
+         * Shift type ---> 1 Morning
+         * Shift type ---> 2 Evening
+         * Shift type ---> 3 Both
+         * */
+
+
+        if (strShiftType.equals("1"))
         {
-        saveData();
-        startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
-            Toast.makeText(this, "Next", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "Please Fill Empty Fields", Toast.LENGTH_SHORT).show();
+            if(!validateEditText(idsMor))
+            {
+                saveData();
+                startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+            }else{
+                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+            }
+        }else if (strShiftType.equals("2"))
+        {
+            if(!validateEditText(idsEv))
+            {
+                saveData();
+                startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+            }else{
+                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+            }
+        }else if (strShiftType.equals("3"))
+        {
+            if(!validateEditText(ids))
+            {
+                saveData();
+                startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+            }else{
+
+            }
+        }else if (strShiftType.equals("+")){
+            Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -524,10 +560,30 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
                     R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
                     R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_evening_shift_from, R.id.edt_evening_shift_to, R.id.edt_morning_shift_from,
+                    R.id.edt_morning_shift_to
 
 
             };
+    int[] idsEv = new int[]
+            {
+                    R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
+                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
+                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_evening_shift_from, R.id.edt_evening_shift_to
 
+
+            };
+    int[] idsMor= new int[]
+            {
+                    R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
+                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
+                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                     R.id.edt_morning_shift_from,
+                    R.id.edt_morning_shift_to
+
+
+            };
 
     public boolean validateEditText(int[] ids) {
         boolean isEmpty = false;
@@ -545,6 +601,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     }
 
     public void iniRadio() {
+
         radioHasInternet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -552,12 +609,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
                     hasInternet = "نعم";
                     edt_internetSeed.setVisibility(View.GONE);
-
                 } else {
                     hasInternet = "لا";
                     edt_internetSeed.setVisibility(View.VISIBLE);
-
-
+                    edt_internetSeed.setText("-");
                 }
             }
         });

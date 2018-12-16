@@ -339,8 +339,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 currentMinute = calendar.get(Calendar.MINUTE);
-
-
                 timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
@@ -612,6 +610,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 } else {
                     hasInternet = "لا";
                     edt_internetSeed.setVisibility(View.VISIBLE);
+                    edt_internetSeed.setText("-");
 
 
                 }
@@ -646,6 +645,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                 }
+          
                 GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, govList);
                 spinnerGov.setAdapter(govSpinnerAdapter);
             }
