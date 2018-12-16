@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -67,6 +68,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     ArrayList<SketchModel> outDoorList=new ArrayList<>();
     JSONObject sketchJsonObject;
     private String SketchImageURI;
+    private SurvayEntity survayEntity;
+    private String outDoorArray;
+    private String inDoorArray;
 
     /**
      * TODO : NOTE
@@ -86,13 +90,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             // Assign FirebaseDatabase instance with root database name.
             databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
             survayDatabaseReference = FirebaseDatabase.getInstance().getReference("OFFICE_DATA");
-            Database survayDB = Room.databaseBuilder(context,
+            final Database survayDB = Room.databaseBuilder(context,
                     Database.class, "survayTable").allowMainThreadQueries().build();
 
 
             Log.e("FROM BROAD SurvayData>",survayDB.userDao().getSurvayByIsUploaded("false").toString());
             for (int i=0;i<survayDB.userDao().getSurvayByIsUploaded("false").size();i++) {
-                SurvayEntity survayEntity = survayDB.userDao().getSurvayByIsUploaded("false").get(i);
+               survayEntity = survayDB.userDao().getSurvayByIsUploaded("false").get(i);
 
                 try {
                     JSONArray jsonArrayIndoor, jsonArrayOutdoor;
@@ -122,16 +126,16 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (i == survayDB.userDao().getSurvayByIsUploaded("false").size()-1) {
-                    /**
-                     * send out door pic
-                     * */
-                    /**
-                     * Send Data to Firebase
-                     * */
+            }
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
                     Gson gson = new Gson();
-                    String outDoorArray = gson.toJson(inDoorList);
-                    String inDoorArray = gson.toJson(inDoorList);
+                    outDoorArray = gson.toJson(inDoorList);
+                    inDoorArray= gson.toJson(inDoorList);
                     uploadData(survayEntity.getGov(),
                             survayEntity.getCityId(),
                             survayEntity.getDistricId(),
@@ -166,16 +170,9 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                             survayEntity.getOtherDistric()
                     );
                     survayDB.userDao().update("true", survayEntity.getId());
-//                    ConstMethods.saveSketch(context, "");
-//                    ConstMethods.saveInDoorPhotos(context, "");
-//                    ConstMethods.saveOutDoorPhotos(context, "");
                 }
+            }, 5000);
 
-
-
-
-
-            }
         }
 
 
@@ -297,6 +294,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         inDoorList.add(imageUploadInfo);
+                        Log.e("INDOOR LIST ---->", String.valueOf(inDoorList.size()));
+
 
 
 
@@ -313,7 +312,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         outDoorList.add(imageUploadInfo);
-
+                        Log.e("OUTDOOR LIST ---->", String.valueOf(inDoorList.size()));
 
                     }
 
