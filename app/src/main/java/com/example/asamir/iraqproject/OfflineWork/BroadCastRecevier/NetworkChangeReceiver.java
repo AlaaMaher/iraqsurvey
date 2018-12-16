@@ -98,32 +98,23 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                     JSONArray jsonArrayIndoor, jsonArrayOutdoor;
                     if (!survayEntity.getInDoorPhotos().isEmpty()) {
                         jsonArrayIndoor = new JSONArray(survayEntity.getInDoorPhotos());
-                        if (jsonArrayIndoor.length() != 0) {
-
-
                             for (int index = 0; index < jsonArrayIndoor.length(); index++) {
-                                if (index != jsonArrayIndoor.length() - 1) {
                                     JSONObject jsonObjectIndoor = jsonArrayIndoor.getJSONObject(index);
                                     String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
                                     uploadImage(context, Uri.parse(inDoorImageUri), "2");
                                     Log.e("LAST IN INDooor--->", "No");
-                                }
+
                             }
-                        }
+
                     }
-                    if (!survayEntity.getInDoorPhotos().isEmpty()) {
+                    if (!survayEntity.getOutDoorPhotos().isEmpty()) {
                         jsonArrayOutdoor = new JSONArray(survayEntity.getOutDoorPhotos());
-                        if (jsonArrayOutdoor.length() != 0) {
-
-
                             for (int index = 0; index < jsonArrayOutdoor.length(); index++) {
-                                if (index != jsonArrayOutdoor.length() - 1) {
+
                                     JSONObject jsonObjectIndoor = jsonArrayOutdoor.getJSONObject(index);
                                     String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
                                     uploadImage(context, Uri.parse(inDoorImageUri), "3");
                                     Log.e("LAST IN INDooor--->", "No");
-                                }
-                            }
                         }
                     }
 
@@ -317,7 +308,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
                         currentDateandTime = sdf.format(new Date());
                         SketchModel imageUploadInfo = new SketchModel(ImageUploadId,currentDateandTime,currentDateandTime,imageUrl);
-                        inDoorList.add(imageUploadInfo);
+                        outDoorList.add(imageUploadInfo);
                         Log.e("Image Url--->",imageUrl);
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
