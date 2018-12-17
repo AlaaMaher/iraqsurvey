@@ -117,6 +117,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                     })
                     .setNegativeButton("لا", null)
                     .show();
+            
         } else if (id == R.id.nav_list) {
             new AlertDialog.Builder(this)
                     .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
