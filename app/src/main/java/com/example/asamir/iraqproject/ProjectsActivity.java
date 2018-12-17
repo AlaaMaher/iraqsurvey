@@ -3,19 +3,17 @@ package com.example.asamir.iraqproject;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
-import com.example.asamir.iraqproject.AddFormData.SketchPlace;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
-import com.example.asamir.iraqproject.Models.Projects;
 import com.example.asamir.iraqproject.Models.ProjectsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
@@ -42,10 +40,12 @@ public class ProjectsActivity extends AppCompatActivity {
     @BindView(R.id.tvp3)
     TextView tvp3;
     @BindView(R.id.tvTootBarTitle)
-            TextView tvTootBarTitle;
+    TextView tvTootBarTitle;
 
     ArrayList<ProjectsModel> projectsModels = new ArrayList<>();
     ArrayList<UserProjectsEntity> userProjectsEntities = new ArrayList<>();
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
     private Database userProjectsDB;
 
 
@@ -58,32 +58,46 @@ public class ProjectsActivity extends AppCompatActivity {
         Database survayDB = Room.databaseBuilder(ProjectsActivity.this,
                 Database.class, "survayTable").allowMainThreadQueries().build();
 
-
-
+        tvp1.setVisibility(View.GONE);
+        tvp2.setVisibility(View.GONE);
+        tvp3.setVisibility(View.GONE);
         userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String id = FirebaseAuth.getInstance().getUid();
         if (ConnectivityHelper.isConnectedToNetwork(ProjectsActivity.this)) {
+            progressBar.setVisibility(View.VISIBLE);
             DatabaseReference ref = database.getReference("Project_user").child(id);
             // Attach a listener to read the data at our posts reference
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+                    tvp1.setVisibility(View.GONE);
+                    tvp2.setVisibility(View.GONE);
+                    tvp3.setVisibility(View.GONE);
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         Log.e("DATA-->", dataSnapshot1.child("project_id").getValue().toString());
                         projectsModels.add(new ProjectsModel(dataSnapshot1.child("project_id").getValue().toString(), dataSnapshot1.child("project_name").getValue().toString()));
                     }
 
                     if (projectsModels.size() == 3) {
+                        tvp1.setVisibility(View.VISIBLE);
+                        tvp2.setVisibility(View.VISIBLE);
+                        tvp3.setVisibility(View.VISIBLE);
                         tvp1.setText(projectsModels.get(0).getName());
                         tvp2.setText(projectsModels.get(1).getName());
                         tvp3.setText(projectsModels.get(2).getName());
                     } else if (projectsModels.size() == 2) {
+                        tvp1.setVisibility(View.VISIBLE);
+                        tvp2.setVisibility(View.VISIBLE);
+
                         tvp1.setText(projectsModels.get(0).getName());
                         tvp2.setText(projectsModels.get(1).getName());
                         tvp3.setVisibility(View.GONE);
                     } else if (projectsModels.size() == 1) {
+                        tvp1.setVisibility(View.VISIBLE);
+                       
                         tvp1.setText(projectsModels.get(0).getName());
                         tvp3.setVisibility(View.GONE);
                         tvp2.setVisibility(View.GONE);
@@ -92,7 +106,9 @@ public class ProjectsActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    progressBar.setVisibility(View.GONE);
                     System.out.println("The read failed: " + databaseError.getCode());
+
                 }
             });
 
@@ -260,7 +276,7 @@ public class ProjectsActivity extends AppCompatActivity {
         Database officeDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "officeTable").allowMainThreadQueries().build();
 
-        Database userProjectsDB=Room.databaseBuilder(getApplicationContext(),
+        Database userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
         govDataBase.userDao().deleteGovData();
         citiesDataBase.userDao().deleteCityData();
