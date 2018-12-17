@@ -131,19 +131,18 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
-        } else if (id == R.id.nav_list) {
             new AlertDialog.Builder(this)
-                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
                     .setCancelable(false)
-                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            startActivity(new Intent(NoticeActivity.this, RegistedList.class));
-                            finish();
+                            logOut();
                         }
                     })
-                    .setNegativeButton("الغاء", null)
-                    .show();
+                    .setNegativeButton("لا", null)
+                    .show();        } else if (id == R.id.nav_list) {
+            startActivity(new Intent(NoticeActivity.this, RegistedList.class));
+            finish();
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(NoticeActivity.this))
             {

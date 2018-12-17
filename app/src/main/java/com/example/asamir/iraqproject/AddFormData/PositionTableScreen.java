@@ -117,7 +117,16 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
         } else if (id == R.id.nav_list) {
             new AlertDialog.Builder(this)
                     .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")

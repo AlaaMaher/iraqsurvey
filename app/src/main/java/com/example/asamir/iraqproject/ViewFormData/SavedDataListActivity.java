@@ -1,12 +1,14 @@
 package com.example.asamir.iraqproject.ViewFormData;
 
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -204,7 +206,16 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
         } else if (id == R.id.nav_list) {
             startActivity(new Intent(SavedDataListActivity.this, RegistedList.class));
             finish();
