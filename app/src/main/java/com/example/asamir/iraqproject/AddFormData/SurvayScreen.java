@@ -661,6 +661,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                govList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -710,6 +711,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                citiesList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -773,6 +775,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                districsList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -832,6 +835,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                officesList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
 
