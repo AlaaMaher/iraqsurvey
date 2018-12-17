@@ -133,7 +133,16 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
         } else if (id == R.id.nav_list) {
             startActivity(new Intent(RoomsTableActivity.this, RegistedList.class));
             finish();

@@ -145,7 +145,16 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
         } else if (id == R.id.nav_list) {
             startActivity(new Intent(PositionTablesActivity.this, RegistedList.class));
             finish();
@@ -266,6 +275,7 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             }
         });
 
+
         // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
@@ -274,19 +284,27 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                             public void onClick(DialogInterface dialog, int id) {
 
 
-                                final String roomCount = edt_rooms_count.getText().toString();
+                                if (edt_job_note.getText().toString().isEmpty() &&edt_rooms_count.getText().toString().isEmpty())
+                                {
+                                    Toast.makeText(PositionTablesActivity.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+                                }else  {
+                                    Toast.makeText(PositionTablesActivity.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                                    final String roomCount = edt_rooms_count.getText().toString();
 
-                                final String note = edt_job_note.getText().toString();
-                                jobList.add(new JobsModel(jobName, roomCount, note));
-                                roomsTableAdapter.notifyData(jobList);
-                                if (jobList.isEmpty()) {
-                                    rvJobs.setVisibility(View.GONE);
-                                    tvEmptyList.setVisibility(View.VISIBLE);
-                                } else {
-                                    rvJobs.setVisibility(View.VISIBLE);
-                                    tvEmptyList.setVisibility(View.GONE);
+                                    final String note = edt_job_note.getText().toString();
+                                    jobList.add(new JobsModel(jobName, roomCount, note));
+                                    roomsTableAdapter.notifyData(jobList);
+                                    if (jobList.isEmpty()) {
+                                        rvJobs.setVisibility(View.GONE);
+                                        tvEmptyList.setVisibility(View.VISIBLE);
+
+                                    } else {
+                                        rvJobs.setVisibility(View.VISIBLE);
+                                        tvEmptyList.setVisibility(View.GONE);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
+
                             }
                         })
                 .setNegativeButton("إلغاء",

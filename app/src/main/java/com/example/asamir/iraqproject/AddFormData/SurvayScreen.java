@@ -3,6 +3,7 @@ package com.example.asamir.iraqproject.AddFormData;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -13,6 +14,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -116,12 +118,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout error1;
     @BindView(R.id.text_input_layout2)
     TextInputLayout error2;
-
-
-
-
     //////////////////////////////////////////////////////
-
     @BindView(R.id.edt_computer_count)
     EditText edt_computer_count;
     @BindView(R.id.edt_computer_notes)
@@ -412,7 +409,18 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
+
+
         } else if (id == R.id.nav_list) {
 
                 new AlertDialog.Builder(this)
@@ -657,7 +665,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                 }
-          
+
                 GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, govList);
                 spinnerGov.setAdapter(govSpinnerAdapter);
             }
