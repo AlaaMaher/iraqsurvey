@@ -130,6 +130,18 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
         if (id == R.id.nav_logout) {
             logOut();
         } else if (id == R.id.nav_list) {
+            new AlertDialog.Builder(this)
+                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(OutdoorPhotos.this, RegistedList.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
+        } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(OutdoorPhotos.this))
             {
                 startActivity(new Intent(OutdoorPhotos.this, SurvayScreen.class));
@@ -138,9 +150,6 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
                 startActivity(new Intent(OutdoorPhotos.this, OfflineSurvayActivity.class));
                 finish();
             }
-        } else if (id == R.id.nav_add_new) {
-            startActivity(new Intent(OutdoorPhotos.this, SurvayScreen.class));
-            finish();
         }else if (id == R.id.nav_change_project) {
             startActivity(new Intent(OutdoorPhotos.this, ProjectsActivity.class));
             finish();

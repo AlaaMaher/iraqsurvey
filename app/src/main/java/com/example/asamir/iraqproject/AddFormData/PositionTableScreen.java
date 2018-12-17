@@ -119,6 +119,19 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         if (id == R.id.nav_logout) {
             logOut();
         } else if (id == R.id.nav_list) {
+            new AlertDialog.Builder(this)
+                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(PositionTableScreen.this, RegistedList.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
+
+        } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
                 startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
                 finish();
@@ -126,9 +139,6 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                 startActivity(new Intent(PositionTableScreen.this, OfflineSurvayActivity.class));
                 finish();
             }
-        } else if (id == R.id.nav_add_new) {
-            startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
-            finish();
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(PositionTableScreen.this, ProjectsActivity.class));
             finish();
