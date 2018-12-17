@@ -118,12 +118,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout error1;
     @BindView(R.id.text_input_layout2)
     TextInputLayout error2;
-
-
-
-
     //////////////////////////////////////////////////////
-
     @BindView(R.id.edt_computer_count)
     EditText edt_computer_count;
     @BindView(R.id.edt_computer_notes)
@@ -658,7 +653,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                 }
-          
+
                 GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, govList);
                 spinnerGov.setAdapter(govSpinnerAdapter);
             }
