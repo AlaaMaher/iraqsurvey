@@ -72,22 +72,42 @@ public class RoomsTableAdapter extends RecyclerView.Adapter<RoomsTableAdapter.Cl
         holder.tvRoomNums.setText(club.getNum());
         holder.tvRoomsFer.setText(club.getRoomThings());
 
-        // delete the item in the table
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                roomList.remove(position);
-                notifyData(roomList);
+                new AlertDialog.Builder(context)
+                        .setMessage("هل تود مسج هذا العنصر ")
+                        .setCancelable(false)
+                        .setPositiveButton("مسح", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                roomList.remove(position);
+                                notifyData(roomList);
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+
+
             }
         });
+
         // edit the iem in the table
         holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddDialog(club.name,club.num,club.getRoomThings(),position);
+                new AlertDialog.Builder(context)
+                        .setMessage("هل تود تعديل هذا العنصر ")
+                        .setCancelable(false)
+                        .setPositiveButton("تعديل", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                showAddDialog(club.name,club.num,club.getRoomThings(),position);
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+
             }
         });
-
 
     }
 

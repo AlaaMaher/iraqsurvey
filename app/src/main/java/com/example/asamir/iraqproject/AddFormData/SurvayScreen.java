@@ -3,6 +3,7 @@ package com.example.asamir.iraqproject.AddFormData;
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -13,6 +14,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -409,8 +411,20 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         if (id == R.id.nav_logout) {
             logOut();
         } else if (id == R.id.nav_list) {
-            startActivity(new Intent(SurvayScreen.this, RegistedList.class));
-            finish();
+
+                new AlertDialog.Builder(this)
+                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(SurvayScreen.this, RegistedList.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+
+
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(SurvayScreen.this))
             {

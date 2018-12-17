@@ -2,6 +2,7 @@ package com.example.asamir.iraqproject.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.Models.JobsModel;
 import com.example.asamir.iraqproject.R;
+import com.example.asamir.iraqproject.RegistedList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,8 +86,19 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
         holder.ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                roomList.remove(position);
-                notifyData(roomList);
+                new AlertDialog.Builder(context)
+                        .setMessage("هل تود مسج هذا العنصر ")
+                        .setCancelable(false)
+                        .setPositiveButton("مسح", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                roomList.remove(position);
+                                notifyData(roomList);
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+
+
             }
         });
 
@@ -92,7 +106,17 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
         holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddDialog(club.num,club.note,position);
+                new AlertDialog.Builder(context)
+                        .setMessage("هل تود تعديل هذا العنصر ")
+                        .setCancelable(false)
+                        .setPositiveButton("تعديل", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                showAddDialog(club.num,club.note,position);
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+
             }
         });
     }

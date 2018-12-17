@@ -58,8 +58,6 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     ArrayList<JobsModel> jobList = new ArrayList<>();
     @BindView(R.id.rvJobs)
     RecyclerView rvJobs;
-
-
     @BindView(R.id.tvEmptyList)
     TextView tvEmptyList;
     JobsTableAdapter roomsTableAdapter;
@@ -69,9 +67,10 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     TextView tvToolBar;
     @BindView(R.id.logoXmarks)
     ImageView logo;
-
     ArrayList<JobsModel> projectsModels = new ArrayList<>();
     private String jobName;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +118,19 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         if (id == R.id.nav_logout) {
             logOut();
         } else if (id == R.id.nav_list) {
+            new AlertDialog.Builder(this)
+                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(PositionTableScreen.this, RegistedList.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
+
+        } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
                 startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
                 finish();
@@ -126,9 +138,6 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                 startActivity(new Intent(PositionTableScreen.this, OfflineSurvayActivity.class));
                 finish();
             }
-        } else if (id == R.id.nav_add_new) {
-            startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
-            finish();
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(PositionTableScreen.this, ProjectsActivity.class));
             finish();
@@ -286,7 +295,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-
+                                Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
                                 final String roomCount = edt_rooms_count.getText().toString();
 
                                 final String note = edt_job_note.getText().toString();
@@ -295,6 +304,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                                 if (jobList.isEmpty()) {
                                     rvJobs.setVisibility(View.GONE);
                                     tvEmptyList.setVisibility(View.VISIBLE);
+
                                 } else {
                                     rvJobs.setVisibility(View.VISIBLE);
                                     tvEmptyList.setVisibility(View.GONE);
