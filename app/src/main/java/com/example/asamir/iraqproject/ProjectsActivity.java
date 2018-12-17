@@ -1,7 +1,9 @@
 package com.example.asamir.iraqproject;
 
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -229,7 +231,18 @@ public class ProjectsActivity extends AppCompatActivity {
     }
 
     public void userLogout(View view) {
-        logOut();
+
+        new AlertDialog.Builder(this)
+                .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                .setCancelable(false)
+                .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        logOut();
+                    }
+                })
+                .setNegativeButton("لا", null)
+                .show();
+
 
     }
 
