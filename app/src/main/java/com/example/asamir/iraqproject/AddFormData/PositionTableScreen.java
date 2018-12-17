@@ -34,6 +34,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
@@ -295,21 +296,27 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
-                                final String roomCount = edt_rooms_count.getText().toString();
+                                if (edt_job_note.getText().toString().isEmpty() &&edt_rooms_count.getText().toString().isEmpty())
+                                {
+                                    Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+                                }else  {
+                                    Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                                    final String roomCount = edt_rooms_count.getText().toString();
 
-                                final String note = edt_job_note.getText().toString();
-                                jobList.add(new JobsModel(jobName, roomCount, note));
-                                roomsTableAdapter.notifyData(jobList);
-                                if (jobList.isEmpty()) {
-                                    rvJobs.setVisibility(View.GONE);
-                                    tvEmptyList.setVisibility(View.VISIBLE);
+                                    final String note = edt_job_note.getText().toString();
+                                    jobList.add(new JobsModel(jobName, roomCount, note));
+                                    roomsTableAdapter.notifyData(jobList);
+                                    if (jobList.isEmpty()) {
+                                        rvJobs.setVisibility(View.GONE);
+                                        tvEmptyList.setVisibility(View.VISIBLE);
 
-                                } else {
-                                    rvJobs.setVisibility(View.VISIBLE);
-                                    tvEmptyList.setVisibility(View.GONE);
+                                    } else {
+                                        rvJobs.setVisibility(View.VISIBLE);
+                                        tvEmptyList.setVisibility(View.GONE);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
+
                             }
                         })
                 .setNegativeButton("إلغاء",
