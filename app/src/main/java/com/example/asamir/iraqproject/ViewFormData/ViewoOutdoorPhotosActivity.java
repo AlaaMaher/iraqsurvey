@@ -165,8 +165,16 @@ public class ViewoOutdoorPhotosActivity extends AppCompatActivity implements Rec
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
-        } else if (id == R.id.nav_list) {
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();        } else if (id == R.id.nav_list) {
             startActivity(new Intent(ViewoOutdoorPhotosActivity.this, RegistedList.class));
             finish();
         } else if (id == R.id.nav_add_new) {
