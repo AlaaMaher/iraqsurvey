@@ -465,7 +465,8 @@
                     android:id="@+id/text_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:hintEnabled="false">
 
                     <EditText
                         android:id="@+id/edt_morning_shift_to"
@@ -499,7 +500,8 @@
                     android:id="@+id/text_input_layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true">
+                    app:errorEnabled="true"
+                    app:hintEnabled="false">
 
                     <EditText
                         android:id="@+id/edt_evening_shift_to"

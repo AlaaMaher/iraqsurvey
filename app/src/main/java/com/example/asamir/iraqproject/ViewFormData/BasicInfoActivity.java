@@ -1,10 +1,12 @@
 package com.example.asamir.iraqproject.ViewFormData;
 
+import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -47,7 +50,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,6 +143,20 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     private String isNetwork;
     private String shiftType;
 
+    @BindView(R.id.text_errorview)
+    TextInputLayout error1;
+    @BindView(R.id.text_error2view)
+    TextInputLayout error2;
+
+    TimePickerDialog timePickerDialog;
+    Calendar calendar;
+    int currentHour;
+    int currentMinute;
+    String amPm;
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+    Date inTime;
+    Date outTime;
+
     String otherCity, otherDistric;
 
     @Override
@@ -186,6 +207,144 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         edtOtherCities.setText(dataCollectionModel.getOtherCity());
         edtOtherDistrict.setText(dataCollectionModel.getOtherCity());
 
+
+        edt_morning_shift_from.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(BasicInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = " PM";
+                        } else {
+                            amPm = " AM";
+                        }
+                        edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        try {
+                            inTime = sdf.parse(edt_morning_shift_from.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        edt_morning_shift_to.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+
+                timePickerDialog = new TimePickerDialog(BasicInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = " PM";
+                        } else {
+                            amPm = " AM";
+                        }
+                        edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        try {
+                            outTime = sdf.parse(edt_morning_shift_to.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (!isTimeAfter(inTime, outTime)) {
+                            error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+
+                        } else {
+                            error1.setError(null);
+
+                        }
+
+
+                    }
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+
+
+            }
+        });
+
+        edt_evening_shift_from.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+                timePickerDialog = new TimePickerDialog(BasicInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        edt_evening_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        try {
+                            inTime = sdf.parse(edt_evening_shift_from.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+
+
+            }
+        });
+        edt_evening_shift_to.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+                timePickerDialog = new TimePickerDialog(BasicInfoActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        try {
+                            outTime = sdf.parse(edt_evening_shift_to.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (!isTimeAfter(inTime, outTime)) {
+                            error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+
+                        } else {
+                            error2.setError(null);
+
+                        }
+
+
+                    }
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+
+
+            }
+        });
+
+
         //get the spinner data
         iniGovSpinner();
         iniCitiesSpinner();
@@ -205,6 +364,13 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         });
 
 
+    }
+    boolean isTimeAfter(Date startTime, Date endTime) {
+        if (endTime.before(startTime)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
