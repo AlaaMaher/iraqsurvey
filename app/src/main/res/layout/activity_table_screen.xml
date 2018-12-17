@@ -105,7 +105,7 @@
             android:id="@+id/tvEmptyList"
             android:layout_margin="16dp"
             android:textSize="18sp"
-            android:text="لا توجد وضائف مضافة بعد اضغط علي مفتاح الاضافة بالاعلي لاضافة وظيفة"
+            android:text="لا توجد وظائف مضافة بعد اضغط علي مفتاح الاضافة بالاعلي لاضافة وظيفة"
             />
     </FrameLayout>
 

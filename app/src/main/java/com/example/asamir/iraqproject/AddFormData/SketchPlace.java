@@ -127,8 +127,17 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         if (id == R.id.nav_logout) {
             logOut();
         } else if (id == R.id.nav_list) {
-            startActivity(new Intent(SketchPlace.this, RegistedList.class));
-            finish();
+            new AlertDialog.Builder(this)
+                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(SketchPlace.this, RegistedList.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this))
             {

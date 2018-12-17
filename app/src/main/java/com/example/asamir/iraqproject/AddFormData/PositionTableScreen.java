@@ -34,6 +34,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
@@ -117,7 +118,16 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.nav_logout) {
-            logOut();
+            new AlertDialog.Builder(this)
+                    .setMessage("هل تريد حقاً الخروج من البحث الميدانى؟")
+                    .setCancelable(false)
+                    .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("لا", null)
+                    .show();
         } else if (id == R.id.nav_list) {
             if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
                 startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
@@ -286,20 +296,27 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
+                                if (edt_job_note.getText().toString().isEmpty() &&edt_rooms_count.getText().toString().isEmpty())
+                                {
+                                    Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+                                }else  {
+                                    Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                                    final String roomCount = edt_rooms_count.getText().toString();
 
-                                final String roomCount = edt_rooms_count.getText().toString();
+                                    final String note = edt_job_note.getText().toString();
+                                    jobList.add(new JobsModel(jobName, roomCount, note));
+                                    roomsTableAdapter.notifyData(jobList);
+                                    if (jobList.isEmpty()) {
+                                        rvJobs.setVisibility(View.GONE);
+                                        tvEmptyList.setVisibility(View.VISIBLE);
 
-                                final String note = edt_job_note.getText().toString();
-                                jobList.add(new JobsModel(jobName, roomCount, note));
-                                roomsTableAdapter.notifyData(jobList);
-                                if (jobList.isEmpty()) {
-                                    rvJobs.setVisibility(View.GONE);
-                                    tvEmptyList.setVisibility(View.VISIBLE);
-                                } else {
-                                    rvJobs.setVisibility(View.VISIBLE);
-                                    tvEmptyList.setVisibility(View.GONE);
+                                    } else {
+                                        rvJobs.setVisibility(View.VISIBLE);
+                                        tvEmptyList.setVisibility(View.GONE);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
+
                             }
                         })
                 .setNegativeButton("إلغاء",
