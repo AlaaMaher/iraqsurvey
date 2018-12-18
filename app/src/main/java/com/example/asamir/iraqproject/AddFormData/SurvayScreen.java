@@ -273,9 +273,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm =" "+" PM";
                         } else {
-                            amPm = " AM";
+                            amPm = " "+"  AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -302,9 +302,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm =" "+" PM";
                         } else {
-                            amPm = " AM";
+                            amPm =" "+"  AM";
                         }
                         edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -340,9 +340,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = "PM";
+                            amPm = " "+" PM";
                         } else {
-                            amPm = "AM";
+                            amPm = " "+"  AM";
                         }
                         edt_evening_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -369,9 +369,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = "PM";
+                            amPm =" "+" PM";
                         } else {
-                            amPm = "AM";
+                            amPm = " "+" AM";
                         }
                         edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {

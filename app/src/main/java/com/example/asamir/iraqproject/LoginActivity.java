@@ -93,9 +93,6 @@ public class LoginActivity extends AppCompatActivity {
         userProjectsDB=Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
 
-
-
-
     }
 
 
@@ -259,6 +256,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.e("PROJECTNAME-->",dataSnapshotProjects.child("project_name").getValue().toString());
                                     userProjectsDB.userDao().insertProjects(new UserProjectsEntity( dataSnapshotProjects.child("project_id").getValue().toString(),
                                             dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
+                                    Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
                                 }
                                 getGoves();
                                 Log.e("Projects DB Created "," =====>  Done");

@@ -314,6 +314,7 @@
                     android:inputType="phone"
 
                     android:hint="رقم الهاتف" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -448,6 +449,9 @@
 
                 </LinearLayout>
 
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></android.support.constraint.ConstraintLayout>
                 <EditText
                     android:id="@+id/edt_morning_shift_from"
                     android:layout_width="match_parent"
@@ -457,9 +461,10 @@
                     android:clickable="true"
                     android:editable="false"
                     android:ems="10"
-                    android:focusable="false"
                     android:hint="بداية وقت الدوام الصباحي  "
                     android:inputType="number" />
+
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_layout"
@@ -477,8 +482,6 @@
                         android:clickable="true"
                         android:editable="false"
                         android:ems="10"
-                        android:focusable="false"
-
                         android:hint="نهاية وقت العمل الصباحي"
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
@@ -492,7 +495,7 @@
                     android:clickable="true"
                     android:editable="false"
                     android:ems="10"
-                    android:focusable="false"
+
                     android:hint="بداية وقت الدوام المسائي  "
                     android:inputType="text" />
 
@@ -512,7 +515,7 @@
                         android:clickable="true"
                         android:editable="false"
                         android:ems="10"
-                        android:focusable="false"
+
                         android:hint="نهاية وقت الدوام المسائي  "
                         android:inputType="text" />
                 </android.support.design.widget.TextInputLayout>
@@ -613,7 +616,6 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
