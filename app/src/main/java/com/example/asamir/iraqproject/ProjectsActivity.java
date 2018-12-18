@@ -305,5 +305,8 @@ public class ProjectsActivity extends AppCompatActivity {
             return false;
     }
 
+    public void closeScreen(View view) {
+        finish();
+    }
 
 }

@@ -96,4 +96,8 @@ public class RegistedList extends AppCompatActivity implements NavigationView.On
     public void goToSurvayList(View view) {
         startActivity(new Intent(RegistedList.this, SavedDataListActivity.class));
     }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }

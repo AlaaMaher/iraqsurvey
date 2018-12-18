@@ -135,33 +135,33 @@ public class LoginActivity extends AppCompatActivity {
 //        for (int i = 0; i < govDataBase.userDao().getGovs().size(); i++) {
 //            latId=i;
 //            final String id = govDataBase.userDao().getGovs().get(i).getGovId();
-            DatabaseReference CitiesRef = firebaseDatabase.getReference("City").child(id);
-            CitiesRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        DatabaseReference CitiesRef = firebaseDatabase.getReference("City").child(id);
+        CitiesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                    for (DataSnapshot dataSnapshotCity : dataSnapshot.getChildren()) {
-                        String cityId = dataSnapshotCity.getKey();
-                        citiesDataBase.userDao().insertCity(new CityEntity(cityId, dataSnapshotCity.child("name").getValue().toString(), dataSnapshot.getKey()));
-                        saveDistrict(cityId);
-                    }
-
-
-
-                    Log.e("Cities DB Created "," =====>  Done");
-
+                for (DataSnapshot dataSnapshotCity : dataSnapshot.getChildren()) {
+                    String cityId = dataSnapshotCity.getKey();
+                    citiesDataBase.userDao().insertCity(new CityEntity(cityId, dataSnapshotCity.child("name").getValue().toString(), dataSnapshot.getKey()));
+                    saveDistrict(cityId);
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
 
 
+                Log.e("Cities DB Created "," =====>  Done");
 
-       // }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        // }
 
     }
 
