@@ -878,4 +878,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
+    public void closeScreen(View view) {
+        finish();
+    }
 }

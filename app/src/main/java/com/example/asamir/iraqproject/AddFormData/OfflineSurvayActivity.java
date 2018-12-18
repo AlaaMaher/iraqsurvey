@@ -787,5 +787,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     }
 
-
+    public void closeScreen(View view) {
+        finish();
+    }
 }

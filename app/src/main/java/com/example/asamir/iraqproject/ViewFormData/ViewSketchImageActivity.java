@@ -161,4 +161,8 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }

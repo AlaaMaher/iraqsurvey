@@ -429,4 +429,8 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
     public void onItemClick(PhotoModel item) {
 
     }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }

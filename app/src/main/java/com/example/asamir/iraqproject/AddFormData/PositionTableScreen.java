@@ -341,6 +341,8 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         // show it
         alertDialog.show();
     }
-
+    public void closeScreen(View view) {
+        finish();
+    }
 
 }

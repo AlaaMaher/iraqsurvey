@@ -275,5 +275,7 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
         String roomsArray = gson.toJson(roomList);
         ConstMethods.saveRooms(RoomsTableActivity.this, roomsArray);
     }
-
+    public void closeScreen(View view) {
+        finish();
+    }
 }

@@ -345,7 +345,9 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
 
 
 
-
+    public void closeScreen(View view) {
+        finish();
+    }
 
 
 }

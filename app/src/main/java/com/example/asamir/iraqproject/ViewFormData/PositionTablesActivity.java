@@ -342,4 +342,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         String roomsArray = gson.toJson(jobList);
         ConstMethods.savePositions(PositionTablesActivity.this, roomsArray);
     }
+    public void closeScreen(View view) {
+        finish();
+    }
+
 }

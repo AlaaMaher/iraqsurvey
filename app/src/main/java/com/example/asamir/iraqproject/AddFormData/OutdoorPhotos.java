@@ -442,4 +442,8 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
     public void onItemClick(PhotoModel item) {
 
     }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }

@@ -456,5 +456,9 @@ public class ViewoOutdoorPhotosActivity extends AppCompatActivity implements Rec
     public void onItemClick(PhotoModel item) {
 
     }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }
 

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -19,12 +20,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +66,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SketchPlace extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class SketchPlace extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int REQUEST_CAPTURE_IMAGE = 100;
     // Creating StorageReference and DatabaseReference object.
     StorageReference storageReference;
@@ -74,6 +75,8 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
     String Storage_Path = "All_Image_Uploads/";
     // Root Database Name for Firebase Database.
     String Database_Path = "All_Image_Uploads_Database";
+    @BindView(R.id.btn_delete_photo)
+    Button btnDeletePhoto;
     private View view;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     @BindView(R.id.ivPicImage)
@@ -148,15 +151,14 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
                     .setNegativeButton("الغاء", null)
                     .show();
         } else if (id == R.id.nav_add_new) {
-            if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this))
-            {
+            if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this)) {
                 startActivity(new Intent(SketchPlace.this, SurvayScreen.class));
                 finish();
-            }else {
+            } else {
                 startActivity(new Intent(SketchPlace.this, OfflineSurvayActivity.class));
                 finish();
             }
-        }else if (id == R.id.nav_change_project) {
+        } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(SketchPlace.this, ProjectsActivity.class));
             finish();
         }
@@ -166,9 +168,11 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
         return true;
     }
+
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(SketchPlace.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
+        startActivity(new Intent(SketchPlace.this, LoginActivity.class));
+        Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "cityTable").allowMainThreadQueries().build();
@@ -179,7 +183,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         Database officeDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "officeTable").allowMainThreadQueries().build();
 
-        Database userProjectsDB=Room.databaseBuilder(getApplicationContext(),
+        Database userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
         govDataBase.userDao().deleteGovData();
         citiesDataBase.userDao().deleteCityData();
@@ -190,20 +194,21 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
+
     public void goTONext(View view) {
 
-            saveData();
-            startActivity(new Intent(SketchPlace.this,IndoorPhotos.class));
+        saveData();
+        startActivity(new Intent(SketchPlace.this, IndoorPhotos.class));
 
-        }
+    }
 
 
-        public void saveData(){
+    public void saveData() {
         Map<String, String> sketchMap = new HashMap<>();
-        sketchMap.put("sketchImageId",ImageUploadId);
-        sketchMap.put("sketchImageUrl",imageUrl);
-        JSONObject jsonObject=new JSONObject(sketchMap);
-        ConstMethods.saveSketch(getApplicationContext(),jsonObject.toString());
+        sketchMap.put("sketchImageId", ImageUploadId);
+        sketchMap.put("sketchImageUrl", imageUrl);
+        JSONObject jsonObject = new JSONObject(sketchMap);
+        ConstMethods.saveSketch(getApplicationContext(), jsonObject.toString());
     }
 
 
@@ -267,10 +272,9 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
 
     private void uploadImage(Uri tempUri) {
-        if (tempUri!=null) {
+        if (tempUri != null) {
 
-            if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this))
-            {
+            if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this)) {
                 final ProgressDialog progressDialog = new ProgressDialog(this);
                 progressDialog.setTitle("برجاء الانتظار جاري رفع الصورة ... ");
                 progressDialog.setCancelable(false);
@@ -293,12 +297,12 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
                             Uri downloadUri = task.getResult();
                             progressDialog.dismiss();
                             // Continue with the task to get the download URL
-                            imageUrl=String.valueOf(downloadUri);
+                            imageUrl = String.valueOf(downloadUri);
                             ImageUploadId = databaseReference.push().getKey();
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
                             currentDateandTime = sdf.format(new Date());
-                            SketchModel imageUploadInfo = new SketchModel(ImageUploadId,currentDateandTime,currentDateandTime,imageUrl);
-                            Log.e("Image Url--->",imageUrl);
+                            SketchModel imageUploadInfo = new SketchModel(ImageUploadId, currentDateandTime, currentDateandTime, imageUrl);
+                            Log.e("Image Url--->", imageUrl);
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                             Toast.makeText(getApplicationContext(), "تم رفع الصوره بنجاح اضغط التالي لاستكمال المسح الميداني ", Toast.LENGTH_SHORT).show();
@@ -321,10 +325,10 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
                         // Toast.makeText(UploadWallpaper.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            }else {
+            } else {
 
-                imageUrl=tempUri.toString();
-                ImageUploadId="";
+                imageUrl = tempUri.toString();
+                ImageUploadId = "";
 
             }
 
@@ -339,7 +343,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
         // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
 
     }
 
@@ -348,15 +352,16 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
-            {
+            if (requestCode == SELECT_FILE) {
                 picUri = onSelectFromGalleryResult(data);
                 ivPicImage.setImageURI(picUri);
+                btnDeletePhoto.setVisibility(View.VISIBLE);
                 uploadImage(picUri);
-            }
-            else if (requestCode == REQUEST_CAMERA) {
+
+            } else if (requestCode == REQUEST_CAMERA) {
                 picUri = onCaptureImageResult(data);
                 ivPicImage.setImageURI(picUri);
+                btnDeletePhoto.setVisibility(View.VISIBLE);
                 uploadImage(picUri);
             }
         }
@@ -383,7 +388,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
             e.printStackTrace();
         }
 
-        picUri =getImageUri(getApplicationContext(),thumbnail);
+        picUri = getImageUri(getApplicationContext(), thumbnail);
         //ivImage.setImageBitmap(thumbnail);
         return picUri;
     }
@@ -400,9 +405,10 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
             }
         }
 
-        picUri=getImageUri(getApplicationContext(),bm);
+        picUri = getImageUri(getApplicationContext(), bm);
         return picUri;
     }
+
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -410,4 +416,14 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         return Uri.parse(path);
     }
 
+    public void deleteImage(View view) {
+        ConstMethods.saveSketch(SketchPlace.this, "");
+        ivPicImage.setImageDrawable(getResources().getDrawable(R.drawable.blueprint));
+        databaseReference.child(ImageUploadId).removeValue();
+
+    }
+
+    public void closeScreen(View view) {
+        finish();
+    }
 }

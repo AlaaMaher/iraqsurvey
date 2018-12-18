@@ -97,7 +97,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         tvp3.setVisibility(View.GONE);
                     } else if (projectsModels.size() == 1) {
                         tvp1.setVisibility(View.VISIBLE);
-                       
+
                         tvp1.setText(projectsModels.get(0).getName());
                         tvp3.setVisibility(View.GONE);
                         tvp2.setVisibility(View.GONE);
@@ -176,14 +176,23 @@ public class ProjectsActivity extends AppCompatActivity {
 
             }
             if (userProjectsEntities.size() == 3) {
+                tvp1.setVisibility(View.VISIBLE);
+                tvp2.setVisibility(View.VISIBLE);
+                tvp3.setVisibility(View.VISIBLE);
                 tvp1.setText(userProjectsEntities.get(0).getProject_name());
                 tvp2.setText(userProjectsEntities.get(1).getProject_name());
                 tvp3.setText(userProjectsEntities.get(2).getProject_name());
             } else if (userProjectsEntities.size() == 2) {
+                tvp1.setVisibility(View.VISIBLE);
+                tvp2.setVisibility(View.VISIBLE);
+                tvp3.setVisibility(View.GONE);
                 tvp1.setText(userProjectsEntities.get(0).getProject_name());
                 tvp2.setText(userProjectsEntities.get(1).getProject_name());
                 tvp3.setVisibility(View.GONE);
             } else if (userProjectsEntities.size() == 1) {
+                tvp1.setVisibility(View.VISIBLE);
+                tvp2.setVisibility(View.GONE);
+                tvp3.setVisibility(View.GONE);
                 tvp1.setText(userProjectsEntities.get(0).getProject_name());
                 tvp3.setVisibility(View.GONE);
                 tvp2.setVisibility(View.GONE);
@@ -238,6 +247,7 @@ public class ProjectsActivity extends AppCompatActivity {
                 }
             });
         }
+
 
 
     }

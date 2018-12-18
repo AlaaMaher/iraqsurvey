@@ -439,4 +439,8 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    public void closeScreen(View view) {
+        finish();
+    }
+
 }

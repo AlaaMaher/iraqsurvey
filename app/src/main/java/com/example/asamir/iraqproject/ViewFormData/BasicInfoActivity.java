@@ -690,4 +690,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         JSONObject jsonObject = new JSONObject(basicInfoMap);
         ConstMethods.saveBasicInformationData(jsonObject.toString(), BasicInfoActivity.this);
     }
+    public void closeScreen(View view) {
+        finish();
+    }
 }

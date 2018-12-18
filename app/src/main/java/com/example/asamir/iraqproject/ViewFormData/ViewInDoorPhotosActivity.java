@@ -537,5 +537,7 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
         return false;
     }
 
-
+    public void closeScreen(View view) {
+        finish();
+    }
 }

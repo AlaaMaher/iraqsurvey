@@ -248,17 +248,23 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
                                 final String roomFer = edt_roomFre.getText().toString();
-                                roomList.add(new RoomsModel(roomName, roomCount, roomFer));
-                                roomsTableAdapter.notifyData(roomList);
-                                if (roomList.isEmpty())
+                                if (roomName.isEmpty()&&roomCount.isEmpty()&&roomFer.isEmpty())
                                 {
-                                    rvRooms.setVisibility(View.GONE);
-                                    tvEmptyList.setVisibility(View.VISIBLE);
+                                    Toast.makeText(RoomTable.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
                                 }else {
-                                    rvRooms.setVisibility(View.VISIBLE);
-                                    tvEmptyList.setVisibility(View.GONE);
+                                    roomList.add(new RoomsModel(roomName, roomCount, roomFer));
+                                    roomsTableAdapter.notifyData(roomList);
+                                    if (roomList.isEmpty())
+                                    {
+                                        rvRooms.setVisibility(View.GONE);
+                                        tvEmptyList.setVisibility(View.VISIBLE);
+                                    }else {
+                                        rvRooms.setVisibility(View.VISIBLE);
+                                        tvEmptyList.setVisibility(View.GONE);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
+
                             }
                         })
                 .setNegativeButton("إلغاء",
@@ -273,5 +279,8 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
 
         // show it
         alertDialog.show();
+    }
+    public void closeScreen(View view) {
+        finish();
     }
 }
