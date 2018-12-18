@@ -137,6 +137,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 }
             }
 
+
+
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override

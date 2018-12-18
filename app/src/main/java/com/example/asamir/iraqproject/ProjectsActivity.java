@@ -248,7 +248,8 @@ public class ProjectsActivity extends AppCompatActivity {
             });
         }
 
-
+        Log.e("SURVAY DATA -->",Room.databaseBuilder(getApplicationContext(),
+                Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
 
     }
 
