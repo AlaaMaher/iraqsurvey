@@ -143,7 +143,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
     Date inTime;
     Date outTime;
-    String hasInternet, isNetwork;
+    String hasInternet="1", isNetwork="1";
     List<GovModels> govList = new ArrayList<>();
     List<CitiesModels> citiesList = new ArrayList<>();
     final List<DistrictsModels> districsList = new ArrayList<>();
@@ -658,11 +658,11 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioHasInternet.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
-                    hasInternet = "نعم";
+                    hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
 
                 } else {
-                    hasInternet = "لا";
+                    hasInternet = "1ا";
                     edt_internetSeed.setVisibility(View.VISIBLE);
                     edt_internetSeed.setText("-");
 
@@ -675,9 +675,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioIsNetWork.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.isNetworkNo) {
-                    isNetwork = "نعم";
+                    isNetwork = "0";
                 } else {
-                    isNetwork = "لا";
+                    isNetwork = "1";
                 }
             }
         });

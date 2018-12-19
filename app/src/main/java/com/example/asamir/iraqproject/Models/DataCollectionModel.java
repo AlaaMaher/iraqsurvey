@@ -355,6 +355,7 @@ public class DataCollectionModel implements Parcelable {
         projectObjectId=in.readString();
         otherCity=in.readString();
         otherDistric=in.readString();
+        owenerShipType=in.readString();
     }
 
     @Override
@@ -400,6 +401,7 @@ public class DataCollectionModel implements Parcelable {
 
         dest.writeString(otherCity);
         dest.writeString(otherDistric);
+        dest.writeString(owenerShipType);
     }
 
 

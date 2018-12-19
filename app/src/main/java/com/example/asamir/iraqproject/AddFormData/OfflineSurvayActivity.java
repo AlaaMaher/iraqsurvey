@@ -146,7 +146,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
     Date inTime;
     Date outTime;
-    String hasInternet, isNetwork;
+    String hasInternet="1", isNetwork="1";
     List<GovEntity> govList = new ArrayList<>();
     List<CityEntity> citiesList = new ArrayList<>();
     final List<DistricEntity> districsList = new ArrayList<>();
@@ -636,10 +636,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioHasInternet.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
-                    hasInternet = "نعم";
+                    hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
                 } else {
-                    hasInternet = "لا";
+                    hasInternet = "1";
                     edt_internetSeed.setVisibility(View.VISIBLE);
                     edt_internetSeed.setText("-");
                 }
@@ -650,9 +650,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioIsNetWork.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.isNetworkNo) {
-                    isNetwork = "نعم";
+                    isNetwork = "0";
                 } else {
-                    isNetwork = "لا";
+                    isNetwork = "1";
                 }
             }
         });
