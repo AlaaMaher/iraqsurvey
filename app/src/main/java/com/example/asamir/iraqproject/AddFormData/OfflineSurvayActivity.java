@@ -156,6 +156,15 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     TextView tvTootBarTitle;
     String strOwnerShipType="1";
 
+    @BindView(R.id.btn_delet_from_mor)
+    Button btnDeleteFromMor;
+    @BindView(R.id.btn_delet_to_mor)
+    Button btnDeletetoMor;
+    @BindView(R.id.btn_delet_from_eve)
+    Button btnDeleteFromEve;
+    @BindView(R.id.btn_delet_to_eve)
+    Button btnDeleteToEve;
+
     /**
      * NOTE :
      * Shift type ---> 1 Morning
@@ -184,6 +193,12 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         edt_evening_shift_from.setVisibility(View.GONE);
         edt_evening_shift_to.setVisibility(View.GONE);
 
+        btnDeleteFromMor.setVisibility(View.GONE);
+        btnDeletetoMor.setVisibility(View.GONE);
+        btnDeleteFromEve.setVisibility(View.GONE);
+        btnDeleteToEve.setVisibility(View.GONE);
+
+
         iniRadio();
 
 
@@ -207,6 +222,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View v) {
                 // edt_morning_shift_to.setVisibility(View.VISIBLE);
+
+                btnDeleteFromMor.setVisibility(View.VISIBLE);
+                btnDeletetoMor.setVisibility(View.VISIBLE);
+                btnDeleteFromEve.setVisibility(View.GONE);
+                btnDeleteToEve.setVisibility(View.GONE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
                 edt_evening_shift_from.setVisibility(View.GONE);
                 edt_evening_shift_to.setVisibility(View.GONE);
@@ -230,6 +250,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View v) {
                 // edt_morning_shift_to.setVisibility(View.GONE);
+                btnDeleteFromEve.setVisibility(View.VISIBLE);
+                btnDeleteToEve.setVisibility(View.VISIBLE);
+                btnDeleteFromMor.setVisibility(View.GONE);
+                btnDeletetoMor.setVisibility(View.GONE);
                 edt_morning_shift_from.setVisibility(View.GONE);
                 edt_evening_shift_from.setVisibility(View.VISIBLE);
                 edt_evening_shift_to.setVisibility(View.VISIBLE);
@@ -253,6 +277,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         btnBothTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnDeleteFromEve.setVisibility(View.VISIBLE);
+                btnDeleteToEve.setVisibility(View.VISIBLE);
+                btnDeleteFromMor.setVisibility(View.VISIBLE);
+                btnDeletetoMor.setVisibility(View.VISIBLE);
                 edt_morning_shift_to.setVisibility(View.VISIBLE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
                 edt_evening_shift_from.setVisibility(View.VISIBLE);
@@ -415,6 +443,18 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+    }
+    public void deleteMorningFrom(View view){
+        edt_morning_shift_from.getText().clear();
+    }
+    public void deleteMorningTo(View view){
+        edt_morning_shift_to.getText().clear();
+    }
+    public void deleteEveningFrom(View view){
+        edt_evening_shift_from.getText().clear();
+    }
+    public void deleteEveningTo(View view){
+        edt_evening_shift_to.getText().clear();
     }
 
 

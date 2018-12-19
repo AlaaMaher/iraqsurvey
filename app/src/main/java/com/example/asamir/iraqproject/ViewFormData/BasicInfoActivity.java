@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
@@ -153,15 +154,32 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     TextInputLayout error1;
     @BindView(R.id.text_error2view)
     TextInputLayout error2;
+    @BindView(R.id.btn_morning)
+    Button btnMorning;
+    @BindView(R.id.btn_afternoon)
+    Button btnAfternoon;
+    @BindView(R.id.btn_both_time)
+    Button btnBothTime;
+    @BindView(R.id.btn_delet_from_mor)
+    Button btnDeleteFromMor;
+    @BindView(R.id.btn_delet_to_mor)
+    Button btnDeletetoMor;
+    @BindView(R.id.btn_delet_from_eve)
+    Button btnDeleteFromEve;
+    @BindView(R.id.btn_delet_to_eve)
+    Button btnDeleteToEve;
+
 
     TimePickerDialog timePickerDialog;
     Calendar calendar;
     int currentHour;
     int currentMinute;
+    String strShiftType = "+";
     String amPm;
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
     Date inTime;
     Date outTime;
+    Boolean isOnePressed = false, isSecondOne = false, isThirdOne = false;
 
     String otherCity, otherDistric;
     private String strOwnerShipType;
@@ -214,6 +232,105 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
         edtOtherCities.setText(dataCollectionModel.getOtherCity());
         edtOtherDistrict.setText(dataCollectionModel.getOtherCity());
+
+        edt_morning_shift_from.setVisibility(View.GONE);
+        edt_morning_shift_to.setVisibility(View.GONE);
+        edt_evening_shift_from.setVisibility(View.GONE);
+        edt_evening_shift_to.setVisibility(View.GONE);
+
+        btnDeleteFromMor.setVisibility(View.GONE);
+        btnDeletetoMor.setVisibility(View.GONE);
+        btnDeleteFromEve.setVisibility(View.GONE);
+        btnDeleteToEve.setVisibility(View.GONE);
+
+
+
+        btnMorning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // edt_morning_shift_to.setVisibility(View.VISIBLE);
+                edt_morning_shift_from.setVisibility(View.VISIBLE);
+                btnDeleteFromMor.setVisibility(View.VISIBLE);
+                btnDeletetoMor.setVisibility(View.VISIBLE);
+                btnDeleteFromEve.setVisibility(View.GONE);
+                btnDeleteToEve.setVisibility(View.GONE);
+                edt_morning_shift_to.setVisibility(View.VISIBLE);
+
+                edt_evening_shift_from.setVisibility(View.GONE);
+                edt_evening_shift_to.setVisibility(View.GONE);
+                error2.setVisibility(View.GONE);
+                error1.setVisibility(View.VISIBLE);
+                isOnePressed = true;
+                btnMorning.setBackgroundColor(Color.GRAY);
+                strShiftType = "1";
+                if (isSecondOne) {
+                    btnAfternoon.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isSecondOne = false;
+                } else if (isThirdOne) {
+                    btnBothTime.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isThirdOne = false;
+                }
+
+            }
+        });
+
+        btnAfternoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // edt_morning_shift_to.setVisibility(View.GONE);
+                btnDeleteFromEve.setVisibility(View.VISIBLE);
+                btnDeleteToEve.setVisibility(View.VISIBLE);
+                btnDeleteFromMor.setVisibility(View.GONE);
+                btnDeletetoMor.setVisibility(View.GONE);
+                edt_morning_shift_from.setVisibility(View.GONE);
+                edt_evening_shift_from.setVisibility(View.VISIBLE);
+                edt_evening_shift_to.setVisibility(View.VISIBLE);
+                error1.setVisibility(View.GONE);
+                error2.setVisibility(View.VISIBLE);
+                isSecondOne = true;
+                btnAfternoon.setBackgroundColor(Color.GRAY);
+                strShiftType = "2";
+                if (isOnePressed) {
+                    btnMorning.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isOnePressed = false;
+
+                } else if (isThirdOne) {
+                    btnBothTime.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isThirdOne = false;
+                }
+
+
+            }
+        });
+        btnBothTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnDeleteFromEve.setVisibility(View.VISIBLE);
+                btnDeleteToEve.setVisibility(View.VISIBLE);
+                btnDeleteFromMor.setVisibility(View.VISIBLE);
+                btnDeletetoMor.setVisibility(View.VISIBLE);
+                edt_morning_shift_to.setVisibility(View.VISIBLE);
+                edt_morning_shift_from.setVisibility(View.VISIBLE);
+                edt_evening_shift_from.setVisibility(View.VISIBLE);
+                edt_evening_shift_to.setVisibility(View.VISIBLE);
+                error1.setVisibility(View.VISIBLE);
+                error2.setVisibility(View.VISIBLE);
+                btnBothTime.setBackgroundColor(Color.GRAY);
+                strShiftType = "3";
+                isThirdOne = true;
+                if (isSecondOne) {
+                    btnAfternoon.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isSecondOne = false;
+
+                } else if (isOnePressed) {
+                    btnMorning.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                    isOnePressed = false;
+                }
+
+
+            }
+        });
 
 
         edt_morning_shift_from.setOnClickListener(new View.OnClickListener() {
@@ -372,6 +489,18 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         });
 
 
+    }
+    public void deleteMorningFrom(View view){
+        edt_morning_shift_from.getText().clear();
+    }
+    public void deleteMorningTo(View view){
+        edt_morning_shift_to.getText().clear();
+    }
+    public void deleteEveningFrom(View view){
+        edt_evening_shift_from.getText().clear();
+    }
+    public void deleteEveningTo(View view){
+        edt_evening_shift_to.getText().clear();
     }
 
     boolean isTimeAfter(Date startTime, Date endTime) {

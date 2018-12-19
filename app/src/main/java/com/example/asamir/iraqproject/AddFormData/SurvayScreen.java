@@ -381,6 +381,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                         }
 
 
+
                     }
                 }, currentHour, currentMinute, false);
                 timePickerDialog.show();
@@ -601,7 +602,11 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     boolean isTimeAfter(Date startTime, Date endTime) {
         if (endTime.before(startTime)) {
             return false;
-        } else {
+        }
+//        else if (endTime.after(startTime)){
+//            return true;
+//        }
+        else {
             return true;
         }
     }
