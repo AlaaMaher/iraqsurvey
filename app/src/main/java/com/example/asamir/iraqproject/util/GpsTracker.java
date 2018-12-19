@@ -144,7 +144,7 @@ public class GpsTracker extends Service implements LocationListener {
         // Setting Dialog Title
         alertDialog.setTitle("GPS أعدادات ال ");
         // Setting Dialog Message
-        alertDialog.setMessage("غير مفعل هل تود تفعيله الان من قائمة الاعددات  GPS ال ");
+        alertDialog.setMessage("الموقع  غير مفعل هل تود تفعيله الان من قائمة الاعددات   ");
         // On pressing Settings button
         alertDialog.setPositiveButton("الأعدادات ", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
