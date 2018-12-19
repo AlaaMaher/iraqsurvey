@@ -704,10 +704,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
                     hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
+                    edt_internetSeed.setText("-");
                 } else {
                     hasInternet = "1";
                     edt_internetSeed.setVisibility(View.VISIBLE);
-                    edt_internetSeed.setText("-");
+
                 }
             }
         });

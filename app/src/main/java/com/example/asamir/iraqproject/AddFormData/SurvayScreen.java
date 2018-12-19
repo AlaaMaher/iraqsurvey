@@ -696,11 +696,12 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
                     hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
+                    edt_internetSeed.setText("-");
 
                 } else {
                     hasInternet = "1ا";
                     edt_internetSeed.setVisibility(View.VISIBLE);
-                    edt_internetSeed.setText("-");
+
 
 
                 }

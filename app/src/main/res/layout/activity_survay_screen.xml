@@ -170,6 +170,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="32"
                     android:hint="أضافة مدينة غير موجودة" />
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -229,6 +230,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="32"
                     android:hint="أضافة حي غير موجود" />
 
                 <LinearLayout
@@ -303,7 +305,9 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
-                    android:hint="العنوان" />
+                    android:hint="العنوان"
+                    android:maxLength="255"
+                    />
                 <EditText
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
@@ -312,7 +316,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
-
+                    android:maxLength="16"
                     android:hint="رقم الهاتف" />
 
 
@@ -442,6 +446,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="100"
                     android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
 
                 <View
@@ -532,7 +537,6 @@
                     android:layout_weight="2.5"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
-                    android:clickable="true"
                     android:editable="false"
                     android:ems="10"
                     android:hint="بداية وقت الدوام الصباحي  "
@@ -576,7 +580,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
-                        android:clickable="true"
                         android:editable="false"
                         android:ems="10"
                         android:hint="نهاية وقت العمل الصباحي"
@@ -611,7 +614,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
-                    android:clickable="true"
                     android:editable="false"
                     android:ems="10"
 
@@ -652,10 +654,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
-                        android:clickable="true"
                         android:editable="false"
                         android:ems="10"
-
                         android:hint="نهاية وقت الدوام المسائي  "
                         />
                 </android.support.design.widget.TextInputLayout>
@@ -686,6 +686,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:hint="عدد اجهزه الحاسب الآلي   " />
                 <EditText
                     android:id="@+id/edt_computer_notes"
@@ -695,6 +696,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="textMultiLine"
+                    android:maxLength="255"
                     android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
                 <EditText
                     android:id="@+id/edt_printers_count"
@@ -703,6 +705,7 @@
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
+                    android:maxLength="10"
                     android:inputType="number"
                     android:hint="عدد الطابعات "  />
                 <EditText
@@ -713,12 +716,14 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="textMultiLine"
+                    android:maxLength="255"
                     android:hint="ملاحظات علي عدد الطابعات "  />
                 <EditText
                     android:id="@+id/edt_scanners_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:maxLength="10"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
@@ -728,6 +733,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:ems="10"
+                    android:maxLength="255"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="textMultiLine"

@@ -134,6 +134,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
                 android:inputType="text"
+                android:maxLength="32"
                 android:hint="أضافة مدينة غير موجودة" />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -193,6 +194,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
                 android:inputType="text"
+                android:maxLength="32"
                 android:hint="أضافة حي غير موجود" />
 
             <LinearLayout
@@ -265,7 +267,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
                 android:inputType="text"
-
+                android:maxLength="255"
                 android:editable="false"
                 android:hint="العنوان" />
             <EditText
@@ -276,6 +278,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
                 android:inputType="number"
+                android:maxLength="16"
 
                 android:editable="false"
                 android:hint="رقم الهاتف" />
@@ -400,7 +403,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-
+                android:maxLength="100"
                 android:editable="false"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
@@ -649,6 +652,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:hint="عدد اجهزه الحاسب الآلي   " />
                 <EditText
                     android:id="@+id/edt_computer_notes"
@@ -658,6 +662,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="255"
                     android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
                 <EditText
                     android:id="@+id/edt_printers_count"
@@ -667,6 +672,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:hint="عدد الطابعات "  />
                 <EditText
                     android:id="@+id/edt_printers_notes"
@@ -676,6 +682,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="10"
                     android:hint="ملاحظات علي عدد الطابعات "  />
                 <EditText
                     android:id="@+id/edt_scanners_count"
@@ -685,6 +692,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:hint="عدد الماسحات الضوئية  "  />
                 <EditText
                     android:id="@+id/edt_scanners_notes"
@@ -694,6 +702,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="text"
+                    android:maxLength="255"
                     android:hint="ملاحظات علي عدد الماسحات الضوئية "  />
 
             </LinearLayout>
