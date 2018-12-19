@@ -662,11 +662,11 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioHasInternet.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
-                    hasInternet = "نعم";
+                    hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
 
                 } else {
-                    hasInternet = "لا";
+                    hasInternet = "`";
                     edt_internetSeed.setVisibility(View.VISIBLE);
 
 
@@ -678,9 +678,9 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int selectedRadioButtonID = radioIsNetWork.getCheckedRadioButtonId();
                 if (selectedRadioButtonID == R.id.isNetworkNo) {
-                    isNetwork = "نعم";
+                    isNetwork = "0";
                 } else {
-                    isNetwork = "لا";
+                    isNetwork = "1";
                 }
             }
         });

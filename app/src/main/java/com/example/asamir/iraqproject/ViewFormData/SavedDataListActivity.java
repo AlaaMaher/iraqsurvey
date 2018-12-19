@@ -131,6 +131,7 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                                     String notes = dataSnapshot1.child("notes").getValue().toString();
                                     String lat = dataSnapshot1.child("lat").getValue().toString();
                                     String lng = dataSnapshot1.child("lng").getValue().toString();
+                                    String owenerShipType=dataSnapshot1.child("owenerShipType").getValue().toString();
 
                                     // add sketch data
                                     String sketchData = dataSnapshot1.child("sketchData").getValue().toString();
@@ -174,7 +175,8 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                                             office_name_or_id,
                                             projectobjectid,
                                             other_city,
-                                            other_district
+                                            other_district,
+                                            owenerShipType
                                     );
 
 
