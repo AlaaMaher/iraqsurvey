@@ -42,6 +42,7 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,8 +67,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     private String ImageUploadId;
     private DatabaseReference survayDatabaseReference;
 
-    ArrayList<SketchModel> inDoorList=new ArrayList<>();
-    ArrayList<SketchModel> outDoorList=new ArrayList<>();
+    ArrayList<SketchModel> inDoorList = new ArrayList<>();
+    ArrayList<SketchModel> outDoorList = new ArrayList<>();
     JSONObject sketchJsonObject;
     private String SketchImageURI;
     private SurvayEntity survayEntity;
@@ -76,17 +77,16 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     /**
      * TODO : NOTE
-     *
+     * <p>
      * IMAGE TYPE 1----> Sketch
      * IMAGE TYPE 2----> Indoor
      * IMAGE TYPE 3----> Outdoor
-     * */
+     */
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
-        if (ConnectivityHelper.isConnectedToNetwork(context))
-        {
+        if (ConnectivityHelper.isConnectedToNetwork(context)) {
 
             storageReference = FirebaseStorage.getInstance().getReference();
             // Assign FirebaseDatabase instance with root database name.
@@ -96,100 +96,105 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                     Database.class, "survayTable").allowMainThreadQueries().build();
 
 
-            Log.e("FROM BROAD SurvayData>",survayDB.userDao().getSurvayByIsUploaded("false").toString());
-            for (int i=0;i<survayDB.userDao().getSurvayByIsUploaded("false").size();i++) {
-               survayEntity = survayDB.userDao().getSurvayByIsUploaded("false").get(i);
+            for (int i = 0; i < survayDB.userDao().getSurvayByIsUploaded("false").size(); i++) {
+                survayEntity = survayDB.userDao().getSurvayByIsUploaded("false").get(i);
 
                 try {
                     JSONArray jsonArrayIndoor, jsonArrayOutdoor;
                     if (!survayEntity.getInDoorPhotos().isEmpty()) {
                         jsonArrayIndoor = new JSONArray(survayEntity.getInDoorPhotos());
-                            for (int index = 0; index < jsonArrayIndoor.length(); index++) {
-                                    JSONObject jsonObjectIndoor = jsonArrayIndoor.getJSONObject(index);
-                                    String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
-                                    uploadImage(context, Uri.parse(inDoorImageUri), "2");
-                                    Log.e("LAST IN INDooor--->", "No");
+                        for (int index = 0; index < jsonArrayIndoor.length(); index++) {
+                            JSONObject jsonObjectIndoor = jsonArrayIndoor.getJSONObject(index);
+                            String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
+                            uploadImage(context, Uri.parse(inDoorImageUri), "2");
+                            Log.e("InDoor -->", String.valueOf(i) + inDoorImageUri);
 
-                            }
+                        }
 
                     }
                     if (!survayEntity.getOutDoorPhotos().isEmpty()) {
                         jsonArrayOutdoor = new JSONArray(survayEntity.getOutDoorPhotos());
-                            for (int index = 0; index < jsonArrayOutdoor.length(); index++) {
+                        for (int index = 0; index < jsonArrayOutdoor.length(); index++) {
 
-                                    JSONObject jsonObjectIndoor = jsonArrayOutdoor.getJSONObject(index);
-                                    String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
-                                    uploadImage(context, Uri.parse(inDoorImageUri), "3");
-                                    Log.e("LAST IN INDooor--->", "No");
+                            JSONObject jsonObjectIndoor = jsonArrayOutdoor.getJSONObject(index);
+                            String inDoorImageUri = jsonObjectIndoor.getString("imageUrl");
+                            uploadImage(context, Uri.parse(inDoorImageUri), "3");
+                            Log.e("OutDoor -->", String.valueOf(i) + inDoorImageUri);
                         }
                     }
 
 
-                    if (!survayEntity.getSketchData().isEmpty())
-                    {
+                    if (!survayEntity.getSketchData().isEmpty()) {
                         JSONObject sketchObject = new JSONObject(survayEntity.getSketchData());
-                        uploadImage(context, Uri.parse(sketchObject.getString("sketchImageUrl")),"1");
+                        uploadImage(context, Uri.parse(sketchObject.getString("sketchImageUrl")), "1");
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                // startt uploade images
+
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Gson gson = new Gson();
+                        outDoorArray = gson.toJson(inDoorList);
+                        inDoorArray = gson.toJson(inDoorList);
+                        uploadData(survayEntity.getGov(),
+                                survayEntity.getCityId(),
+                                survayEntity.getDistricId(),
+                                survayEntity.getAddress(),
+                                survayEntity.getPhone(),
+                                survayEntity.getHasInternet(),
+                                survayEntity.getIsNetwork(),
+                                survayEntity.getInternetSeed(),
+                                survayEntity.getProjectName(),
+                                survayEntity.getShiftType(),
+                                survayEntity.getMorning_shift_from(),
+                                survayEntity.getMorning_shift_to(),
+                                survayEntity.getEvening_shift_from(),
+                                survayEntity.getEvening_shift_to(),
+                                survayEntity.getComputer_count(),
+                                survayEntity.getComputer_notes(),
+                                survayEntity.getPrinters_count(),
+                                survayEntity.getPrinters_notes(),
+                                survayEntity.getScanners_count(),
+                                survayEntity.getScanners_notes(),
+                                survayEntity.getRooms_count(),
+                                survayEntity.getNotes(),
+                                survayEntity.getVisitDate(),
+                                survayEntity.getLat(),
+                                survayEntity.getLng(),
+                                String.valueOf(sketchJsonObject),
+                                outDoorArray,
+                                inDoorArray,
+                                survayEntity.getPostionData(),
+                                survayEntity.getOffice_name_or_id(),
+                                survayEntity.getOtherCity(),
+                                survayEntity.getOtherDistric(),
+                                survayEntity.getOwenerShipType()
+                        );
+                        int o = 0;
+                        Log.e("UpLoad Number", String.valueOf(o++));
+                        inDoorList.clear();
+                        outDoorList.clear();
+                        survayDB.userDao().update("true", survayEntity.getId());
+                        ConstMethods.saveOutDoorPhotos(context, "");
+                        ConstMethods.saveInDoorPhotos(context, "");
+                        ConstMethods.saveSketch(context, "");
+                    }
+                }, 9000);
+
+
             }
 
 
-
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Gson gson = new Gson();
-                    outDoorArray = gson.toJson(inDoorList);
-                    inDoorArray= gson.toJson(inDoorList);
-                    uploadData(survayEntity.getGov(),
-                            survayEntity.getCityId(),
-                            survayEntity.getDistricId(),
-                            survayEntity.getAddress(),
-                            survayEntity.getPhone(),
-                            survayEntity.getHasInternet(),
-                            survayEntity.getIsNetwork(),
-                            survayEntity.getInternetSeed(),
-                            survayEntity.getProjectName(),
-                            survayEntity.getShiftType(),
-                            survayEntity.getMorning_shift_from(),
-                            survayEntity.getMorning_shift_to(),
-                            survayEntity.getEvening_shift_from(),
-                            survayEntity.getEvening_shift_to(),
-                            survayEntity.getComputer_count(),
-                            survayEntity.getComputer_notes(),
-                            survayEntity.getPrinters_count(),
-                            survayEntity.getPrinters_notes(),
-                            survayEntity.getScanners_count(),
-                            survayEntity.getScanners_notes(),
-                            survayEntity.getRooms_count(),
-                            survayEntity.getNotes(),
-                            survayEntity.getVisitDate(),
-                            survayEntity.getLat(),
-                            survayEntity.getLng(),
-                            String.valueOf(sketchJsonObject),
-                            outDoorArray,
-                            inDoorArray,
-                            survayEntity.getPostionData(),
-                            survayEntity.getOffice_name_or_id(),
-                            survayEntity.getOtherCity(),
-                            survayEntity.getOtherDistric(),
-                            survayEntity.getOwenerShipType()
-                    );
-                    survayDB.userDao().update("true", survayEntity.getId());
-                    ConstMethods.saveOutDoorPhotos(context,"");
-                    ConstMethods.saveInDoorPhotos(context,"");
-                    ConstMethods.saveSketch(context,"");
-                }
-            }, 9000);
-
         }
-
 
 
     }
@@ -204,9 +209,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                            String computer_notes, String printers_count, String printers_notes, String scanners_count,
                            String scanners_notes, String rooms_count,
                            String notes, String visitDate, String lat, String lng, String sketchData,
-                           String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id,  String otherCity,
-                           String otherDistric,String ownerShiptype )
-    {
+                           String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id, String otherCity,
+                           String otherDistric, String ownerShiptype) {
 
 
         // save Data online
@@ -249,14 +253,11 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         ));
 
 
-
-
     }
 
-    public void uploadImage(final Context context, Uri tempUri, final String imageType)
-    {
+    public void uploadImage(final Context context, Uri tempUri, final String imageType) {
 
-        final StorageReference ref = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(tempUri,context));
+        final StorageReference ref = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(tempUri, context));
         UploadTask uploadTask = ref.putFile(tempUri);
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
@@ -280,59 +281,53 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                      * IMAGE TYPE 3----> Outdoor
                      * */
 
-                    if (imageType.equals("1"))
-                    {
+                    if (imageType.equals("1")) {
                         Uri downloadUri = task.getResult();
-                        imageUrl=String.valueOf(downloadUri);
+                        imageUrl = String.valueOf(downloadUri);
                         // Continue with the task to get the download URL
                         ImageUploadId = databaseReference.push().getKey();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
                         currentDateandTime = sdf.format(new Date());
-                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId,currentDateandTime,currentDateandTime,imageUrl);
-                        Log.e("Image Url--->",imageUrl);
+                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId, currentDateandTime, currentDateandTime, imageUrl);
+                        Log.e("Image Url--->", imageUrl);
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         Map<String, String> sketchMap = new HashMap<>();
-                        sketchMap.put("sketchImageId",ImageUploadId);
-                        sketchMap.put("sketchImageUrl",imageUrl);
-                        sketchJsonObject=new JSONObject(sketchMap);
-                    }else if (imageType.equals("2"))
-                    {
+                        sketchMap.put("sketchImageId", ImageUploadId);
+                        sketchMap.put("sketchImageUrl", imageUrl);
+                        sketchJsonObject = new JSONObject(sketchMap);
+                    } else if (imageType.equals("2")) {
                         Uri downloadUri = task.getResult();
-                        imageUrl=String.valueOf(downloadUri);
+                        imageUrl = String.valueOf(downloadUri);
                         // Continue with the task to get the download URL
                         ImageUploadId = databaseReference.push().getKey();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
                         currentDateandTime = sdf.format(new Date());
-                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId,currentDateandTime,currentDateandTime,imageUrl);
+                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId, currentDateandTime, currentDateandTime, imageUrl);
                         inDoorList.add(imageUploadInfo);
-                        Log.e("Image Url--->",imageUrl);
+                        Log.e("Image Url--->", imageUrl);
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         inDoorList.add(imageUploadInfo);
                         Log.e("INDOOR LIST ---->", String.valueOf(inDoorList.size()));
 
 
-
-
-                    }else if (imageType.equals("3")){
+                    } else if (imageType.equals("3")) {
                         Uri downloadUri = task.getResult();
-                        imageUrl=String.valueOf(downloadUri);
+                        imageUrl = String.valueOf(downloadUri);
                         // Continue with the task to get the download URL
                         ImageUploadId = databaseReference.push().getKey();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
                         currentDateandTime = sdf.format(new Date());
-                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId,currentDateandTime,currentDateandTime,imageUrl);
+                        SketchModel imageUploadInfo = new SketchModel(ImageUploadId, currentDateandTime, currentDateandTime, imageUrl);
                         outDoorList.add(imageUploadInfo);
-                        Log.e("Image Url--->",imageUrl);
+                        Log.e("Image Url--->", imageUrl);
                         // Adding image upload id s child element into databaseReference.
                         databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         outDoorList.add(imageUploadInfo);
                         Log.e("OUTDOOR LIST ---->", String.valueOf(inDoorList.size()));
 
                     }
-
-
 
 
                 }
@@ -353,20 +348,21 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
 
     }
+
     // Creating Method to get the selected image file Extension from File Path URI.
-    public String GetFileExtension(Uri uri,Context context) {
+    public String GetFileExtension(Uri uri, Context context) {
 
         ContentResolver contentResolver = context.getContentResolver();
 
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
         // Returning the file Extension.
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
 
     }
 
 
-    private Uri onCaptureImageResult(Intent data,Context context,Uri picUri) {
+    private Uri onCaptureImageResult(Intent data, Context context, Uri picUri) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -386,13 +382,13 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
 
-        picUri =getImageUri(context,thumbnail);
+        picUri = getImageUri(context, thumbnail);
         //ivImage.setImageBitmap(thumbnail);
         return picUri;
     }
 
     @SuppressWarnings("deprecation")
-    private Uri onSelectFromGalleryResult(Intent data,Context context,Uri picUri) {
+    private Uri onSelectFromGalleryResult(Intent data, Context context, Uri picUri) {
 
         Bitmap bm = null;
         if (data != null) {
@@ -403,9 +399,10 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
             }
         }
 
-        picUri=getImageUri(context,bm);
+        picUri = getImageUri(context, bm);
         return picUri;
     }
+
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -414,3 +411,4 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     }
 
 }
+
