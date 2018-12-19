@@ -133,6 +133,12 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     TextView tvTootBarTitle;
     @BindView(R.id.logoXmarks)
     ImageView logoXmarks;
+    @BindView(R.id.radioOwner)
+    RadioButton radioOwner;
+    @BindView(R.id.radioRent)
+    RadioButton radioRent;
+    @BindView(R.id.radioOwnerShipType)
+    RadioGroup radioOwnerShipType;
     private String strGovId;
     private String strCityId;
     private String strDisrtric;
@@ -191,6 +197,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         edt_phone.setText(dataCollectionModel.getPhone());
         hasInternet(dataCollectionModel.getHasInternet());
         isNetwork(dataCollectionModel.getIsNetwork());
+        ownerShipType(dataCollectionModel.getOwenerShipType());
         edt_evening_shift_from.setText(dataCollectionModel.getEvening_shift_from());
         edt_evening_shift_to.setText(dataCollectionModel.getEvening_shift_to());
         edt_morning_shift_from.setText(dataCollectionModel.getMorning_shift_from());
@@ -366,6 +373,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
     }
+
     boolean isTimeAfter(Date startTime, Date endTime) {
         if (endTime.before(startTime)) {
             return false;
@@ -435,7 +443,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
     public void hasInternet(String key) {
-        if (dataCollectionModel.getHasInternet().equals(key)) {
+        if (key.equals("1")) {
             hasinternetYes.setChecked(true);
             hasinternetNo.setChecked(false);
         } else {
@@ -445,12 +453,24 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     }
 
     public void isNetwork(String key) {
-        if (dataCollectionModel.getHasInternet().equals(key)) {
+        if (key.equals("1")) {
             isNetworkYes.setChecked(true);
             isNetworkNo.setChecked(false);
         } else {
             isNetworkYes.setChecked(false);
             isNetworkNo.setChecked(true);
+        }
+    }
+
+    public void ownerShipType(String strOwnerShipType)
+    {
+        if (strOwnerShipType.equals("1"))
+        {
+            radioOwner.setChecked(true);
+            radioRent.setChecked(false);
+        }else {
+            radioOwner.setChecked(false);
+            radioRent.setChecked(true);
         }
     }
 
@@ -558,8 +578,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
                     try {
                         districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
-                    }catch (NullPointerException e)
-                    {
+                    } catch (NullPointerException e) {
 
                     }
 
@@ -606,8 +625,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
                     try {
                         officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
-                    }catch (NullPointerException e)
-                    {
+                    } catch (NullPointerException e) {
 
                     }
 
@@ -666,7 +684,17 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 }
             }
         });
-
+        radioOwnerShipType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedRadioButtonID = radioOwnerShipType.getCheckedRadioButtonId();
+                if (selectedRadioButtonID == R.id.radioOwner) {
+                    strOwnerShipType = "1";
+                } else {
+                    strOwnerShipType = "2";
+                }
+            }
+        });
 
     }
 
@@ -681,7 +709,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         basicInfoMap.put("isNetwork", isNetwork);
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
-        basicInfoMap.put("OwnerShipType",strOwnerShipType);
+        basicInfoMap.put("OwnerShipType", strOwnerShipType);
         basicInfoMap.put("shiftType", shiftType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
         basicInfoMap.put("morning_shift_to", edt_morning_shift_to.getText().toString());
@@ -703,6 +731,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         JSONObject jsonObject = new JSONObject(basicInfoMap);
         ConstMethods.saveBasicInformationData(jsonObject.toString(), BasicInfoActivity.this);
     }
+
     public void closeScreen(View view) {
         finish();
     }
