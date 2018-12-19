@@ -203,6 +203,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
             String internetSeed = basicInfoData.getString("internetSeed");
             String projectName = ConstMethods.getSavedprogectid(NoticeActivity.this);
             String office_name_or_id = basicInfoData.getString("office_name_or_id");
+            String  OwnerShipType= basicInfoData.getString("OwnerShipType");
             //---
             String shiftType = basicInfoData.getString("shiftType");
             String morning_shift_from = basicInfoData.getString("morning_shift_from");
@@ -283,7 +284,8 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                         posisionData,
                         office_name_or_id,
                         other_city,
-                        other_district
+                        other_district,
+                        OwnerShipType
                 ));
 //                ConstMethods.saveSketch(NoticeActivity.this, "");
 //                ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
@@ -329,6 +331,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                         office_name_or_id,
                         other_city,
                         other_district,
+                        OwnerShipType,
                         "false"
                 ));
 //                ConstMethods.saveSketch(NoticeActivity.this, "");

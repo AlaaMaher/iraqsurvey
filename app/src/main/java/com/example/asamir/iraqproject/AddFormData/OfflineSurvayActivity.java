@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -88,6 +89,12 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     EditText edt_internetSeed;
     @BindView(R.id.spinnerOfficeName)
     Spinner spinnerOfficeName;
+    @BindView(R.id.radioOwner)
+    RadioButton radioOwner;
+    @BindView(R.id.radioRent)
+    RadioButton radioRent;
+    @BindView(R.id.radioOwnerShipType)
+    RadioGroup radioOwnerShipType;
     private String strGovId;
     private String strCityId;
     private String strDisrtric;
@@ -147,6 +154,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     String strShiftType="+" ;
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
+    String strOwnerShipType="1";
 
     /**
      * NOTE :
@@ -546,6 +554,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
         basicInfoMap.put("shiftType", strShiftType);
+        basicInfoMap.put("OwnerShipType",strOwnerShipType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
         basicInfoMap.put("morning_shift_to", edt_morning_shift_to.getText().toString());
         basicInfoMap.put("evening_shift_from", edt_evening_shift_from.getText().toString());
@@ -648,10 +657,23 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             }
         });
 
+        radioOwnerShipType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedRadioButtonID = radioOwnerShipType.getCheckedRadioButtonId();
+                if (selectedRadioButtonID == R.id.radioOwner) {
+                    strOwnerShipType = "1";
+                } else {
+                    strOwnerShipType = "2";
+                }
+            }
+        });
+
     }
 
     public void iniGovSpinner() {
         // Spinner click listener
+        spinnerGov.setPrompt("أختار المحافظة");
         for (int i = 0; i < govDataBase.userDao().getGovs().size(); i++) {
             Log.e("Gov DATA --->", govDataBase.userDao().getGovs().get(i).toString());
             govList.add(new GovEntity(govDataBase.userDao().getGovs().get(i).getGovId(), govDataBase.userDao().getGovs().get(i).getGovName()));
@@ -681,6 +703,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     public void iniCitiesSpinner() {
         // Spinner click listener
+        spinnerCities.setPrompt("أختار المدينة");
         spinnerCities.setOnItemSelectedListener(this);
 
 
@@ -715,6 +738,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     public void iniDistrictsSpinner() {
 
         // Spinner Drop down elements
+        spinnerDistrict.setPrompt("أختار الحي");
 
         for (int i = 0; i < districDataBase.userDao().getDistricByCityId(strCityId).size(); i++) {
 
@@ -750,6 +774,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     public void iniOfficesSpinner() {
 
         // Spinner Drop down elements
+        spinnerOfficeName.setPrompt("أختار المكتب");
 
 
         for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricId(strDisrtric).size(); i++) {

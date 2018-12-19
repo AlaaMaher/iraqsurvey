@@ -54,7 +54,7 @@ public class SurvayEntity {
     private String otherDistric ;
 
     private String isUploaded;
-
+    private String owenerShipType;
     public SurvayEntity(String gov, String cityId,
                                String districId, String address, String phone, String hasInternet,
                                String isNetwork, String internetSeed, String projectName,
@@ -64,7 +64,7 @@ public class SurvayEntity {
                                String scanners_notes, String rooms_count,
                                String notes, String userID, String visitDate, String lat, String lng, String sketchData,
                                String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id,  String otherCity,
-                               String otherDistric,String isUploaded ) {
+                               String otherDistric,String owenerShipType,String isUploaded ) {
         this.gov = gov;
         this.cityId=cityId;
         this.districId=districId;
@@ -98,6 +98,7 @@ public class SurvayEntity {
         this.office_name_or_id = office_name_or_id;
         this.otherCity=otherCity;
         this.otherDistric=otherDistric;
+        this.owenerShipType=owenerShipType;
         this.isUploaded=isUploaded;
     }
 
@@ -391,6 +392,14 @@ public class SurvayEntity {
         this.isUploaded = isUploaded;
     }
 
+    public String getOwenerShipType() {
+        return owenerShipType;
+    }
+
+    public void setOwenerShipType(String owenerShipType) {
+        this.owenerShipType = owenerShipType;
+    }
+
     @Override
     public String toString() {
         return "SurvayEntity{" +
@@ -430,6 +439,7 @@ public class SurvayEntity {
                 ", otherCity='" + otherCity + '\'' +
                 ", otherDistric='" + otherDistric + '\'' +
                 ", isUploaded='" + isUploaded + '\'' +
+                ", owenerShipType='" + owenerShipType + '\'' +
                 '}';
     }
 }

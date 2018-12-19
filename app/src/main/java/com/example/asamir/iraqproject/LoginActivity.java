@@ -227,11 +227,11 @@ public class LoginActivity extends AppCompatActivity {
     public void CheckUser() {
 
         if (edit_user_name.getText().toString().isEmpty()&&edtPass.getText().toString().isEmpty() ) {
-            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة البريد الألكتروني و كلمة المرور ", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة اسم المستخدم و كلمة المرور ", Toast.LENGTH_LONG).show();
 
         }
         else if (edit_user_name.getText().toString().isEmpty() ) {
-            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة البريد الألكتروني ", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال اسم المستخدم ", Toast.LENGTH_LONG).show();
         }
         else if(edtPass.getText().toString().isEmpty()){
             Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();

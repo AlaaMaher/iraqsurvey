@@ -44,6 +44,7 @@ public class DataCollectionModel implements Parcelable {
 
     String otherCity;
     String otherDistric ;
+    String owenerShipType;
 
     public DataCollectionModel(String gov, String cityId,
                                String districId, String address, String phone, String hasInternet,
@@ -54,7 +55,7 @@ public class DataCollectionModel implements Parcelable {
                                String scanners_notes, String rooms_count,
                                String notes, String userID, String visitDate, String lat, String lng, String sketchData,
                                String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id,  String otherCity,
-                                       String otherDistric ) {
+                                       String otherDistric,String owenerShipType ) {
         this.gov = gov;
         this.cityId=cityId;
         this.districId=districId;
@@ -88,6 +89,7 @@ public class DataCollectionModel implements Parcelable {
         this.office_name_or_id = office_name_or_id;
         this.otherCity=otherCity;
         this.otherDistric=otherDistric;
+        this.owenerShipType=owenerShipType;
     }
 
     public DataCollectionModel(String gov, String cityId,
@@ -99,7 +101,7 @@ public class DataCollectionModel implements Parcelable {
                                String scanners_notes, String rooms_count,
                                String notes, String userID, String visitDate, String lat, String lng, String sketchData,
                                String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id,String projectObjectId, String otherCity,
-                               String otherDistric ) {
+                               String otherDistric,String owenerShipType ) {
         this.gov = gov;
         this.cityId=cityId;
         this.districId=districId;
@@ -134,6 +136,15 @@ public class DataCollectionModel implements Parcelable {
         this.projectObjectId=projectObjectId;
         this.otherDistric=otherDistric;
         this.otherCity=otherCity;
+        this.owenerShipType=owenerShipType;
+    }
+
+    public String getOwenerShipType() {
+        return owenerShipType;
+    }
+
+    public void setOwenerShipType(String owenerShipType) {
+        this.owenerShipType = owenerShipType;
     }
 
     public String getProjectObjectId() {

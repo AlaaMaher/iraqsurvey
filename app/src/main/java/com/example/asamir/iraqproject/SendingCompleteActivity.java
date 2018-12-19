@@ -18,12 +18,18 @@ public class SendingCompleteActivity extends AppCompatActivity {
     }
 
     public void goToMain(View view) {
-        if (ConnectivityHelper.isConnectedToNetwork(SendingCompleteActivity.this))
-        {
-            startActivity(new Intent(SendingCompleteActivity.this,SurvayScreen.class));
+        if (ConnectivityHelper.isConnectedToNetwork(SendingCompleteActivity.this)) {
+            ConstMethods.saveSketch(SendingCompleteActivity.this, "");
+            ConstMethods.saveInDoorPhotos(SendingCompleteActivity.this, "");
+            ConstMethods.saveOutDoorPhotos(SendingCompleteActivity.this, "");
+            startActivity(new Intent(SendingCompleteActivity.this, SurvayScreen.class));
             finish();
-        }else {
-            startActivity(new Intent(SendingCompleteActivity.this,OfflineSurvayActivity.class));
+
+        } else {
+            ConstMethods.saveSketch(SendingCompleteActivity.this, "");
+            ConstMethods.saveInDoorPhotos(SendingCompleteActivity.this, "");
+            ConstMethods.saveOutDoorPhotos(SendingCompleteActivity.this, "");
+            startActivity(new Intent(SendingCompleteActivity.this, OfflineSurvayActivity.class));
             finish();
         }
 

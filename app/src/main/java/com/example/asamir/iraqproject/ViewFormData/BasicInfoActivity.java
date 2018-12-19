@@ -158,6 +158,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     Date outTime;
 
     String otherCity, otherDistric;
+    private String strOwnerShipType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -555,7 +556,13 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                    try {
+                        districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                    }catch (NullPointerException e)
+                    {
+
+                    }
+
                 }
                 DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(BasicInfoActivity.this, R.layout.spinneritem, districsList);
                 spinnerDistrict.setAdapter(citiesSpinnerAdapter);
@@ -597,7 +604,13 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    try {
+                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    }catch (NullPointerException e)
+                    {
+
+                    }
+
                 }
                 DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(BasicInfoActivity.this, R.layout.spinneritem, officesList);
                 spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
@@ -668,7 +681,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         basicInfoMap.put("isNetwork", isNetwork);
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
-
+        basicInfoMap.put("OwnerShipType",strOwnerShipType);
         basicInfoMap.put("shiftType", shiftType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
         basicInfoMap.put("morning_shift_to", edt_morning_shift_to.getText().toString());

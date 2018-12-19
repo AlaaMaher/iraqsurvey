@@ -2,12 +2,9 @@ package com.example.asamir.iraqproject.AddFormData;
 
 import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
@@ -24,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,7 +50,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
-import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -92,10 +89,16 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     EditText edt_internetSeed;
     @BindView(R.id.spinnerOfficeName)
     Spinner spinnerOfficeName;
-    private String strGovId ;
-    private String strCityId ;
-    private String strDisrtric ;
-    private String strProjectName ;
+    @BindView(R.id.radioOwner)
+    RadioButton radioOwner;
+    @BindView(R.id.radioRent)
+    RadioButton radioRent;
+    @BindView(R.id.radioOwnerShipType)
+    RadioGroup radioOwnerShipType;
+    private String strGovId;
+    private String strCityId;
+    private String strDisrtric;
+    private String strProjectName;
     private String strofficeid;
     private DatabaseReference databaseDisReference;
     private DatabaseReference databaseCityReference;
@@ -145,16 +148,17 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     List<CitiesModels> citiesList = new ArrayList<>();
     final List<DistrictsModels> districsList = new ArrayList<>();
     private List<DistrictsModels> officesList = new ArrayList<>();
-    String strShiftType="+" ;
+    String strShiftType = "+";
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
+    String strOwnerShipType="1";
+
     /**
-     *
      * NOTE :
      * Shift type ---> 1 Morning
      * Shift type ---> 2 Evening
      * Shift type ---> 3 Both
-     * */
+     */
 
 
     @Override
@@ -200,7 +204,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 error1.setVisibility(View.VISIBLE);
                 isOnePressed = true;
                 btnMorning.setBackgroundColor(Color.GRAY);
-                strShiftType="1";
+                strShiftType = "1";
                 if (isSecondOne) {
                     btnAfternoon.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
                     isSecondOne = false;
@@ -223,7 +227,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 error2.setVisibility(View.VISIBLE);
                 isSecondOne = true;
                 btnAfternoon.setBackgroundColor(Color.GRAY);
-                strShiftType="2";
+                strShiftType = "2";
                 if (isOnePressed) {
                     btnMorning.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
                     isOnePressed = false;
@@ -246,7 +250,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 error1.setVisibility(View.VISIBLE);
                 error2.setVisibility(View.VISIBLE);
                 btnBothTime.setBackgroundColor(Color.GRAY);
-                strShiftType="3";
+                strShiftType = "3";
                 isThirdOne = true;
                 if (isSecondOne) {
                     btnAfternoon.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
@@ -273,9 +277,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm =" "+" PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm = " "+"  AM";
+                            amPm = " " + "  AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -302,9 +306,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm =" "+" PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm =" "+"  AM";
+                            amPm = " " + "  AM";
                         }
                         edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -340,9 +344,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " "+" PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm = " "+"  AM";
+                            amPm = " " + "  AM";
                         }
                         edt_evening_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -369,9 +373,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm =" "+" PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm = " "+" AM";
+                            amPm = " " + " AM";
                         }
                         edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -402,7 +406,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -423,30 +426,29 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
         } else if (id == R.id.nav_list) {
 
-                new AlertDialog.Builder(this)
-                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
-                        .setCancelable(false)
-                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                startActivity(new Intent(SurvayScreen.this, RegistedList.class));
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("الغاء", null)
-                        .show();
+            new AlertDialog.Builder(this)
+                    .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            startActivity(new Intent(SurvayScreen.this, RegistedList.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
 
 
         } else if (id == R.id.nav_add_new) {
-            if (ConnectivityHelper.isConnectedToNetwork(SurvayScreen.this))
-            {
+            if (ConnectivityHelper.isConnectedToNetwork(SurvayScreen.this)) {
                 startActivity(new Intent(SurvayScreen.this, SurvayScreen.class));
                 finish();
-            }else {
+            } else {
                 startActivity(new Intent(SurvayScreen.this, OfflineSurvayActivity.class));
                 finish();
             }
 
-        }else if (id == R.id.nav_change_project) {
+        } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(SurvayScreen.this, ProjectsActivity.class));
             finish();
         }
@@ -471,7 +473,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         Database officeDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "officeTable").allowMainThreadQueries().build();
 
-        Database userProjectsDB=Room.databaseBuilder(getApplicationContext(),
+        Database userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
         govDataBase.userDao().deleteGovData();
         citiesDataBase.userDao().deleteCityData();
@@ -481,6 +483,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
+
     public void goTONext(View view) {
 
 
@@ -493,40 +496,33 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
          * */
 
 
-        if (strShiftType.equals("1"))
-        {
-            if(!validateEditText(idsMor))
-            {
+        if (strShiftType.equals("1")) {
+            if (!validateEditText(idsMor)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-            }else{
+            } else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
-        }else if (strShiftType.equals("2"))
-        {
-            if(!validateEditText(idsEv))
-            {
+        } else if (strShiftType.equals("2")) {
+            if (!validateEditText(idsEv)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-            }else{
+            } else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
-        }else if (strShiftType.equals("3"))
-        {
-            if(!validateEditText(ids))
-            {
+        } else if (strShiftType.equals("3")) {
+            if (!validateEditText(ids)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-            }else{
+            } else {
 
             }
-        }else if (strShiftType.equals("+")){
+        } else if (strShiftType.equals("+")) {
             Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
         }
-
 
 
     }
@@ -544,6 +540,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
         basicInfoMap.put("shiftType", strShiftType);
+        basicInfoMap.put("OwnerShipType",strOwnerShipType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
         basicInfoMap.put("morning_shift_to", edt_morning_shift_to.getText().toString());
         basicInfoMap.put("evening_shift_from", edt_evening_shift_from.getText().toString());
@@ -554,8 +551,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         basicInfoMap.put("printers_notes", edt_printers_notes.getText().toString());
         basicInfoMap.put("scanners_count", edt_scanners_count.getText().toString());
         basicInfoMap.put("scanners_notes", edt_scanners_notes.getText().toString());
-        basicInfoMap.put("other_city",edtOtherCities.getText().toString());
-        basicInfoMap.put("other_district",edtOtherDistrict.getText().toString());
+        basicInfoMap.put("other_city", edtOtherCities.getText().toString());
+        basicInfoMap.put("other_district", edtOtherDistrict.getText().toString());
         JSONObject jsonObject = new JSONObject(basicInfoMap);
         Log.e("STRing---JSON-BasicInfo", jsonObject.toString());
         ConstMethods.saveBasicInformationData(jsonObject.toString(), SurvayScreen.this);
@@ -592,12 +589,12 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
             };
-    int[] idsMor= new int[]
+    int[] idsMor = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
                     R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
                     R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
-                     R.id.edt_morning_shift_from,
+                    R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
 
@@ -644,6 +641,18 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     isNetwork = "نعم";
                 } else {
                     isNetwork = "لا";
+                }
+            }
+        });
+
+        radioOwnerShipType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedRadioButtonID = radioOwnerShipType.getCheckedRadioButtonId();
+                if (selectedRadioButtonID == R.id.radioOwner) {
+                    strOwnerShipType = "1";
+                } else {
+                    strOwnerShipType = "2";
                 }
             }
         });
@@ -703,6 +712,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
     public void iniCitiesSpinner() {
         // Spinner click listener
+        spinnerCities.setPrompt("أختار المدينة");
         spinnerCities.setOnItemSelectedListener(this);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -767,7 +777,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     public void iniDistrictsSpinner() {
 
         // Spinner Drop down elements
-
+        spinnerDistrict.setPrompt("أختار الحي");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("District").child(strCityId);
@@ -827,7 +837,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     public void iniOfficesSpinner() {
 
         // Spinner Drop down elements
-
+        spinnerOfficeName.setPrompt("أختار المكتب");
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Office").child(strDisrtric);

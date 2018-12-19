@@ -100,93 +100,98 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             if (dataSnapshot1.child("userID").getValue().toString().equals(FirebaseAuth.getInstance().getUid())) {
+                                try {
+                                    String projectobjectid = dataSnapshot1.getKey();
+                                    String gov = dataSnapshot1.child("gov").getValue().toString();
+                                    String cityid = dataSnapshot1.child("cityId").getValue().toString();
+                                    String districtId = dataSnapshot1.child("districId").getValue().toString();
+                                    String address = dataSnapshot1.child("address").getValue().toString();
+                                    String phone = dataSnapshot1.child("phone").getValue().toString();
+                                    String hasInternet = dataSnapshot1.child("hasInternet").getValue().toString();
+                                    String isNetwork = dataSnapshot1.child("isNetwork").getValue().toString();
+                                    String internetSeed = dataSnapshot1.child("internetSeed").getValue().toString();
+                                    String projectId = dataSnapshot1.child("office_name_or_id").getValue().toString();
+                                    String office_name_or_id = dataSnapshot1.child("office_name_or_id").getValue().toString();
+                                    //---
+                                    String shiftType = dataSnapshot1.child("shiftType").getValue().toString();
+                                    String morning_shift_from = dataSnapshot1.child("morning_shift_from").getValue().toString();
+                                    String morning_shift_to = dataSnapshot1.child("morning_shift_to").getValue().toString();
+                                    String evening_shift_from = dataSnapshot1.child("evening_shift_from").getValue().toString();
+                                    String evening_shift_to = dataSnapshot1.child("evening_shift_to").getValue().toString();
+                                    //---
+                                    String computer_count = dataSnapshot1.child("computer_count").getValue().toString();
+                                    String computer_notes = dataSnapshot1.child("computer_notes").getValue().toString();
+                                    String printers_count = dataSnapshot1.child("printers_count").getValue().toString();
+                                    String printers_notes = dataSnapshot1.child("printers_notes").getValue().toString();
+                                    String scanners_count = dataSnapshot1.child("scanners_count").getValue().toString();
+                                    String scanners_notes = dataSnapshot1.child("scanners_notes").getValue().toString();
 
-                                String projectobjectid = dataSnapshot1.getKey();
-                                String gov = dataSnapshot1.child("gov").getValue().toString();
-                                String cityid = dataSnapshot1.child("cityId").getValue().toString();
-                                String districtId = dataSnapshot1.child("districId").getValue().toString();
-                                String address = dataSnapshot1.child("address").getValue().toString();
-                                String phone = dataSnapshot1.child("phone").getValue().toString();
-                                String hasInternet = dataSnapshot1.child("hasInternet").getValue().toString();
-                                String isNetwork = dataSnapshot1.child("isNetwork").getValue().toString();
-                                String internetSeed = dataSnapshot1.child("internetSeed").getValue().toString();
-                                String projectId = dataSnapshot1.child("office_name_or_id").getValue().toString();
-                                String office_name_or_id = dataSnapshot1.child("office_name_or_id").getValue().toString();
-                                //---
-                                String shiftType = dataSnapshot1.child("shiftType").getValue().toString();
-                                String morning_shift_from = dataSnapshot1.child("morning_shift_from").getValue().toString();
-                                String morning_shift_to = dataSnapshot1.child("morning_shift_to").getValue().toString();
-                                String evening_shift_from = dataSnapshot1.child("evening_shift_from").getValue().toString();
-                                String evening_shift_to = dataSnapshot1.child("evening_shift_to").getValue().toString();
-                                //---
-                                String computer_count = dataSnapshot1.child("computer_count").getValue().toString();
-                                String computer_notes = dataSnapshot1.child("computer_notes").getValue().toString();
-                                String printers_count = dataSnapshot1.child("printers_count").getValue().toString();
-                                String printers_notes = dataSnapshot1.child("printers_notes").getValue().toString();
-                                String scanners_count = dataSnapshot1.child("scanners_count").getValue().toString();
-                                String scanners_notes = dataSnapshot1.child("scanners_notes").getValue().toString();
+                                    //--
+                                    String visitDate = dataSnapshot1.child("visitDate").getValue().toString();
+                                    String notes = dataSnapshot1.child("notes").getValue().toString();
+                                    String lat = dataSnapshot1.child("lat").getValue().toString();
+                                    String lng = dataSnapshot1.child("lng").getValue().toString();
 
-                                //--
-                                String visitDate = dataSnapshot1.child("visitDate").getValue().toString();
-                                String notes = dataSnapshot1.child("notes").getValue().toString();
-                                String lat = dataSnapshot1.child("lat").getValue().toString();
-                                String lng = dataSnapshot1.child("lng").getValue().toString();
-
-                                // add sketch data
-                                String sketchData = dataSnapshot1.child("sketchData").getValue().toString();
-                                String outDoorPhotos = dataSnapshot1.child("outDoorPhotos").getValue().toString();
-                                String inDoorPhotos = dataSnapshot1.child("inDoorPhotos").getValue().toString();
-                                String rooms_count = dataSnapshot1.child("rooms_count").getValue().toString();
-                                String posisionData = dataSnapshot1.child("postionData").getValue().toString();
-                                String other_city = dataSnapshot1.child("otherCity").getValue().toString();
-                                String other_district = dataSnapshot1.child("otherDistric").getValue().toString();
-                                dataCollectionModel = new DataCollectionModel(
-                                        gov,
-                                        cityid,
-                                        districtId,
-                                        address,
-                                        phone,
-                                        hasInternet,
-                                        isNetwork,
-                                        internetSeed,
-                                        projectId,
-                                        shiftType,
-                                        morning_shift_from,
-                                        morning_shift_to,
-                                        evening_shift_from,
-                                        evening_shift_to,
-                                        computer_count,
-                                        computer_notes,
-                                        printers_count,
-                                        printers_notes,
-                                        scanners_count,
-                                        scanners_notes,
-                                        rooms_count,
-                                        notes,
-                                        FirebaseAuth.getInstance().getUid(),
-                                        visitDate,
-                                        lat,
-                                        lng,
-                                        sketchData,
-                                        outDoorPhotos,
-                                        inDoorPhotos,
-                                        posisionData,
-                                        office_name_or_id,
-                                        projectobjectid,
-                                        other_city,
-                                        other_district
-                                );
-
-
-                                Intent intent = new Intent(getBaseContext(), BasicInfoActivity.class);
-                                intent.putExtra("data", dataCollectionModel);
-                                startActivity(intent);
+                                    // add sketch data
+                                    String sketchData = dataSnapshot1.child("sketchData").getValue().toString();
+                                    String outDoorPhotos = dataSnapshot1.child("outDoorPhotos").getValue().toString();
+                                    String inDoorPhotos = dataSnapshot1.child("inDoorPhotos").getValue().toString();
+                                    String rooms_count = dataSnapshot1.child("rooms_count").getValue().toString();
+                                    String posisionData = dataSnapshot1.child("postionData").getValue().toString();
+                                    String other_city = dataSnapshot1.child("otherCity").getValue().toString();
+                                    String other_district = dataSnapshot1.child("otherDistric").getValue().toString();
+                                    dataCollectionModel = new DataCollectionModel(
+                                            gov,
+                                            cityid,
+                                            districtId,
+                                            address,
+                                            phone,
+                                            hasInternet,
+                                            isNetwork,
+                                            internetSeed,
+                                            projectId,
+                                            shiftType,
+                                            morning_shift_from,
+                                            morning_shift_to,
+                                            evening_shift_from,
+                                            evening_shift_to,
+                                            computer_count,
+                                            computer_notes,
+                                            printers_count,
+                                            printers_notes,
+                                            scanners_count,
+                                            scanners_notes,
+                                            rooms_count,
+                                            notes,
+                                            FirebaseAuth.getInstance().getUid(),
+                                            visitDate,
+                                            lat,
+                                            lng,
+                                            sketchData,
+                                            outDoorPhotos,
+                                            inDoorPhotos,
+                                            posisionData,
+                                            office_name_or_id,
+                                            projectobjectid,
+                                            other_city,
+                                            other_district
+                                    );
 
 
+                                    Intent intent = new Intent(getBaseContext(), BasicInfoActivity.class);
+                                    intent.putExtra("data", dataCollectionModel);
+                                    startActivity(intent);
+
+                                }
+                                catch (NullPointerException e )
+                                {
+                                    //error handling code
+                                }
                             } else {
                                 Toast.makeText(SavedDataListActivity.this, "لا يوجد مشاريع لديك لعرضها", Toast.LENGTH_SHORT).show();
                             }
                         }
+
 
                     }
 
@@ -195,6 +200,7 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                         System.out.println("The read failed: " + databaseError.getCode());
                     }
                 });
+
             }
         });
 

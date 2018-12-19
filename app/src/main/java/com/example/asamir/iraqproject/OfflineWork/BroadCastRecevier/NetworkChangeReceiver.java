@@ -178,7 +178,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                             survayEntity.getPostionData(),
                             survayEntity.getOffice_name_or_id(),
                             survayEntity.getOtherCity(),
-                            survayEntity.getOtherDistric()
+                            survayEntity.getOtherDistric(),
+                            survayEntity.getOwenerShipType()
                     );
                     survayDB.userDao().update("true", survayEntity.getId());
                     ConstMethods.saveOutDoorPhotos(context,"");
@@ -204,7 +205,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                            String scanners_notes, String rooms_count,
                            String notes, String visitDate, String lat, String lng, String sketchData,
                            String outDoorPhotos, String inDoorPhotos, String postionData, String office_name_or_id,  String otherCity,
-                           String otherDistric )
+                           String otherDistric,String ownerShiptype )
     {
 
 
@@ -243,7 +244,8 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 postionData,
                 office_name_or_id,
                 otherCity,
-                otherDistric
+                otherDistric,
+                ownerShiptype
         ));
 
 

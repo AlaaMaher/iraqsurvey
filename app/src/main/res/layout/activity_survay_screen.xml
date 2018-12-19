@@ -311,40 +311,97 @@
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
-                    android:inputType="phone"
+                    android:inputType="number"
 
                     android:hint="رقم الهاتف" />
 
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:textColor="#000"
-                    android:layout_marginTop="10dp"
-                    android:text="به شبكة داخلية " />
-                <RadioGroup
-                    android:id="@+id/radioIsNetWork"
-                    android:layout_gravity="end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
                     >
-
-                    <RadioButton
-                        android:id="@+id/isNetworkYes"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="نعم"
-                        android:checked="true" />
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="#000"
+                            android:layout_marginTop="10dp"
+                            android:text="به شبكة داخلية " />
+                        <RadioGroup
+                            android:id="@+id/radioIsNetWork"
+                            android:layout_gravity="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            >
 
-                    <RadioButton
-                        android:id="@+id/isNetworkNo"
-                        android:layout_width="wrap_content"
+                            <RadioButton
+                                android:id="@+id/isNetworkYes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="نعم"
+                                android:checked="true" />
+
+                            <RadioButton
+                                android:id="@+id/isNetworkNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="لا" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="لا" />
+                        android:orientation="vertical"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:textColor="#000"
+                            android:layout_marginTop="10dp"
+                            android:text="نوع الملكية " />
+                        <RadioGroup
+                            android:id="@+id/radioOwnerShipType"
+                            android:layout_gravity="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            >
 
-                </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/radioOwner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="مالك"
+                                android:checked="true" />
+
+                            <RadioButton
+                                android:id="@+id/radioRent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="مؤجر" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -384,7 +441,7 @@
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
 
                 <View

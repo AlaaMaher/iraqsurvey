@@ -247,6 +247,7 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
             String printers_notes = basicInfoObject.getString("printers_notes");
             String scanners_count = basicInfoObject.getString("scanners_count");
             String scanners_notes = basicInfoObject.getString("scanners_notes");
+            String  OwnerShipType= basicInfoObject.getString("OwnerShipType");
             String rooms_count = ConstMethods.getRooms(ViewInDoorPhotosActivity.this);
             String visitDate = basicInfoObject.getString("visitDate");
             String notes = basicInfoObject.getString("notes");
@@ -296,7 +297,9 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
                     posisionData,
                     office_name_or_id,
                     other_city,
-                    other_district
+                    other_district,
+                    OwnerShipType
+
 
             ));
 
