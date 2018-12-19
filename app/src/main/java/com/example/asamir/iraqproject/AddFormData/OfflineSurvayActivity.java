@@ -355,13 +355,26 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                             e.printStackTrace();
                         }
 
-                        if (!isTimeAfter(inTime, outTime)) {
-                            error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-
-                        } else {
-                            error1.setError(null);
-
+                        int dateDelta = inTime.compareTo(outTime);
+                        switch (dateDelta) {
+                            case 0:
+                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                break;
+                            case 1:
+                                error1.setError(null);
+                                break;
+                            case -1:
+                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                break;
                         }
+
+//                        if (!isTimeAfter(inTime, outTime)) {
+//                            error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//
+//                        } else {
+//                            error1.setError(null);
+//
+//                        }
 
 
                     }
@@ -424,13 +437,26 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                             e.printStackTrace();
                         }
 
-                        if (!isTimeAfter(inTime, outTime)) {
-                            error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
-
-                        } else {
-                            error2.setError(null);
-
+                        int dateDelta = inTime.compareTo(outTime);
+                        switch (dateDelta) {
+                            case 0:
+                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                break;
+                            case 1:
+                                error1.setError(null);
+                                break;
+                            case -1:
+                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                break;
                         }
+
+//                        if (!isTimeAfter(inTime, outTime)) {
+//                            error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+//
+//                        } else {
+//                            error2.setError(null);
+//
+//                        }
 
 
                     }
@@ -615,13 +641,13 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     //////////////////////////////////////////////////////////////////
 
-    boolean isTimeAfter(Date startTime, Date endTime) {
-        if (endTime.before(startTime)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    boolean isTimeAfter(Date startTime, Date endTime) {
+//        if (endTime.before(startTime)) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     //////////////////////////////////////////////////////////////
     int[] ids = new int[]
@@ -678,10 +704,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
                     hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
+                    edt_internetSeed.setText("-");
                 } else {
                     hasInternet = "1";
                     edt_internetSeed.setVisibility(View.VISIBLE);
-                    edt_internetSeed.setText("-");
+
                 }
             }
         });
