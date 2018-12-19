@@ -283,10 +283,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
-<<<<<<< HEAD
-=======
                     android:maxLength="16"
->>>>>>> cef86f49f2d6af4de7174fb46c113a81eaa26fab
                     android:hint="رقم الهاتف" />
                 <LinearLayout
                     android:layout_width="match_parent"
