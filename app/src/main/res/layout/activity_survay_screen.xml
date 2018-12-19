@@ -16,40 +16,7 @@
         layout="@layout/app_bar_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content">
 
-
-
-        <ImageView
-            android:id="@+id/logoXmarks"
-            android:layout_width="50dp"
-
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:paddingLeft="10dp"
-            android:src="@drawable/logoicon"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginRight="150dp"
-            android:layout_marginEnd="0dp"
-            android:gravity="right"
-            android:text="المسح الميدانى"
-            android:textColor="@color/colorRow"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -312,10 +279,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:inputType="number"
-
                     android:hint="رقم الهاتف" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -400,8 +364,6 @@
 
                     </LinearLayout>
                 </LinearLayout>
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -417,12 +379,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     >
-
                     <RadioButton
                         android:id="@+id/hasinternetYes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:text="نعم"
                         android:checked="true" />
 

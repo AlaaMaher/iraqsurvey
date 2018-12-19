@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         edit_user_name = findViewById(R.id.edit_user_name);
         edtPass = findViewById(R.id.edtPass);
         mAuth = FirebaseAuth.getInstance();
+
+
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
             ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
@@ -92,6 +94,8 @@ public class LoginActivity extends AppCompatActivity {
 
         userProjectsDB=Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
+
+
 
     }
 
@@ -246,22 +250,48 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        progressDialog.cancel();
-                        DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
+
+                        DatabaseReference userProjectsRef = firebaseDatabase.getReference("User").child(mAuth.getUid());
                         userProjectsRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                for (DataSnapshot dataSnapshotProjects : dataSnapshot.getChildren()) {
-                                    Log.e("PROJECTNAME-->",dataSnapshotProjects.child("project_name").getValue().toString());
-                                    userProjectsDB.userDao().insertProjects(new UserProjectsEntity( dataSnapshotProjects.child("project_id").getValue().toString(),
-                                            dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
-                                    Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
+
+                                if (dataSnapshot.child("is_active").getValue().toString().equals("1"))
+                                {
+                                    DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
+                                    userProjectsRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            progressDialog.cancel();
+                                            for (DataSnapshot dataSnapshotProjects : dataSnapshot.getChildren()) {
+                                                Log.e("PROJECTNAME-->",dataSnapshotProjects.child("project_name").getValue().toString());
+                                                userProjectsDB.userDao().insertProjects(new UserProjectsEntity( dataSnapshotProjects.child("project_id").getValue().toString(),
+                                                        dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
+                                                Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
+
+                                            }
+                                            getGoves();
+                                            Log.e("Projects DB Created "," =====>  Done");
+                                            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, " هذا المستخدم غير مفعل  ", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
                                 }
-                                getGoves();
-                                Log.e("Projects DB Created "," =====>  Done");
-                                startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
-                                finish();
+
+
+
+
+
                             }
 
                             @Override
@@ -273,11 +303,28 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     } else {
-                        progressDialog.cancel();
+
                         Toast.makeText(LoginActivity.this, "خطا في البريد  وكلمة المرور ", Toast.LENGTH_LONG).show();
                     }
                 }
             });
+
+
+//            mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString(), edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//                    if (task.isSuccessful()) {
+//                        progressDialog.cancel();
+//
+//
+//
+//
+//                    } else {
+//                        progressDialog.cancel();
+//                        Toast.makeText(LoginActivity.this, "خطا في البريد  وكلمة المرور ", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            });
 
         }
     }
