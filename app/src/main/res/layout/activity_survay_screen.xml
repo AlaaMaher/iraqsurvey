@@ -478,7 +478,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="32dp"
                         android:text="الداومين معا"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/corner"
                         android:textColor="#fff" />
 
                     <Button
@@ -490,7 +490,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="32dp"
                         android:text="مسائى فقط"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/corner"
                         android:textColor="#fff" />
 
                     <Button
@@ -501,31 +501,71 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="صباحى فقط"
-                        android:background="@color/colorPrimary"
+                        android:background="@drawable/corner"
                         android:textColor="#fff" />
 
                 </LinearLayout>
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.constraint.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_delet_from_mor"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="حذف"
+                    android:onClick="deleteMorningFrom"
+                    android:background="@drawable/corner_gray"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginEnd="8dp"/>
+
                 <EditText
                     android:id="@+id/edt_morning_shift_from"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:clickable="true"
                     android:editable="false"
                     android:ems="10"
                     android:hint="بداية وقت الدوام الصباحي  "
-                    android:inputType="number" />
+                    />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_delet_to_mor"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="حذف"
+                    android:onClick="deleteMorningTo"
+                    android:background="@drawable/corner_gray"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginEnd="8dp"/>
 
 
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_layout"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
                     app:hintEnabled="false">
@@ -540,12 +580,34 @@
                         android:editable="false"
                         android:ems="10"
                         android:hint="نهاية وقت العمل الصباحي"
-                        android:inputType="text" />
+                        />
                 </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_delet_from_eve"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="حذف"
+                    android:onClick="deleteEveningFrom"
+                    android:background="@drawable/corner_gray"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginEnd="8dp"/>
+
 
                 <EditText
                     android:id="@+id/edt_evening_shift_from"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
@@ -554,11 +616,32 @@
                     android:ems="10"
 
                     android:hint="بداية وقت الدوام المسائي  "
-                    android:inputType="text" />
+                     />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_delet_to_eve"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+
+                    android:text="حذف"
+                    android:onClick="deleteEveningTo"
+                    android:background="@drawable/corner_gray"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginEnd="8dp"/>
+
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_layout2"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
                     app:hintEnabled="false">
@@ -574,8 +657,9 @@
                         android:ems="10"
 
                         android:hint="نهاية وقت الدوام المسائي  "
-                        android:inputType="text" />
+                        />
                 </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

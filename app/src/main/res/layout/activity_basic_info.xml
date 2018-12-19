@@ -350,7 +350,7 @@
                 android:editable="false"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/editback"
-                android:inputType="number"
+                android:inputType="text"
                 android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
 
 
