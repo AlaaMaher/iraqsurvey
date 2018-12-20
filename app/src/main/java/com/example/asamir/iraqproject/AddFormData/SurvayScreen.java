@@ -5,7 +5,9 @@ import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
@@ -50,14 +52,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,6 +145,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     Calendar calendar;
     int currentHour;
     int currentMinute;
+    int currentHour1;
+    int currentMinute1;
     String amPm;
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
     Date inTime;
@@ -160,6 +168,13 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     Button btnDeleteFromEve;
     @BindView(R.id.btn_delet_to_eve)
     Button btnDeleteToEve;
+    Time start,end;
+    Time start1,end1;
+    Boolean val;
+    Calendar cal;
+    Calendar cal1=Calendar.getInstance();
+    Calendar cal12=Calendar.getInstance();
+
 
 
     /**
@@ -270,6 +285,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 btnDeletetoMor.setVisibility(View.VISIBLE);
                 edt_morning_shift_to.setVisibility(View.VISIBLE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
+                edt_morning_shift_from.setFocusable(false);
                 edt_evening_shift_from.setVisibility(View.VISIBLE);
                 edt_evening_shift_to.setVisibility(View.VISIBLE);
                 error1.setVisibility(View.VISIBLE);
@@ -294,11 +310,12 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
 
-                calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                cal = Calendar.getInstance();
+                currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                currentMinute = cal.get(Calendar.MINUTE);
 
                 timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                  //  @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
@@ -307,8 +324,17 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                             amPm = " " + "  AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+//                        cal1.set(Calendar.HOUR_OF_DAY, currentHour); // Start hour
+//                        cal1.set(Calendar.MINUTE, currentMinute); // Start Mintue
+//                        start=new Time(cal1.getTime().getTime());
+
+
                         try {
                             inTime = sdf.parse(edt_morning_shift_from.getText().toString());
+
+//                            in=sdf.format(inTime);
+//                            f=LocalTime.parse(in);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -322,46 +348,63 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         edt_morning_shift_to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+                cal = Calendar.getInstance();
+                currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                currentMinute = cal.get(Calendar.MINUTE);
 
 
                 timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                //    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
                             amPm = " " + " PM";
                         } else {
-                            amPm = " " + "  AM";
+                            amPm = " " + " AM";
                         }
                         edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                        try {
+
+
+
+                       try {
                             outTime = sdf.parse(edt_morning_shift_to.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+//                           out=sdf.format(outTime);
+//                           to=LocalTime.parse(edt_morning_shift_to.getText().toString());
+                     } catch (ParseException e) {
+                           e.printStackTrace();
+                       }
 
-                        int dateDelta = inTime.compareTo(outTime);
-                        switch (dateDelta) {
-                            case 0:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                            case 1:
-                                error1.setError(null);
-                                break;
-                            case -1:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                        }
-
-//                        if (!isTimeAfter(inTime, outTime)) {
-//                            error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//
-//                        } else {
-//                            error1.setError(null);
-//
+//                        int dateDelta = outTime.compareTo(inTime);
+//                        switch (dateDelta) {
+//                            case 0:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
+//                            case 1:
+//                                error1.setError(null);
+//                                break;
+//                            case -1:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
 //                        }
+
+
+
+                        Log.e("H---ASI-->",String.valueOf(outTime.getHours()));
+                       if (outTime.getHours()==0)
+                       {
+                           error1.setError(null);
+
+                       }else {
+                           if (!isTimeAfter(inTime, outTime)) {
+                               error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                               val=true;
+
+                           } else {
+                               error1.setError(null);
+
+
+                           }
+                       }
 
 
                     }
@@ -423,26 +466,33 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                             e.printStackTrace();
                         }
 
-                        int dateDelta = inTime.compareTo(outTime);
-                        switch (dateDelta) {
-                            case 0:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                            case 1:
-                                error1.setError(null);
-                                break;
-                            case -1:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                        }
-
-//                        if (!isTimeAfter(inTime, outTime)) {
-//                            error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
-//
-//                        } else {
-//                            error2.setError(null);
-//
+//                        int dateDelta = inTime.compareTo(outTime);
+//                        switch (dateDelta) {
+//                            case 0:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
+//                            case 1:
+//                                error1.setError(null);
+//                                break;
+//                            case -1:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
 //                        }
+
+                        if (outTime.getHours()==0)
+                        {
+                            error1.setError(null);
+
+                        }else {
+                            if (!isTimeAfter(inTime, outTime)) {
+                                error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+                                val=true;
+
+                            } else {
+                                error2.setError(null);
+
+                            }
+                        }
 
 
                     }
@@ -456,6 +506,85 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
+    public static void compareTime(String startTimeStr, String endTimeStr) {
+
+        Pattern p = Pattern.compile("^([0-2][0-3]):([0-5][0-9]):([0-5][0-9])$"); //Regex is used to validate time format (HH:MM:SS)
+
+        int hhS = 0;
+        int mmS = 0;
+        int ssS = 0;
+
+        int hhE = 0;
+        int mmE = 0;
+        int ssE = 0;
+
+        Matcher m = null;
+
+        m = p.matcher(startTimeStr);
+        if (m.matches()) {
+            String hhStr = m.group(1);
+            String mmStr = m.group(2);
+            String ssStr = m.group(3);
+
+            hhS = Integer.parseInt(hhStr);
+            mmS = Integer.parseInt(mmStr);
+            ssS = Integer.parseInt(ssStr);
+
+        }
+
+        else {
+            System.out.println("Invalid start time");
+            System.exit(0);
+
+        }
+
+
+
+        m = p.matcher(endTimeStr);
+        if (m.matches()) {
+            String hhStr = m.group(1);
+            String mmStr = m.group(2);
+            String ssStr = m.group(3);
+
+            hhE = Integer.parseInt(hhStr);
+            mmE = Integer.parseInt(mmStr);
+            ssE = Integer.parseInt(ssStr);
+
+        }
+
+        else {
+            System.out.println("Invalid End time");
+            System.exit(0);
+
+        }
+
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hhS); // Start hour
+        cal.set(Calendar.MINUTE, mmS); // Start Mintue
+        cal.set(Calendar.SECOND, ssS); // Start second
+
+        Time startTime = new Time(cal.getTime().getTime());
+        // System.out.println("your time: "+sqlTime3);
+
+        cal.set(Calendar.HOUR_OF_DAY, hhE); // End hour
+        cal.set(Calendar.MINUTE, mmE); // End Mintue
+        cal.set(Calendar.SECOND, ssE); // End second
+
+        Time endTime = new Time(cal.getTime().getTime());
+
+        if (startTime.equals(endTime)) {
+            System.out.println("Both Start time and End Time are equal");
+        } else if (startTime.before(endTime)) {
+            System.out.println("Start time is less than end time");
+        }
+
+        else
+            System.out.println("Start time is greater than end time");
+
+    }
+
 
 
     @Override
@@ -548,15 +677,20 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
          * */
 
 
-        if (strShiftType.equals("1")) {
-            if (!validateEditText(idsMor)) {
+        if (strShiftType.equals("1") ) {
+            if (!validateEditText(idsMor) && !val) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-            } else {
+            }
+            if(val==true){
+                Toast.makeText(this, "برجاء أدخال الوقت الصحيح", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
-        } else if (strShiftType.equals("2")) {
+        } else if (strShiftType.equals("2") && !val) {
             if (!validateEditText(idsEv)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
@@ -564,7 +698,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             } else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
-        } else if (strShiftType.equals("3")) {
+        } else if (strShiftType.equals("3") && !val) {
             if (!validateEditText(ids)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
@@ -625,17 +759,17 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
     //////////////////////////////////////////////////////////////////
 
-//    boolean isTimeAfter(Date startTime, Date endTime) {
-//        if (endTime.before(startTime)) {
-//            return false;
-//        }
-////        else if (endTime.after(startTime)){
-////            return true;
-////        }
-//        else {
+    boolean isTimeAfter(Date startTime, Date endTime) {
+        if (endTime.before(startTime)) {
+            return false;
+        }
+//        else if (endTime.after(startTime)){
 //            return true;
 //        }
-//    }
+        else {
+            return true;
+        }
+    }
 
 
 

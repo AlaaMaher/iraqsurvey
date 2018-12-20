@@ -497,8 +497,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:layout_marginTop="10dp"
+                    android:clickable="false"
                     android:background="@drawable/editback"
                     android:editable="false"
+                    android:inputType="none"
                     android:ems="10"
                     android:hint="بداية وقت الدوام الصباحي  "
                     />
@@ -729,6 +731,7 @@
         android:layout_gravity="start"
         android:layoutDirection="rtl"
         android:fitsSystemWindows="true"
+
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/activity_home_drawer" />
 
