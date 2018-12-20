@@ -86,11 +86,11 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
 
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = df.format(c.getTime());
         // formattedDate have current date/time
         tvVisitDate.setText(formattedDate);
-
         gpsTracker = new GpsTracker(NoticeActivity.this);
         if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.getLatitude();

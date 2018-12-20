@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.RoomTable;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
@@ -227,16 +228,21 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
                                 final String roomFer = edt_roomFre.getText().toString();
-                                roomList.add(new RoomsModel(roomName, roomCount, roomFer));
-                                roomsTableAdapter.notifyData(roomList);
-                                if (roomList.isEmpty()) {
-                                    rvRooms.setVisibility(View.GONE);
-                                    tvEmptyList.setVisibility(View.VISIBLE);
-                                } else {
-                                    rvRooms.setVisibility(View.VISIBLE);
-                                    tvEmptyList.setVisibility(View.GONE);
+                                if (roomName.trim().isEmpty()&&roomCount.trim().isEmpty()&&roomFer.trim().isEmpty())
+                                {
+                                    Toast.makeText(RoomsTableActivity.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+                                }else {
+                                    roomList.add(new RoomsModel(roomName, roomCount, roomFer));
+                                    roomsTableAdapter.notifyData(roomList);
+                                    if (roomList.isEmpty()) {
+                                        rvRooms.setVisibility(View.GONE);
+                                        tvEmptyList.setVisibility(View.VISIBLE);
+                                    } else {
+                                        rvRooms.setVisibility(View.VISIBLE);
+                                        tvEmptyList.setVisibility(View.GONE);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
                             }
                         })
                 .setNegativeButton("إلغاء",

@@ -148,7 +148,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     private List<DistrictsModels> officesList = new ArrayList<>();
     private String hasInternet;
     private String isNetwork;
-    private String shiftType;
+
 
     @BindView(R.id.text_errorview)
     TextInputLayout error1;
@@ -216,6 +216,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         hasInternet(dataCollectionModel.getHasInternet());
         isNetwork(dataCollectionModel.getIsNetwork());
         ownerShipType(dataCollectionModel.getOwenerShipType());
+        strShiftType=dataCollectionModel.getShiftType();
         edt_evening_shift_from.setText(dataCollectionModel.getEvening_shift_from());
         edt_evening_shift_to.setText(dataCollectionModel.getEvening_shift_to());
         edt_morning_shift_from.setText(dataCollectionModel.getMorning_shift_from());
@@ -244,6 +245,85 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btnDeleteToEve.setVisibility(View.GONE);
 
 
+        /**
+         * NOTE :
+         * Shift type ---> 1 Morning
+         * Shift type ---> 2 Evening
+         * Shift type ---> 3 Both
+         */
+        if (strShiftType.equals("1"))
+        {
+            // edt_morning_shift_to.setVisibility(View.VISIBLE);
+            edt_morning_shift_from.setVisibility(View.VISIBLE);
+            btnDeleteFromMor.setVisibility(View.VISIBLE);
+            btnDeletetoMor.setVisibility(View.VISIBLE);
+            btnDeleteFromEve.setVisibility(View.GONE);
+            btnDeleteToEve.setVisibility(View.GONE);
+            edt_morning_shift_to.setVisibility(View.VISIBLE);
+
+            edt_evening_shift_from.setVisibility(View.GONE);
+            edt_evening_shift_to.setVisibility(View.GONE);
+            error2.setVisibility(View.GONE);
+            error1.setVisibility(View.VISIBLE);
+            isOnePressed = true;
+            btnMorning.setBackgroundColor(Color.GRAY);
+            strShiftType = "1";
+            if (isSecondOne) {
+                btnAfternoon.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isSecondOne = false;
+            } else if (isThirdOne) {
+                btnBothTime.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isThirdOne = false;
+            }
+        }
+        else if (strShiftType.equals("2"))
+        {
+            // edt_morning_shift_to.setVisibility(View.GONE);
+            btnDeleteFromEve.setVisibility(View.VISIBLE);
+            btnDeleteToEve.setVisibility(View.VISIBLE);
+            btnDeleteFromMor.setVisibility(View.GONE);
+            btnDeletetoMor.setVisibility(View.GONE);
+            edt_morning_shift_from.setVisibility(View.GONE);
+            edt_evening_shift_from.setVisibility(View.VISIBLE);
+            edt_evening_shift_to.setVisibility(View.VISIBLE);
+            error1.setVisibility(View.GONE);
+            error2.setVisibility(View.VISIBLE);
+            isSecondOne = true;
+            btnAfternoon.setBackgroundColor(Color.GRAY);
+            strShiftType = "2";
+            if (isOnePressed) {
+                btnMorning.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isOnePressed = false;
+
+            } else if (isThirdOne) {
+                btnBothTime.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isThirdOne = false;
+            }
+
+        }
+        else if (strShiftType.equals("3")){
+            btnDeleteFromEve.setVisibility(View.VISIBLE);
+            btnDeleteToEve.setVisibility(View.VISIBLE);
+            btnDeleteFromMor.setVisibility(View.VISIBLE);
+            btnDeletetoMor.setVisibility(View.VISIBLE);
+            edt_morning_shift_to.setVisibility(View.VISIBLE);
+            edt_morning_shift_from.setVisibility(View.VISIBLE);
+            edt_evening_shift_from.setVisibility(View.VISIBLE);
+            edt_evening_shift_to.setVisibility(View.VISIBLE);
+            error1.setVisibility(View.VISIBLE);
+            error2.setVisibility(View.VISIBLE);
+            btnBothTime.setBackgroundColor(Color.GRAY);
+            strShiftType = "3";
+            isThirdOne = true;
+            if (isSecondOne) {
+                btnAfternoon.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isSecondOne = false;
+
+            } else if (isOnePressed) {
+                btnMorning.setBackgroundColor(BasicInfoActivity.this.getResources().getColor(R.color.colorPrimary));
+                isOnePressed = false;
+            }
+        }
 
         btnMorning.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -877,7 +957,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
         basicInfoMap.put("OwnerShipType", strOwnerShipType);
-        basicInfoMap.put("shiftType", shiftType);
+        basicInfoMap.put("shiftType", strShiftType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
         basicInfoMap.put("morning_shift_to", edt_morning_shift_to.getText().toString());
         basicInfoMap.put("evening_shift_from", edt_evening_shift_from.getText().toString());
