@@ -25,6 +25,7 @@ import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -225,7 +226,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void userLogin(View view) {
         //startActivity(new Intent(LoginActivity.this,MainActivity.class));
-        CheckUser();
+        if (ConnectivityHelper.isConnectedToNetwork(LoginActivity.this))
+        {
+            CheckUser();
+        }else {
+
+            Toast.makeText(LoginActivity.this, "الرجاء التحقق من الاتصال بالانترنت ", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     public void CheckUser() {
