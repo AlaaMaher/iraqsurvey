@@ -187,9 +187,14 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
 
     public void goTONext(View view) {
 
-        saveData();
-        startActivity(new Intent(PositionTableScreen.this, RoomTable.class));
-    }
+        if (jobList.size()==0)
+        {
+            Toast.makeText(getApplicationContext(), "يجب ادخال وظيفة واحدة علي الاقل ", Toast.LENGTH_LONG).show();
+        }else {
+            saveData();
+            startActivity(new Intent(PositionTableScreen.this, RoomTable.class));
+        }
+        }
 
     public void saveData() {
         Gson gson = new Gson();

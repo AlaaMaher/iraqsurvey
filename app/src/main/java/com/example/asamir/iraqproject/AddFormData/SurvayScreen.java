@@ -397,7 +397,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                        }else {
                            if (!isTimeAfter(inTime, outTime)) {
                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                               val=true;
+                               //val=true;
 
                            } else {
                                error1.setError(null);
@@ -486,7 +486,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                         }else {
                             if (!isTimeAfter(inTime, outTime)) {
                                 error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
-                                val=true;
+                                //val=true;
 
                             } else {
                                 error2.setError(null);
@@ -678,19 +678,19 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
         if (strShiftType.equals("1") ) {
-            if (!validateEditText(idsMor) && !val) {
+            if (!validateEditText(idsMor) ) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
             }
-            if(val==true){
-                Toast.makeText(this, "برجاء أدخال الوقت الصحيح", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
-            }
-        } else if (strShiftType.equals("2") && !val) {
+//            if(val==true){
+//                Toast.makeText(this, "برجاء أدخال الوقت الصحيح", Toast.LENGTH_SHORT).show();
+//
+//            }
+//            else {
+//                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+//            }
+        } else if (strShiftType.equals("2") ) {
             if (!validateEditText(idsEv)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
@@ -698,7 +698,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             } else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
-        } else if (strShiftType.equals("3") && !val) {
+        } else if (strShiftType.equals("3") ) {
             if (!validateEditText(ids)) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
