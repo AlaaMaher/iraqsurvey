@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,7 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
                         .setCancelable(false)
                         .setPositiveButton("تعديل", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                showAddDialog(club.num,club.note,position);
+                                showAddDialog(club.num,club.note,position,club.name);
                             }
                         })
                         .setNegativeButton("الغاء", null)
@@ -123,7 +124,7 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
 
 
 
-    public void showAddDialog( String num,String jobNote, final int pos) {
+    public void showAddDialog(String num, String jobNote, final int pos, final String jName) {
         LayoutInflater li = LayoutInflater.from(context);
         final View promptsView = li.inflate(R.layout.addjobdialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -135,18 +136,30 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
         final Spinner spinnerJobs=promptsView.findViewById(R.id.spinnerJobs);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(context));
+
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int index = 0;
                 projectsModels.clear();
                 for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
                 {
 
                     projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(),dataSnapshot1.child("position_name").getValue().toString(),""));
+                    if (jName.equals(dataSnapshot1.child("position_name").getValue().toString()))
+                    {
+
+                        index=projectsModels.size()-1;
+                        Log.e("INDEX IS -->", String.valueOf(index));
+
+                    }
                 }
+
                 JobsSpinnerAdapter citiesSpinnerAdapter  = new JobsSpinnerAdapter(context,R.layout.spinneritem,projectsModels);
+
                 spinnerJobs.setAdapter(citiesSpinnerAdapter);
+                spinnerJobs.setSelection(index);
             }
 
             @Override
@@ -154,6 +167,7 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
                 //System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
 
         spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

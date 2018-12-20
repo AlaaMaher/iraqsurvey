@@ -279,7 +279,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                 projectsModels.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), ""));
+                    projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.getKey()));
                 }
                 JobsSpinnerAdapter citiesSpinnerAdapter = new JobsSpinnerAdapter(PositionTableScreen.this, R.layout.spinneritem, projectsModels);
                 spinnerJobs.setAdapter(citiesSpinnerAdapter);
