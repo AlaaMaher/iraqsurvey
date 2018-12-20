@@ -187,9 +187,14 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
 
     public void goTONext(View view) {
 
-        saveData();
-        startActivity(new Intent(PositionTableScreen.this, RoomTable.class));
-    }
+        if (jobList.size()==0)
+        {
+            Toast.makeText(getApplicationContext(), "يجب ادخال وظيفة واحدة علي الاقل ", Toast.LENGTH_LONG).show();
+        }else {
+            saveData();
+            startActivity(new Intent(PositionTableScreen.this, RoomTable.class));
+        }
+        }
 
     public void saveData() {
         Gson gson = new Gson();
@@ -274,7 +279,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                 projectsModels.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), ""));
+                    projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.getKey()));
                 }
                 JobsSpinnerAdapter citiesSpinnerAdapter = new JobsSpinnerAdapter(PositionTableScreen.this, R.layout.spinneritem, projectsModels);
                 spinnerJobs.setAdapter(citiesSpinnerAdapter);

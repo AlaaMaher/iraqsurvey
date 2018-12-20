@@ -176,8 +176,14 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
 
     public void goTONext(View view) {
 
-        saveData();
-        startActivity(new Intent(RoomTable.this,SketchPlace.class));
+        if (roomList.size()==0)
+        {
+            Toast.makeText(getApplicationContext(), "يجب ادخال غرفة واحدة علي الاقل ", Toast.LENGTH_LONG).show();
+        }else {
+            saveData();
+            startActivity(new Intent(RoomTable.this,SketchPlace.class));
+        }
+
     }
     public void saveData(){
         Gson gson = new Gson();

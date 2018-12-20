@@ -89,7 +89,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
     private Uri picUri;
     private String imageUrl;
     private String currentDateandTime;
-    private String ImageUploadId;
+    private String ImageUploadId="-";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,6 +197,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
     public void goTONext(View view) {
 
+
         saveData();
         startActivity(new Intent(SketchPlace.this, IndoorPhotos.class));
 
@@ -204,6 +205,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
 
     public void saveData() {
+
         Map<String, String> sketchMap = new HashMap<>();
         sketchMap.put("sketchImageId", ImageUploadId);
         sketchMap.put("sketchImageUrl", imageUrl);
