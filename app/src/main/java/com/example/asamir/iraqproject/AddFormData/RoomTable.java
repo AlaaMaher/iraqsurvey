@@ -248,7 +248,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
                                 final String roomFer = edt_roomFre.getText().toString();
-                                if (roomName.isEmpty()&&roomCount.isEmpty()&&roomFer.isEmpty())
+                                if (roomName.trim().isEmpty()&&roomCount.trim().isEmpty()&&roomFer.trim().isEmpty())
                                 {
                                     Toast.makeText(RoomTable.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
                                 }else {
