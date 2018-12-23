@@ -43,6 +43,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.SendingCompleteActivity;
 import com.example.asamir.iraqproject.adapter.RecyclerViewAdapter;
 import com.example.asamir.iraqproject.util.Utility;
 import com.google.android.gms.tasks.Continuation;
@@ -303,7 +304,7 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
 
             ));
 
-            startActivity(new Intent(ViewInDoorPhotosActivity.this, ProjectsActivity.class));
+            startActivity(new Intent(ViewInDoorPhotosActivity.this, SendingCompleteActivity.class));
             finish();
 
 
