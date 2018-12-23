@@ -130,6 +130,10 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout error1;
     @BindView(R.id.text_input_layout2)
     TextInputLayout error2;
+    @BindView(R.id.text_input_layout3)
+    TextInputLayout error11;
+    @BindView(R.id.text_input_layout4)
+    TextInputLayout error12;
     //////////////////////////////////////////////////////
     @BindView(R.id.edt_computer_count)
     EditText edt_computer_count;
@@ -171,10 +175,10 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     Button btnDeleteFromEve;
     @BindView(R.id.btn_delet_to_eve)
     Button btnDeleteToEve;
-    Time start,end;
-    Time start1,end1;
+
     Boolean valMor=false;
     Boolean valEve=false;
+    boolean clicked=false;
 
 
     Calendar cal;
@@ -228,30 +232,32 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
 
-                // edt_morning_shift_to.setVisibility(View.VISIBLE);
-                edt_morning_shift_from.setVisibility(View.VISIBLE);
-                btnDeleteFromMor.setVisibility(View.VISIBLE);
-                btnDeletetoMor.setVisibility(View.VISIBLE);
-                btnDeleteFromEve.setVisibility(View.GONE);
-                btnDeleteToEve.setVisibility(View.GONE);
-                edt_morning_shift_to.setVisibility(View.VISIBLE);
+                    // edt_morning_shift_to.setVisibility(View.VISIBLE);
+                    edt_morning_shift_from.setVisibility(View.VISIBLE);
+                    btnDeleteFromMor.setVisibility(View.VISIBLE);
+                    btnDeletetoMor.setVisibility(View.VISIBLE);
+                    btnDeleteFromEve.setVisibility(View.GONE);
+                    btnDeleteToEve.setVisibility(View.GONE);
+                    edt_morning_shift_to.setVisibility(View.VISIBLE);
 
-                edt_evening_shift_from.setVisibility(View.GONE);
-                edt_evening_shift_to.setVisibility(View.GONE);
-                error2.setVisibility(View.GONE);
-                error1.setVisibility(View.VISIBLE);
-                isOnePressed = true;
-                btnMorning.setBackgroundColor(Color.GRAY);
-                strShiftType = "1";
-                if (isSecondOne) {
-                    btnAfternoon.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
-                    isSecondOne = false;
-                } else if (isThirdOne) {
-                    btnBothTime.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
-                    isThirdOne = false;
+                    edt_evening_shift_from.setVisibility(View.GONE);
+                    edt_evening_shift_to.setVisibility(View.GONE);
+                    error2.setVisibility(View.GONE);
+                    error1.setVisibility(View.VISIBLE);
+                    isOnePressed = true;
+                    btnMorning.setBackgroundColor(Color.GRAY);
+                    strShiftType = "1";
+                    if (isSecondOne) {
+                        btnAfternoon.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
+                        isSecondOne = false;
+                    } else if (isThirdOne) {
+                        btnBothTime.setBackgroundColor(SurvayScreen.this.getResources().getColor(R.color.colorPrimary));
+                        isThirdOne = false;
+                    }
+
                 }
 
-            }
+
         });
 
         btnAfternoon.setOnClickListener(new View.OnClickListener() {
@@ -328,7 +334,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                         if (hourOfDay >= 12) {
                             amPm = " " + " PM";
                         } else {
-                            amPm = " " + "  AM";
+                            amPm = " " + " AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
@@ -346,9 +352,12 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                             e.printStackTrace();
                         }
 
+
+
                     }
                 }, currentHour, currentMinute, false);
                 timePickerDialog.show();
+                clicked=true;
 
 
 
@@ -397,59 +406,65 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         edt_morning_shift_to.setOnClickListener( new DoubleClick(new DoubleClickListener() {
             @Override
             public void onSingleClick(View view) {
+                if (clicked) {
 
-                cal = Calendar.getInstance();
-                currentHour = cal.get(Calendar.HOUR_OF_DAY);
-                currentMinute = cal.get(Calendar.MINUTE);
-
-
-                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-                    //    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = " " + " PM";
-                        } else {
-                            amPm = " " + " AM";
-                        }
-                        edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    cal = Calendar.getInstance();
+                    currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                    currentMinute = cal.get(Calendar.MINUTE);
 
 
+                    timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                        //    @RequiresApi(api = Build.VERSION_CODES.O)
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                            if (hourOfDay >= 12) {
+                                amPm = " " + " PM";
+                            } else {
+                                amPm = " " + " AM";
+                            }
+                            edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
-                        try {
-                            outTime = sdf.parse(edt_morning_shift_to.getText().toString());
-//                           out=sdf.format(outTime);
-//                           to=LocalTime.parse(edt_morning_shift_to.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+
+                            try {
+                                outTime = sdf.parse(edt_morning_shift_to.getText().toString());
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
 
-
-
-                        Log.e("H---ASI-->",String.valueOf(outTime.getHours()));
-                        if (outTime.getHours()==0)
-                        {
-                            error1.setError(null);
-
-                        }else {
-                            if (!isTimeAfter(inTime, outTime)) {
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                valMor=true;
+                            Log.e("H---ASI-->", String.valueOf(outTime.getHours()));
+                            Log.e("H---ASI-->", String.valueOf(amPm));
+                            if (outTime.getHours() == 0 && amPm.equals("  PM")) {
+                                error1.setError(null);
+                                error11.setError(null);
 
                             } else {
-                                error1.setError(null);
+                                if (!isTimeAfter(inTime, outTime)) {
+                                    error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    error11.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+
+                                    valMor = true;
+
+                                } else {
+                                    error1.setError(null);
+                                    error11.setError(null);
 
 
+                                }
                             }
+
+
                         }
+                    }, currentHour, currentMinute, false);
+                    timePickerDialog.show();
 
 
-                    }
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
-
-
+                }
+                else 
+                {
+                    Toast.makeText(SurvayScreen.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -539,6 +554,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }, currentHour, currentMinute, false);
                 timePickerDialog.show();
+                clicked=true;
 
 
             }
@@ -579,23 +595,24 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onSingleClick(View view) {
 
-                calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
-                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = " " + " PM";
-                        } else {
-                            amPm = " " + " AM";
-                        }
-                        edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                        try {
-                            outTime = sdf.parse(edt_evening_shift_to.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                if(clicked) {
+                    calendar = Calendar.getInstance();
+                    currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    currentMinute = calendar.get(Calendar.MINUTE);
+                    timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                            if (hourOfDay >= 12) {
+                                amPm = " " + " PM";
+                            } else {
+                                amPm = " " + " AM";
+                            }
+                            edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                            try {
+                                outTime = sdf.parse(edt_evening_shift_to.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
 
 //                        if (outTime.getHours()==0)
@@ -605,18 +622,24 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 //                        }else {
                             if (!isTimeAfter(inTime, outTime)) {
                                 error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
-                                valEve=true;
+                                error12.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+
+                                valEve = true;
 
                             } else {
                                 error2.setError(null);
+                                error12.setError(null);
 
                             }
 
 
+                        }
+                    }, currentHour, currentMinute, false);
+                    timePickerDialog.show();
+                }else {
+                    Toast.makeText(SurvayScreen.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
 
-                    }
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
+                }
 
 
             }
@@ -846,34 +869,41 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
         if (strShiftType.equals("1") ) {
-            if (!validateEditText(idsMor)&& error1.getError()==null) {
+            if (!validateEditText(idsMor)&& error1.getError()==null && error11.getError()==null) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-            }
-            else if( error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")){
-                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام الصباحى ", Toast.LENGTH_SHORT).show();
 
             }
+
+//             else if( error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")){
+//                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام الصباحى ", Toast.LENGTH_SHORT).show();
+//
+//            }
 
 
             else {
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
         }
+
         else if (strShiftType.equals("2") ) {
-            if (!validateEditText(idsEv)&& error2.getError()==null) {
+            if (!validateEditText(idsEv)&& error2.getError()==null && error12.getError()==null) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+            }
 
-            }
-            else if( error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")){
-                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام المسائى ", Toast.LENGTH_SHORT).show();
 
-            }
-            else {
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
-            }
+//           else if (validateEditText(idsEv)){
+//                Toast.makeText(this, "t", Toast.LENGTH_SHORT).show();
+//            }
+//                if (error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")) {
+//                    Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام المسائى ", Toast.LENGTH_SHORT).show();
+
+                 else {
+                    Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                }
+
         } else if (strShiftType.equals("3")) {
             if (!validateEditText(ids) && error1.getError()==null || error2.getError()==null) {
                 saveData();
@@ -881,10 +911,10 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
             }
 
-            else if(error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")|| error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")){
-                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوامين ", Toast.LENGTH_SHORT).show();
-
-            }
+//             else if(error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")|| error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")){
+//                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوامين ", Toast.LENGTH_SHORT).show();
+//
+//            }
             else {
 
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
@@ -892,6 +922,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         } else if (strShiftType.equals("+")) {
             Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
         }
+
+
 
 
     }

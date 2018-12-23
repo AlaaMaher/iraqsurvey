@@ -345,9 +345,9 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm =" "+" PM";
                         } else {
-                            amPm = " AM";
+                            amPm =" "+ " AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -374,9 +374,9 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm = " " +" PM";
                         } else {
-                            amPm = " AM";
+                            amPm = " " +" AM";
                         }
                         edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -385,20 +385,20 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                             e.printStackTrace();
                         }
 
-                        int dateDelta = inTime.compareTo(outTime);
-                        switch (dateDelta) {
-                            case 0:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                            case 1:
-                                error1.setError(null);
-                                break;
-                            case -1:
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-                                break;
-                        }
+//                        int dateDelta = inTime.compareTo(outTime);
+//                        switch (dateDelta) {
+//                            case 0:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
+//                            case 1:
+//                                error1.setError(null);
+//                                break;
+//                            case -1:
+//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+//                                break;
+//                        }
 
-                        if (outTime.getHours()==0)
+                        if (outTime.getHours()==0&& amPm.equals("  PM"))
                         {
                             error1.setError(null);
 

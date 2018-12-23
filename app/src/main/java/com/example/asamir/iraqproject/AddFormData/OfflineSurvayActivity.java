@@ -315,9 +315,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm = " " +" PM";
                         } else {
-                            amPm = " AM";
+                            amPm = " " +" AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -344,9 +344,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = " PM";
+                            amPm = " " +" PM";
                         } else {
-                            amPm = " AM";
+                            amPm = " " +" AM";
                         }
                         edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -368,7 +368,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 //                                break;
 //                        }
 
-                        if (outTime.getHours()==0)
+                        if (outTime.getHours()==0 && amPm.equals("  PM"))
                         {
                             error1.setError(null);
 
@@ -403,9 +403,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = "PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm = "AM";
+                            amPm = " " + " AM";
                         }
                         edt_evening_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {
@@ -432,9 +432,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
-                            amPm = "PM";
+                            amPm = " " + " PM";
                         } else {
-                            amPm = "AM";
+                            amPm = " " + " AM";
                         }
                         edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
                         try {

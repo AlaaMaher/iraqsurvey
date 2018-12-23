@@ -490,10 +490,18 @@
                     android:background="@drawable/corner_gray"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginEnd="8dp"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_layout3"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:hintEnabled="false">
 
                 <EditText
                     android:id="@+id/edt_morning_shift_from"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:layout_marginTop="10dp"
@@ -504,6 +512,7 @@
                     android:ems="10"
                     android:hint="بداية وقت الدوام الصباحي  "
                     />
+                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
@@ -569,19 +578,26 @@
                     android:textColor="@color/colorPrimary"
                     android:layout_marginEnd="8dp"/>
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_layout4"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:hintEnabled="false">
 
                 <EditText
                     android:id="@+id/edt_evening_shift_from"
-                    android:layout_width="0dp"
-                    android:layout_weight="2.5"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
                     android:editable="false"
                     android:ems="10"
-
+                    android:layout_marginTop="10dp"
                     android:hint="بداية وقت الدوام المسائي  "
                      />
+                </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearLayout6"
