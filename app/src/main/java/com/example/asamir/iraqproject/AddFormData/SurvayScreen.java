@@ -134,6 +134,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     TextInputLayout error11;
     @BindView(R.id.text_input_layout4)
     TextInputLayout error12;
+
     //////////////////////////////////////////////////////
     @BindView(R.id.edt_computer_count)
     EditText edt_computer_count;
@@ -338,16 +339,10 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
-//                        cal1.set(Calendar.HOUR_OF_DAY, currentHour); // Start hour
-//                        cal1.set(Calendar.MINUTE, currentMinute); // Start Mintue
-//                        start=new Time(cal1.getTime().getTime());
 
 
                         try {
                             inTime = sdf.parse(edt_morning_shift_from.getText().toString());
-
-//                            in=sdf.format(inTime);
-//                            f=LocalTime.parse(in);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -366,38 +361,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDoubleClick(View view) {
 
-//                cal = Calendar.getInstance();
-//                currentHour = cal.get(Calendar.HOUR_OF_DAY);
-//                currentMinute = cal.get(Calendar.MINUTE);
-//
-//                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-//                    //  @RequiresApi(api = Build.VERSION_CODES.O)
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-//                        if (hourOfDay >= 12) {
-//                            amPm = " " + " PM";
-//                        } else {
-//                            amPm = " " + "  AM";
-//                        }
-//                        edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-//
-////                        cal1.set(Calendar.HOUR_OF_DAY, currentHour); // Start hour
-////                        cal1.set(Calendar.MINUTE, currentMinute); // Start Mintue
-////                        start=new Time(cal1.getTime().getTime());
-//
-//
-//                        try {
-//                            inTime = sdf.parse(edt_morning_shift_from.getText().toString());
-//
-////                            in=sdf.format(inTime);
-////                            f=LocalTime.parse(in);
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//                }, currentHour, currentMinute, false);
-//                timePickerDialog.show();
+
 
             }
 
@@ -470,55 +434,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDoubleClick(View view) {
 
-//                cal = Calendar.getInstance();
-//                currentHour = cal.get(Calendar.HOUR_OF_DAY);
-//                currentMinute = cal.get(Calendar.MINUTE);
-//
-//
-//                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-//                    //    @RequiresApi(api = Build.VERSION_CODES.O)
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-//                        if (hourOfDay >= 12) {
-//                            amPm = " " + " PM";
-//                        } else {
-//                            amPm = " " + " AM";
-//                        }
-//                        edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-//
-//
-//
-//                        try {
-//                            outTime = sdf.parse(edt_morning_shift_to.getText().toString());
-////                           out=sdf.format(outTime);
-////                           to=LocalTime.parse(edt_morning_shift_to.getText().toString());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//                        Log.e("H---ASI-->",String.valueOf(outTime.getHours()));
-//                        if (outTime.getHours()==0)
-//                        {
-//                            error1.setError(null);
-//
-//                        }else {
-//                            if (!isTimeAfter(inTime, outTime)) {
-//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//                                valMor=true;
-//
-//                            } else {
-//                                error1.setError(null);
-//
-//
-//                            }
-//                        }
-//
-//
-//                    }
-//                }, currentHour, currentMinute, false);
-//                timePickerDialog.show();
-
 
 
 
@@ -561,30 +476,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onDoubleClick(View view) {
-//
-//                calendar = Calendar.getInstance();
-//                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-//                currentMinute = calendar.get(Calendar.MINUTE);
-//                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-//                        if (hourOfDay >= 12) {
-//                            amPm = " " + " PM";
-//                        } else {
-//                            amPm = " " + "  AM";
-//                        }
-//                        edt_evening_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-//                        try {
-//                            inTime = sdf.parse(edt_evening_shift_from.getText().toString());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//
-//                    }
-//                }, currentHour, currentMinute, false);
-//                timePickerDialog.show();
 
             }
         }));
@@ -615,11 +506,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                             }
 
 
-//                        if (outTime.getHours()==0)
-//                        {
-//                            error1.setError(null);
-//
-//                        }else {
+
                             if (!isTimeAfter(inTime, outTime)) {
                                 error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
                                 error12.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
@@ -647,46 +534,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDoubleClick(View view) {
 
-//                calendar = Calendar.getInstance();
-//                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-//                currentMinute = calendar.get(Calendar.MINUTE);
-//                timePickerDialog = new TimePickerDialog(SurvayScreen.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-//                        if (hourOfDay >= 12) {
-//                            amPm = " " + " PM";
-//                        } else {
-//                            amPm = " " + " AM";
-//                        }
-//                        edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-//                        try {
-//                            outTime = sdf.parse(edt_evening_shift_to.getText().toString());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//
-//                        if (outTime.getHours()==0)
-//                        {
-//                            error1.setError(null);
-//
-//                        }else {
-//                            if (!isTimeAfter(inTime, outTime)) {
-//                                error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
-//                                valEve=true;
-//
-//                            } else {
-//                                error2.setError(null);
-//
-//                            }
-//                        }
-//
-//
-//                    }
-//                }, currentHour, currentMinute, false);
-//                timePickerDialog.show();
-//
-//
 
 
             }
@@ -695,84 +542,6 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    }
-    public static void compareTime(String startTimeStr, String endTimeStr) {
-
-        Pattern p = Pattern.compile("^([0-2][0-3]):([0-5][0-9]):([0-5][0-9])$"); //Regex is used to validate time format (HH:MM:SS)
-
-        int hhS = 0;
-        int mmS = 0;
-        int ssS = 0;
-
-        int hhE = 0;
-        int mmE = 0;
-        int ssE = 0;
-
-        Matcher m = null;
-
-        m = p.matcher(startTimeStr);
-        if (m.matches()) {
-            String hhStr = m.group(1);
-            String mmStr = m.group(2);
-            String ssStr = m.group(3);
-
-            hhS = Integer.parseInt(hhStr);
-            mmS = Integer.parseInt(mmStr);
-            ssS = Integer.parseInt(ssStr);
-
-        }
-
-        else {
-            System.out.println("Invalid start time");
-            System.exit(0);
-
-        }
-
-
-
-        m = p.matcher(endTimeStr);
-        if (m.matches()) {
-            String hhStr = m.group(1);
-            String mmStr = m.group(2);
-            String ssStr = m.group(3);
-
-            hhE = Integer.parseInt(hhStr);
-            mmE = Integer.parseInt(mmStr);
-            ssE = Integer.parseInt(ssStr);
-
-        }
-
-        else {
-            System.out.println("Invalid End time");
-            System.exit(0);
-
-        }
-
-
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, hhS); // Start hour
-        cal.set(Calendar.MINUTE, mmS); // Start Mintue
-        cal.set(Calendar.SECOND, ssS); // Start second
-
-        Time startTime = new Time(cal.getTime().getTime());
-        // System.out.println("your time: "+sqlTime3);
-
-        cal.set(Calendar.HOUR_OF_DAY, hhE); // End hour
-        cal.set(Calendar.MINUTE, mmE); // End Mintue
-        cal.set(Calendar.SECOND, ssE); // End second
-
-        Time endTime = new Time(cal.getTime().getTime());
-
-        if (startTime.equals(endTime)) {
-            System.out.println("Both Start time and End Time are equal");
-        } else if (startTime.before(endTime)) {
-            System.out.println("Start time is less than end time");
-        }
-
-        else
-            System.out.println("Start time is greater than end time");
 
     }
 
@@ -876,14 +645,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
             }
 
-//             else if( error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")){
-//                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام الصباحى ", Toast.LENGTH_SHORT).show();
-//
-//            }
-
 
             else {
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -894,33 +658,23 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             }
 
 
-//           else if (validateEditText(idsEv)){
-//                Toast.makeText(this, "t", Toast.LENGTH_SHORT).show();
-//            }
-//                if (error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")) {
-//                    Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوام المسائى ", Toast.LENGTH_SHORT).show();
-
                  else {
-                    Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
                 }
 
         } else if (strShiftType.equals("3")) {
-            if (!validateEditText(ids) && error1.getError()==null || error2.getError()==null) {
+            if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error11.getError()==null && error12.getError()==null) {
                 saveData();
                 startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
             }
 
-//             else if(error1.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى")|| error2.getError().equals("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى")){
-//                Toast.makeText(this, "برجاء ادخال الوقت الصحيح للدوامين ", Toast.LENGTH_SHORT).show();
-//
-//            }
             else {
 
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
             }
         } else if (strShiftType.equals("+")) {
-            Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -978,9 +732,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         if (endTime.before(startTime)) {
             return false;
         }
-//        else if (endTime.after(startTime)){
-//            return true;
-//        }
+        else if (endTime.equals(startTime)){
+            return false;
+        }
         else {
             return true;
         }
@@ -1048,8 +802,10 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                     edt_internetSeed.setText("-");
 
                 } else {
-                    hasInternet = "1ا";
+                    hasInternet = "1";
                     edt_internetSeed.setVisibility(View.VISIBLE);
+                    edt_internetSeed.setText(" ");
+
 
 
 
@@ -1096,6 +852,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 govList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
+
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                 }
 

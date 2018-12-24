@@ -635,6 +635,7 @@
                         android:background="@drawable/editback"
                         android:editable="false"
                         android:ems="10"
+                        android:inputType="none"
                         android:hint="نهاية وقت الدوام المسائي  "
                         />
                 </android.support.design.widget.TextInputLayout>
