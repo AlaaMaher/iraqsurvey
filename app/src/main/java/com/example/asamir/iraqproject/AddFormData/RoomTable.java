@@ -176,13 +176,10 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
 
     public void goTONext(View view) {
 
-        if (roomList.size()==0)
-        {
-            Toast.makeText(getApplicationContext(), "يجب ادخال غرفة واحدة علي الاقل ", Toast.LENGTH_LONG).show();
-        }else {
+
             saveData();
             startActivity(new Intent(RoomTable.this,SketchPlace.class));
-        }
+
 
     }
     public void saveData(){
@@ -257,6 +254,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                                 if (roomName.trim().isEmpty()&&roomCount.trim().isEmpty()&&roomFer.trim().isEmpty())
                                 {
                                     Toast.makeText(RoomTable.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+
                                 }else {
                                     roomList.add(new RoomsModel(roomName, roomCount, roomFer));
                                     roomsTableAdapter.notifyData(roomList);
