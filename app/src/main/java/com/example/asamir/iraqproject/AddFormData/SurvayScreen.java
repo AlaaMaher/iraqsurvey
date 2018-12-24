@@ -1195,9 +1195,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
                         strCityId = citiesList.get(position).getId();
                         districsList.clear();
-                        /**
-                         * TODO : UNcomment the next line
-                         * */
+
                         iniDistrictsSpinner();
                     }
 

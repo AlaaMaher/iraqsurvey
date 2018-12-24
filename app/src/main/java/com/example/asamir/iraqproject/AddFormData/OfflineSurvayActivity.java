@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
+import com.example.asamir.iraqproject.Models.CitiesModels;
+import com.example.asamir.iraqproject.Models.GovModels;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
@@ -753,6 +755,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     public void iniGovSpinner() {
         // Spinner click listener
         spinnerGov.setPrompt("أختار المحافظة");
+        govList.add(0,new GovEntity("dummyid","--أختر--"));
         for (int i = 0; i < govDataBase.userDao().getGovs().size(); i++) {
             Log.e("Gov DATA --->", govDataBase.userDao().getGovs().get(i).toString());
             govList.add(new GovEntity(govDataBase.userDao().getGovs().get(i).getGovId(), govDataBase.userDao().getGovs().get(i).getGovName()));
@@ -785,14 +788,21 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         spinnerCities.setPrompt("أختار المدينة");
         spinnerCities.setOnItemSelectedListener(this);
 
+        citiesList.add(0,new CityEntity("dummyid","--أختر--",""));
+        if (!strGovId.equals("dummyid"))
+        {
+            for (int i = 0; i < citiesDataBase.userDao().getCityBygovId(strGovId).size(); i++) {
 
-        for (int i = 0; i < citiesDataBase.userDao().getCityBygovId(strGovId).size(); i++) {
-
-            citiesList.add(new CityEntity(citiesDataBase.userDao().getCityBygovId(strGovId).get(i).getCityId(),
-                    citiesDataBase.userDao().getCityBygovId(strGovId).get(i).getCityName(), strGovId));
+                citiesList.add(new CityEntity(citiesDataBase.userDao().getCityBygovId(strGovId).get(i).getCityId(),
+                        citiesDataBase.userDao().getCityBygovId(strGovId).get(i).getCityName(), strGovId));
+            }
+            CitiesOfflineSpinnerAdapter citiesSpinnerAdapter = new CitiesOfflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, citiesList);
+            spinnerCities.setAdapter(citiesSpinnerAdapter);
+        }else {
+            CitiesOfflineSpinnerAdapter citiesSpinnerAdapter = new CitiesOfflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, citiesList);
+            spinnerCities.setAdapter(citiesSpinnerAdapter);
         }
-        CitiesOfflineSpinnerAdapter citiesSpinnerAdapter = new CitiesOfflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, citiesList);
-        spinnerCities.setAdapter(citiesSpinnerAdapter);
+
 
 
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -818,15 +828,23 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         // Spinner Drop down elements
         spinnerDistrict.setPrompt("أختار الحي");
+        districsList.add(0,new DistricEntity("dummyid","--أختر--",""));
+        if (!strCityId.equals(""))
+        {
+            for (int i = 0; i < districDataBase.userDao().getDistricByCityId(strCityId).size(); i++) {
 
-        for (int i = 0; i < districDataBase.userDao().getDistricByCityId(strCityId).size(); i++) {
+                districsList.add(new DistricEntity(strCityId, districDataBase.userDao().getDistricByCityId(strCityId).get(i).getDistricName(),
+                        districDataBase.userDao().getDistricByCityId(strCityId).get(i).getDistricId()));
+            }
 
-            districsList.add(new DistricEntity(strCityId, districDataBase.userDao().getDistricByCityId(strCityId).get(i).getDistricName(),
-                    districDataBase.userDao().getDistricByCityId(strCityId).get(i).getDistricId()));
+            DistricofflineSpinnerAdapter citiesSpinnerAdapter = new DistricofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, districsList);
+            spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+
+        }else {
+            DistricofflineSpinnerAdapter citiesSpinnerAdapter = new DistricofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, districsList);
+            spinnerDistrict.setAdapter(citiesSpinnerAdapter);
         }
 
-        DistricofflineSpinnerAdapter citiesSpinnerAdapter = new DistricofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, districsList);
-        spinnerDistrict.setAdapter(citiesSpinnerAdapter);
 
 
         spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -854,16 +872,22 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         // Spinner Drop down elements
         spinnerOfficeName.setPrompt("أختار المكتب");
+        officesList.add(0,new OfficeEntity("dummyid","--أختر--","",""));
+        if (!strDisrtric.equals(""))
+        {
+            for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricId(strDisrtric).size(); i++) {
 
-
-        for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricId(strDisrtric).size(); i++) {
-
-            officesList.add(new OfficeEntity(officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeId(),
-                    officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeName(),
-                   strDisrtric, officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getProject_id()));
+                officesList.add(new OfficeEntity(officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeId(),
+                        officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeName(),
+                        strDisrtric, officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getProject_id()));
+            }
+            OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
+            spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+        }else {
+            OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
+            spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
         }
-        OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
-        spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+
 
         spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
