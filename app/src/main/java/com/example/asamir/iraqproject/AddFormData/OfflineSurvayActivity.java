@@ -47,6 +47,8 @@ import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pedromassango.doubleclick.DoubleClick;
+import com.pedromassango.doubleclick.DoubleClickListener;
 
 import org.json.JSONObject;
 
@@ -164,6 +166,13 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     Button btnDeleteFromEve;
     @BindView(R.id.btn_delet_to_eve)
     Button btnDeleteToEve;
+    @BindView(R.id.text_error4view)
+    TextInputLayout error4;
+    @BindView(R.id.text_error3view)
+    TextInputLayout error3;
+    Boolean valMor=false;
+    Boolean valEve=false;
+    boolean clicked=false;
 
     /**
      * NOTE :
@@ -303,9 +312,9 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             }
         });
 
-        edt_morning_shift_from.setOnClickListener(new View.OnClickListener() {
+        edt_morning_shift_from.setOnClickListener( new DoubleClick(new DoubleClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onSingleClick(View view) {
 
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -329,71 +338,78 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     }
                 }, currentHour, currentMinute, false);
                 timePickerDialog.show();
+                clicked=true;
+
             }
-        });
-
-        edt_morning_shift_to.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
+            public void onDoubleClick(View view) {
+        }}));
+
+        edt_morning_shift_to.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                if(clicked) {
+                    calendar = Calendar.getInstance();
+                    currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    currentMinute = calendar.get(Calendar.MINUTE);
 
 
-                timePickerDialog = new TimePickerDialog(OfflineSurvayActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = " " +" PM";
-                        } else {
-                            amPm = " " +" AM";
-                        }
-                        edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                        try {
-                            outTime = sdf.parse(edt_morning_shift_to.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                    timePickerDialog = new TimePickerDialog(OfflineSurvayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                            if (hourOfDay >= 12) {
+                                amPm = " " + " PM";
+                            } else {
+                                amPm = " " + " AM";
+                            }
+                            edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                            try {
+                                outTime = sdf.parse(edt_morning_shift_to.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-//                        int dateDelta = inTime.compareTo(outTime);
-//                        switch (dateDelta) {
-//                            case 0:
-//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//                                break;
-//                            case 1:
-//                                error1.setError(null);
-//                                break;
-//                            case -1:
-//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//                                break;
-//                        }
 
-                        if (outTime.getHours()==0 && amPm.equals("  PM"))
-                        {
-                            error1.setError(null);
-
-                        }else {
-                            if (!isTimeAfter(inTime, outTime)) {
-                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                            if (outTime.getHours() == 0 && amPm.equals("  PM")) {
+                                error1.setError(null);
+                                error3.setError(null);
 
                             } else {
-                                error1.setError(null);
+                                if (!isTimeAfter(inTime, outTime)) {
+                                    error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    error3.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    valMor = true;
 
+
+                                } else {
+                                    error1.setError(null);
+                                    error3.setError(null);
+
+
+                                }
                             }
+
+
                         }
-
-
-                    }
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
+                    }, currentHour, currentMinute, false);
+                    timePickerDialog.show();
+                }
+                else
+                {
+                    Toast.makeText(OfflineSurvayActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
-        });
-
-        edt_evening_shift_from.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onDoubleClick(View view) {
+
+            }}));
+
+        edt_evening_shift_from.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 currentMinute = calendar.get(Calendar.MINUTE);
@@ -418,66 +434,78 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     }
                 }, currentHour, currentMinute, false);
                 timePickerDialog.show();
+                clicked=true;
+
+
 
 
             }
-        });
-        edt_evening_shift_to.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                calendar = Calendar.getInstance();
-                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                currentMinute = calendar.get(Calendar.MINUTE);
-                timePickerDialog = new TimePickerDialog(OfflineSurvayActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = " " + " PM";
-                        } else {
-                            amPm = " " + " AM";
-                        }
-                        edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                        try {
-                            outTime = sdf.parse(edt_evening_shift_to.getText().toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+            public void onDoubleClick(View view) {
 
-//                        int dateDelta = inTime.compareTo(outTime);
-//                        switch (dateDelta) {
-//                            case 0:
-//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//                                break;
-//                            case 1:
-//                                error1.setError(null);
-//                                break;
-//                            case -1:
-//                                error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
-//                                break;
-//                        }
+            }
+        }));
+        edt_evening_shift_to.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                if(clicked) {
 
-                        if (outTime.getHours()==0)
-                        {
-                            error1.setError(null);
+                    calendar = Calendar.getInstance();
+                    currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    currentMinute = calendar.get(Calendar.MINUTE);
+                    timePickerDialog = new TimePickerDialog(OfflineSurvayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                            if (hourOfDay >= 12) {
+                                amPm = " " + " PM";
+                            } else {
+                                amPm = " " + " AM";
+                            }
+                            edt_evening_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                            try {
+                                outTime = sdf.parse(edt_evening_shift_to.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-                        }else {
-                            if (!isTimeAfter(inTime, outTime)) {
-                                error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+
+                            if (outTime.getHours() == 0) {
+                                error1.setError(null);
 
                             } else {
-                                error2.setError(null);
+                                if (!isTimeAfter(inTime, outTime)) {
+                                    error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+                                    error4.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+                                    valEve = true;
 
+
+
+                                } else {
+                                    error2.setError(null);
+                                    error4.setError(null);
+
+                                }
                             }
+
+
                         }
+                    }, currentHour, currentMinute, false);
+                    timePickerDialog.show();
+                }else {
+                    Toast.makeText(OfflineSurvayActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
 
-
-                    }
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
+                }
 
 
             }
-        });
+            @Override
+            public void onDoubleClick(View view) {
+
+
+
+            }
+        }));
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -584,23 +612,23 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         if (strShiftType.equals("1"))
         {
-            if(!validateEditText(idsMor))
+            if(!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null)
             {
                 saveData();
                 startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
 
             }else{
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
             }
         }else if (strShiftType.equals("2"))
         {
-            if(!validateEditText(idsEv))
+            if(!validateEditText(idsEv)&& error3.getError()==null && error4.getError()==null)
             {
                 saveData();
                 startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
 
             }else{
-                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
             }
         }else if (strShiftType.equals("3"))
         {
@@ -610,10 +638,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
 
             }else{
+                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
 
             }
         }else if (strShiftType.equals("+")){
-            Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -656,7 +685,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     boolean isTimeAfter(Date startTime, Date endTime) {
         if (endTime.before(startTime)) {
             return false;
-        } else {
+        }
+            else if (endTime.equals(startTime)){
+                return false;
+            }
+            else {
             return true;
         }
     }
@@ -720,6 +753,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 } else {
                     hasInternet = "1";
                     edt_internetSeed.setVisibility(View.VISIBLE);
+                    edt_internetSeed.setText(" ");
+
 
                 }
             }
