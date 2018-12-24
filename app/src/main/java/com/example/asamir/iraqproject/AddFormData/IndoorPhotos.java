@@ -254,7 +254,7 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
                 outDoorList.add(imageUploadInfo);
                 Gson gson = new Gson();
                 String roomsArray = gson.toJson(outDoorList);
-                ConstMethods.saveOutDoorPhotos(IndoorPhotos.this, roomsArray);
+                ConstMethods.saveInDoorPhotos(IndoorPhotos.this, roomsArray);
             }
         }
     }
