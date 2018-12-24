@@ -184,6 +184,7 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                                         Intent intent = new Intent(getBaseContext(), BasicInfoActivity.class);
                                         intent.putExtra("data", dataCollectionModel);
                                         startActivity(intent);
+                                        break;
 
                                     } catch (NullPointerException e) {
                                         Toast.makeText(SavedDataListActivity.this, "لا يوجد مشاريع لديك لعرضها", Toast.LENGTH_SHORT).show();
