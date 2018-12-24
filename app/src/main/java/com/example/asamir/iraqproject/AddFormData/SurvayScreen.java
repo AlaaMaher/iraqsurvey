@@ -1054,8 +1054,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 if (!strDisrtric.equals("dummyid"))
                 {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-
+                        if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SurvayScreen.this)))
                         officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
                     }
 
