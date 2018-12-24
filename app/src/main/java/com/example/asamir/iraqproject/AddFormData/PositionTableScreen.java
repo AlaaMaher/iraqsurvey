@@ -70,7 +70,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     ImageView logo;
     ArrayList<JobsModel> projectsModels = new ArrayList<>();
     private String jobName;
-
+    ArrayList<String>  jobNameList=new ArrayList();
 
 
     @Override
@@ -277,6 +277,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 projectsModels.clear();
+                projectsModels.add(0,new JobsModel("--أختر--", "", "dummyid"));
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.getKey()));
@@ -310,24 +311,35 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty())
+                                if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
                                 {
-                                    Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة واختيار الوظيفة",Toast.LENGTH_LONG).show();
                                 }else  {
-                                    Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
-                                    final String roomCount = edt_rooms_count.getText().toString();
 
-                                    final String note = edt_job_note.getText().toString();
-                                    jobList.add(new JobsModel(jobName, roomCount, note));
-                                    roomsTableAdapter.notifyData(jobList);
-                                    if (jobList.isEmpty()) {
-                                        rvJobs.setVisibility(View.GONE);
-                                        tvEmptyList.setVisibility(View.VISIBLE);
 
-                                    } else {
-                                        rvJobs.setVisibility(View.VISIBLE);
-                                        tvEmptyList.setVisibility(View.GONE);
+
+                                    if(jobNameList.contains(jobName))
+                                    {
+                                        Toast.makeText(PositionTableScreen.this,"هذا الوظيفة مضافة من قبل بالفعل ",Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                                        final String roomCount = edt_rooms_count.getText().toString();
+
+                                        final String note = edt_job_note.getText().toString();
+                                        jobNameList.add(jobName);
+                                        jobList.add(new JobsModel(jobName, roomCount, note));
+                                        roomsTableAdapter.notifyData(jobList);
+                                        if (jobList.isEmpty()) {
+                                            rvJobs.setVisibility(View.GONE);
+                                            tvEmptyList.setVisibility(View.VISIBLE);
+
+                                        } else {
+
+                                            rvJobs.setVisibility(View.VISIBLE);
+                                            tvEmptyList.setVisibility(View.GONE);
+                                        }
                                     }
+
                                     dialog.cancel();
                                 }
 
