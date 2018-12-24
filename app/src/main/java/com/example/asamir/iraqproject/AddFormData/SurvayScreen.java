@@ -1094,6 +1094,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 govList.clear();
+                govList.add(0,new GovModels("dummyid","--أختر--"));
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -1113,6 +1114,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         spinnerGov.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 strGovId = govList.get(position).getId();
                 Log.e("KEY-->", strGovId);
                 citiesList.clear();
@@ -1145,12 +1147,21 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 citiesList.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                citiesList.add(0,new CitiesModels("dummyid","--أختر--"));
+                if (!strGovId.equals("dummyid"))
+                {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                        citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                    }
+
+                    CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, citiesList);
+                    spinnerCities.setAdapter(citiesSpinnerAdapter);
+                }else {
+                    CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, citiesList);
+                    spinnerCities.setAdapter(citiesSpinnerAdapter);
                 }
-                CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, citiesList);
-                spinnerCities.setAdapter(citiesSpinnerAdapter);
+
             }
 
             @Override
@@ -1162,6 +1173,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
                 if (citiesList.size() != 0) {
 
                     String city = citiesList.get(position).getName();
@@ -1181,6 +1195,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
                         strCityId = citiesList.get(position).getId();
                         districsList.clear();
+                        /**
+                         * TODO : UNcomment the next line
+                         * */
                         iniDistrictsSpinner();
                     }
 
@@ -1209,12 +1226,21 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 districsList.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                districsList.add(0,new DistrictsModels("dummyid","--أختر--"));
+                if (!strCityId.equals("dummyid"))
+                {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                        districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                    }
+
+
+                }else {
+                    DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, districsList);
+                    spinnerDistrict.setAdapter(citiesSpinnerAdapter);
                 }
-                DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, districsList);
-                spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+
+
             }
 
             @Override
@@ -1269,13 +1295,21 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 officesList.clear();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                officesList.add(0,new DistrictsModels("dummyid","--أختر--"));
+                if (!strDisrtric.equals("dummyid"))
+                {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
 
-                    officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    }
+
+
+                }else {
+                    DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, officesList);
+                    spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
                 }
-                DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, officesList);
-                spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+
             }
 
             @Override
