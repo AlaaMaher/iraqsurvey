@@ -359,7 +359,16 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         alertDialog.show();
     }
     public void closeScreen(View view) {
-        finish();
+        new AlertDialog.Builder(this)
+                .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                .setCancelable(false)
+                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("الغاء", null)
+                .show();
     }
 
 }

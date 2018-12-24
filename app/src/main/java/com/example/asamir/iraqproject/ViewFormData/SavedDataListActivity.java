@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
+import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
 import com.example.asamir.iraqproject.Models.CitiesModels;
 import com.example.asamir.iraqproject.Models.DataCollectionModel;
@@ -414,7 +415,8 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SavedDataListActivity.this)))
+                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
                 }
                 DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList);
                 spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
