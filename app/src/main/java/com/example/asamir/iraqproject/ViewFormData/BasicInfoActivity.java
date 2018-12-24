@@ -401,13 +401,20 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
                             if (outTime.getHours() == 0 && amPm.equals("  PM")) {
                                 error1.setError(null);
+                                error3.setError(null);
+
+
 
                             } else {
                                 if (!isTimeAfter(inTime, outTime)) {
                                     error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    error3.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+
 
                                 } else {
                                     error1.setError(null);
+                                    error3.setError(null);
+
 
                                 }
                             }
@@ -482,9 +489,14 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
                             if (!isTimeAfter(inTime, outTime)) {
                                 error2.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+                                error4.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام المسائى");
+
 
                             } else {
                                 error2.setError(null);
+                                error4.setError(null);
+
+
 
                             }
 
@@ -570,8 +582,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     int[] ids = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to, R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
@@ -580,8 +591,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     int[] idsEv = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to
 
 
@@ -589,8 +599,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
     int[] idsMor = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 

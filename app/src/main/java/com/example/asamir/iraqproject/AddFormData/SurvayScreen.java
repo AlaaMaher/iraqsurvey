@@ -180,6 +180,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     Boolean valMor=false;
     Boolean valEve=false;
     boolean clicked=false;
+    Boolean impty=false;
+
 
 
     Calendar cal;
@@ -637,45 +639,76 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
          * */
 
 
-        if (strShiftType.equals("1") ) {
-            if (!validateEditText(idsMor)&& error1.getError()==null && error11.getError()==null) {
-                saveData();
-                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+        if (!TextUtils.isEmpty(edtOtherCities.getText().toString() )&& !TextUtils.isEmpty(edtOtherDistrict.getText().toString()))
+        {
+            if (strShiftType.equals("1")) {
+                if (!validateEditText(idsMor) && error1.getError() == null && error11.getError() == null ) {
+                    saveData();
+                    startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
 
-            }
-
-
-            else {
-                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        else if (strShiftType.equals("2") ) {
-            if (!validateEditText(idsEv)&& error2.getError()==null && error12.getError()==null) {
-                saveData();
-                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
-            }
-
-
-                 else {
+                } else {
+                    Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                }
+            } else if (strShiftType.equals("2")) {
+                if (!validateEditText(idsEv) && error2.getError() == null && error12.getError() == null ) {
+                    saveData();
+                    startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+                } else {
                     Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
                 }
 
-        } else if (strShiftType.equals("3")) {
-            if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error11.getError()==null && error12.getError()==null) {
-                saveData();
-                startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+            } else if (strShiftType.equals("3")) {
+                if (!validateEditText(ids) && error1.getError() == null && error2.getError() == null && error11.getError() == null && error12.getError() == null) {
+                    saveData();
+                    startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
+                } else {
+
+                    Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                }
+            } else if (strShiftType.equals("+")) {
+                Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
+        }else {
+            if (strCityId.equals("dummyid")&&strDisrtric.equals("dummyid"))
+            {
+                Toast.makeText(this, "برجاء أختيار قيمة من القائمة او ادخال المحافظة والمدينة", Toast.LENGTH_SHORT).show();
 
-            else {
+            }else {
+                if (strShiftType.equals("1")) {
+                    if (!validateEditText(idsMor) && error1.getError() == null && error11.getError() == null ) {
+                        saveData();
+                        startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
 
-                Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (strShiftType.equals("2")) {
+                    if (!validateEditText(idsEv) && error2.getError() == null && error12.getError() == null ) {
+                        saveData();
+                        startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+                    } else {
+                        Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else if (strShiftType.equals("3")) {
+                    if (!validateEditText(ids) && error1.getError() == null && error2.getError() == null && error11.getError() == null && error12.getError() == null) {
+                        saveData();
+                        startActivity(new Intent(SurvayScreen.this, PositionTableScreen.class));
+
+                    } else {
+
+                        Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (strShiftType.equals("+")) {
+                    Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                }
             }
-        } else if (strShiftType.equals("+")) {
-            Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
         }
+
+
 
 
 
@@ -749,8 +782,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     int[] ids = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to, R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
@@ -759,8 +791,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     int[] idsEv = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to
 
 
@@ -768,8 +799,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     int[] idsMor = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
@@ -940,13 +970,16 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
                     if (city.equals(other)) {
+
                         edtOtherCities.setVisibility(View.VISIBLE);
                         edtOtherCities.requestFocus();
                         if (!edtOtherCities.hasFocus()) {
+                            impty=true;
 
                             String cityId = databaseCityReference.push().getKey();
                             databaseDisReference.child(cityId).setValue(new DistrictsModels(cityId, edtOtherCities.getText().toString()));
                             strCityId = cityId;
+
                         }
                     } else {
 
@@ -1019,6 +1052,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                             String Disid = databaseDisReference.push().getKey();
                             databaseDisReference.child(Disid).setValue(new DistrictsModels(Disid, edtOtherDistrict.getText().toString()));
                             strDisrtric = Disid;
+                            impty=true;
 
                         }
 

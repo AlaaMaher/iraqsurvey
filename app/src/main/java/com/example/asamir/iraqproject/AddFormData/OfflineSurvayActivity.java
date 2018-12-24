@@ -239,6 +239,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                 btnDeleteFromEve.setVisibility(View.GONE);
                 btnDeleteToEve.setVisibility(View.GONE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
+                edt_morning_shift_to.setVisibility(View.VISIBLE);
                 edt_evening_shift_from.setVisibility(View.GONE);
                 edt_evening_shift_to.setVisibility(View.GONE);
                 error2.setVisibility(View.GONE);
@@ -700,8 +701,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     int[] ids = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to, R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
@@ -710,8 +710,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     int[] idsEv = new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                     R.id.edt_evening_shift_from, R.id.edt_evening_shift_to
 
 
@@ -719,8 +718,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     int[] idsMor= new int[]
             {
                     R.id.edt_address, R.id.edt_phone, R.id.edt_internetSeed,
-                    R.id.edt_computer_count, R.id.edt_computer_notes, R.id.edt_printers_count,
-                    R.id.edt_printers_notes, R.id.edt_scanners_count, R.id.edt_scanners_notes,
+                    R.id.edt_computer_count, R.id.edt_printers_count, R.id.edt_scanners_count,
                      R.id.edt_morning_shift_from,
                     R.id.edt_morning_shift_to
 
