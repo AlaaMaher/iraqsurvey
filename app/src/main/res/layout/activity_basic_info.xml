@@ -398,6 +398,11 @@
 
             </RadioGroup>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="سرعة الانترنت بالميجابت لكل ثانيه"
+                />
             <EditText
                 android:id="@+id/edt_internetSeed"
                 android:layout_width="match_parent"
@@ -643,6 +648,11 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="عدد اجهزه الحاسب الآلي  "
+                    />
                 <EditText
                     android:id="@+id/edt_computer_count"
                     android:layout_width="match_parent"
@@ -653,6 +663,11 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:hint="عدد اجهزه الحاسب الآلي   " />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ملاحظات علي اجهزة الحاسب الآلي  "
+                    />
                 <EditText
                     android:id="@+id/edt_computer_notes"
                     android:layout_width="match_parent"
@@ -663,6 +678,11 @@
                     android:inputType="text"
                     android:maxLength="255"
                     android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="عدد الطابعات   "
+                    />
                 <EditText
                     android:id="@+id/edt_printers_count"
                     android:layout_width="match_parent"
@@ -673,6 +693,11 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:hint="عدد الطابعات "  />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ملاحظات علي عدد الطابعات   "
+                    />
                 <EditText
                     android:id="@+id/edt_printers_notes"
                     android:layout_width="match_parent"
@@ -683,6 +708,11 @@
                     android:inputType="text"
                     android:maxLength="10"
                     android:hint="ملاحظات علي عدد الطابعات "  />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="عدد الماسحات الضوئية   "
+                    />
                 <EditText
                     android:id="@+id/edt_scanners_count"
                     android:layout_width="match_parent"
@@ -693,6 +723,11 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:hint="عدد الماسحات الضوئية  "  />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ملاحظات علي عدد الماسحات الضوئية  "
+                    />
                 <EditText
                     android:id="@+id/edt_scanners_notes"
                     android:layout_width="match_parent"
