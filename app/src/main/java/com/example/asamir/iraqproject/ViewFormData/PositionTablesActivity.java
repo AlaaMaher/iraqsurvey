@@ -284,10 +284,14 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                             public void onClick(DialogInterface dialog, int id) {
 
 
-                                if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty())
+                                if (edt_job_note.getText().toString().trim().isEmpty() && edt_rooms_count.getText().toString().trim().isEmpty())
                                 {
                                     Toast.makeText(PositionTablesActivity.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
-                                }else  {
+                                }else if(edt_rooms_count.getText().toString().trim().isEmpty()){
+                                    Toast.makeText(PositionTablesActivity.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+
+                                }
+                                else  {
                                     Toast.makeText(PositionTablesActivity.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
                                     final String roomCount = edt_rooms_count.getText().toString();
 
