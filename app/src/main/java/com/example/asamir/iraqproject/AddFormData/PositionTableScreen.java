@@ -314,7 +314,15 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                                 if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
                                 {
                                     Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة واختيار الوظيفة",Toast.LENGTH_LONG).show();
-                                }else  {
+                                }
+                                else if(edt_rooms_count.getText().toString().trim().isEmpty()){
+                                Toast.makeText(PositionTableScreen.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+                                }
+                                else if(jobName.equals("--أختر--")){
+                                    Toast.makeText(PositionTableScreen.this,"اختر ليست وظيفه",Toast.LENGTH_LONG).show();
+                                }
+
+                                else  {
 
 
 

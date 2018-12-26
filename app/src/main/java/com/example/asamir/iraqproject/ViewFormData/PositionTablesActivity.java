@@ -77,6 +77,7 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
     private String jobName;
     private DataCollectionModel dataCollectionModel;
     List<JobsModel> newJobList;
+    ArrayList<String>  jobNameList=new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -292,19 +293,25 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
 
                                 }
                                 else  {
-                                    Toast.makeText(PositionTablesActivity.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
-                                    final String roomCount = edt_rooms_count.getText().toString();
+                                    if(jobNameList.contains(jobName))
+                                    {
+                                        Toast.makeText(PositionTablesActivity.this,"هذا الوظيفة مضافة من قبل بالفعل ",Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Toast.makeText(PositionTablesActivity.this, "تم أضافة(" + jobName + ")كوظيفة جديدة ", Toast.LENGTH_LONG).show();
+                                        final String roomCount = edt_rooms_count.getText().toString();
 
-                                    final String note = edt_job_note.getText().toString();
-                                    jobList.add(new JobsModel(jobName, roomCount, note));
-                                    roomsTableAdapter.notifyData(jobList);
-                                    if (jobList.isEmpty()) {
-                                        rvJobs.setVisibility(View.GONE);
-                                        tvEmptyList.setVisibility(View.VISIBLE);
+                                        final String note = edt_job_note.getText().toString();
+                                        jobNameList.add(jobName);
+                                        jobList.add(new JobsModel(jobName, roomCount, note));
+                                        roomsTableAdapter.notifyData(jobList);
+                                        if (jobList.isEmpty()) {
+                                            rvJobs.setVisibility(View.GONE);
+                                            tvEmptyList.setVisibility(View.VISIBLE);
 
-                                    } else {
-                                        rvJobs.setVisibility(View.VISIBLE);
-                                        tvEmptyList.setVisibility(View.GONE);
+                                        } else {
+                                            rvJobs.setVisibility(View.VISIBLE);
+                                            tvEmptyList.setVisibility(View.GONE);
+                                        }
                                     }
                                     dialog.cancel();
                                 }
