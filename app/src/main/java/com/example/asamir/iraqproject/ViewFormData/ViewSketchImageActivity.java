@@ -53,6 +53,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +74,8 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
     // Creating StorageReference and DatabaseReference object.
     StorageReference storageReference;
     DatabaseReference databaseReference;
+    StorageReference sref;
+    DatabaseReference dref;
     // Folder path for Firebase Storage.
     String Storage_Path = "All_Image_Uploads/";
     // Root Database Name for Firebase Database.
@@ -95,6 +98,7 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
     private String currentDateandTime;
     private String ImageUploadId;
     private DataCollectionModel dataCollectionModel;
+    boolean click=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +117,15 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        btnDeletePhoto.setVisibility(View.VISIBLE);
+
+
 
 
         dataCollectionModel = getIntent().getExtras().getParcelable("data");
         try {
             JSONObject jsonObject = new JSONObject(dataCollectionModel.getSketchData());
-            Glide.with(ViewSketchImageActivity.this).load(jsonObject.getString("sketchImageUrl")).into(ivPicImage);
+           Picasso.with(ViewSketchImageActivity.this).load(jsonObject.getString("sketchImageUrl")).resize(100,100).into(ivPicImage);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -143,6 +150,11 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
         storageReference = FirebaseStorage.getInstance().getReference();
         // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+        sref = FirebaseStorage.getInstance().getReference();
+
+
+        dref = FirebaseDatabase.getInstance().getReference(Database_Path);
+
 
 
     }
@@ -283,6 +295,11 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                             Toast.makeText(getApplicationContext(), "تم رفع الصوره بنجاح اضغط التالي لاستكمال المسح الميداني ", Toast.LENGTH_SHORT).show();
+                            if (click){
+                                databaseReference.child(ImageUploadId).removeValue();
+
+                            }
+
 
 
                         } else {
@@ -394,14 +411,24 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
     }
 
     public void deleteImage(View view) {
+        click=true;
         ConstMethods.saveSketch(ViewSketchImageActivity.this, "");
+
         ivPicImage.setImageDrawable(getResources().getDrawable(R.drawable.blueprint));
-        databaseReference.child(ImageUploadId).removeValue();
 
     }
 
 
     public void closeScreen(View view) {
-        finish();
+        new AlertDialog.Builder(this)
+                .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                .setCancelable(false)
+                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("الغاء", null)
+                .show();
     }
 }
