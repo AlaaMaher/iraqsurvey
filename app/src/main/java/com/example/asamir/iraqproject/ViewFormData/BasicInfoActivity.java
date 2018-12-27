@@ -51,6 +51,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -193,13 +194,14 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
     String otherCity, otherDistric;
     private String strOwnerShipType;
+    String govId,cityId,disId,officeId;
+    String gov_name,office_name,city_name,district_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_info);
         ButterKnife.bind(this);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -215,11 +217,22 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
         dataCollectionModel = getIntent().getExtras().getParcelable("data");
+        govId=getIntent().getExtras().getString("GovId");
+        cityId=getIntent().getExtras().getString("CityId");
+        disId=getIntent().getExtras().getString("DisId");
+        officeId=getIntent().getExtras().getString("OffId");
+        gov_name=getIntent().getExtras().getString("GovName");
+        city_name=getIntent().getExtras().getString("CityName");
+        district_name=getIntent().getExtras().getString("DisName");
+        office_name=getIntent().getExtras().getString("OffName");
+
+
+
+
         strCityId = dataCollectionModel.getCityId();
         strGovId = dataCollectionModel.getGov();
         strDisrtric = dataCollectionModel.getDistricId();
         strofficeid = dataCollectionModel.getOffice_name_or_id();
-
         //---
         edt_address.setText(dataCollectionModel.getAddress());
         edt_phone.setText(dataCollectionModel.getPhone());
@@ -528,7 +541,6 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
 
-                if (strShiftType.equals("1") ) {
                     if (!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null) {
                         Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
                         intent.putExtra("data", dataCollectionModel);
@@ -539,13 +551,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                     }
 
 
-                    else {
-                        Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                else if (strShiftType.equals("2") ) {
-                    if (!validateEditText(idsEv)&& error2.getError()==null && error4.getError()==null) {
+                    else  if (!validateEditText(idsEv)&& error2.getError()==null && error4.getError()==null) {
                         Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
                         intent.putExtra("data", dataCollectionModel);
                         saveBasicInformation();
@@ -553,28 +559,21 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                     }
 
 
-                    else {
-                        Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
-                    }
+                    else if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error3.getError()==null && error4.getError()==null) {
+                    Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
+                    intent.putExtra("data", dataCollectionModel);
+                    saveBasicInformation();
+                    startActivity(intent);
 
-                } else if (strShiftType.equals("3")) {
-                    if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error3.getError()==null && error4.getError()==null) {
-                        Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
-                        intent.putExtra("data", dataCollectionModel);
-                        saveBasicInformation();
-                        startActivity(intent);
-
-                    }
-
-                    else {
-
-                        Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (strShiftType.equals("+")) {
-                    Toast.makeText(BasicInfoActivity.this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
                 }
 
-            }
+
+                    else {
+
+                        Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+
+           }
         });
 
 
@@ -748,8 +747,12 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                govList.clear();
+             //   govList.add(0,new GovModels(strGovId,);
+                govList.add(0,new GovModels(govId,gov_name));
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
+
                     govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                 }
                 GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(BasicInfoActivity.this, R.layout.spinneritem, govList);
@@ -792,6 +795,8 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                citiesList.add(0,new CitiesModels(cityId,city_name));
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -836,7 +841,10 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                districsList.add(0,new DistrictsModels(disId,district_name));
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
 
                     try {
                         districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
@@ -883,6 +891,8 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                officesList.add(0,new DistrictsModels(officeId,office_name));
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     try {
@@ -926,10 +936,14 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 if (selectedRadioButtonID == R.id.hasinternetNo) {
                     hasInternet = "0";
                     edt_internetSeed.setVisibility(View.GONE);
+                    edt_internetSeed.setText(" ");
+
 
                 } else {
                     hasInternet = "`";
                     edt_internetSeed.setVisibility(View.VISIBLE);
+                    edt_internetSeed.setText(" ");
+
 
 
                 }
