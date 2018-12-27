@@ -196,7 +196,7 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
     public void goTONext(View view) {
 
 
-        startActivity(new Intent(OutdoorPhotos.this,NoticeActivity.class));
+        startActivity(new Intent(OutdoorPhotos.this,IndoorPhotos.class));
     }
 
 

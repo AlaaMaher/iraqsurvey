@@ -117,7 +117,7 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        btnDeletePhoto.setVisibility(View.VISIBLE);
+        btnDeletePhoto.setVisibility(View.GONE);
 
 
 
@@ -295,10 +295,10 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                             Toast.makeText(getApplicationContext(), "تم رفع الصوره بنجاح اضغط التالي لاستكمال المسح الميداني ", Toast.LENGTH_SHORT).show();
-                            if (click){
-                                databaseReference.child(ImageUploadId).removeValue();
-
-                            }
+//                            if (click){
+//                                databaseReference.child(ImageUploadId).removeValue();
+//
+//                            }
 
 
 

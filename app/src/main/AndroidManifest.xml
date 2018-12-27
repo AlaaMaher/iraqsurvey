@@ -11,7 +11,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission  android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -43,83 +44,81 @@
             android:name=".SendingCompleteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegistedList"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name=".RegistedList"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.PositionTableScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.PositionTableScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-        <activity android:name=".ProjectsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-
-            android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProjectsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddFormData.SurvayScreen"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.RoomTable"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.RoomTable"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.SketchPlace"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.SketchPlace"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.IndoorPhotos"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.IndoorPhotos"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.OutdoorPhotos"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.OutdoorPhotos"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".AddFormData.NoticeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.NoticeActivity"
             android:screenOrientation="portrait"
-            ></activity>
-
-        <activity android:name=".ViewFormData.BasicInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.BasicInfoActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.PositionTablesActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.PositionTablesActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.RoomsTableActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.RoomsTableActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.SavedDataListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.SavedDataListActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.ViewInDoorPhotosActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.ViewInDoorPhotosActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.ViewoOutdoorPhotosActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.ViewoOutdoorPhotosActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".ViewFormData.ViewSketchImageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewFormData.ViewSketchImageActivity"
             android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".AddFormData.OfflineSurvayActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddFormData.OfflineSurvayActivity"
             android:label=""
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".OfflineWork.BroadCastRecevier.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

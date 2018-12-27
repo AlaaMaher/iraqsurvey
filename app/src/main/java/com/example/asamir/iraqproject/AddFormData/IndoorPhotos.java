@@ -186,7 +186,7 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
     public void goTONext(View view) {
 
 
-        startActivity(new Intent(IndoorPhotos.this,OutdoorPhotos.class));
+        startActivity(new Intent(IndoorPhotos.this,NoticeActivity.class));
     }
     private void uploadImage(Uri tempUri) {
         if (tempUri!=null) {

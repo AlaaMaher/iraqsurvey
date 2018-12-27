@@ -28,6 +28,17 @@ import static android.content.Context.MODE_PRIVATE;
         return prefs.getString("basicinfo", "");
     }
 
+    public  static  void saveOffice (String value, Context context)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(MyPREFERENCES,MODE_PRIVATE).edit();
+        editor.putString("office", value);
+        editor.apply();
+    }
+    public  static  String getOffice( Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        return prefs.getString("Office", "");
+    }
     public  static  void SavePageOneData(String value, Context context)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences(MyPREFERENCES,MODE_PRIVATE).edit();

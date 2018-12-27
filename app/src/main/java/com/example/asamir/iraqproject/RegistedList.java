@@ -66,7 +66,7 @@ public class RegistedList extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         startActivity(new Intent(RegistedList.this, SurvayScreen.class));
-        
+
         super.onBackPressed();
     }
 

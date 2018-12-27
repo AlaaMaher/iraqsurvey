@@ -46,8 +46,9 @@ public class DataCollectionModel implements Parcelable {
     String otherDistric ;
     String owenerShipType;
 
-    public DataCollectionModel(String gov, String cityId,
-                               String districId, String address, String phone, String hasInternet,
+
+    public DataCollectionModel(String gov, String cityId
+                               ,String districId, String address, String phone, String hasInternet,
                                String isNetwork, String internetSeed, String projectName,
                                String shiftType, String morning_shift_from, String morning_shift_to,
                                String evening_shift_from, String evening_shift_to, String computer_count,
@@ -158,6 +159,7 @@ public class DataCollectionModel implements Parcelable {
     public String getCityId() {
         return cityId;
     }
+
 
     public String getDistricId() {
         return districId;

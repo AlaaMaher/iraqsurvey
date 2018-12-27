@@ -91,16 +91,19 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         String formattedDate = df.format(c.getTime());
         // formattedDate have current date/time
         tvVisitDate.setText(formattedDate);
-        gpsTracker = new GpsTracker(NoticeActivity.this);
+        //////////////
+        /*gpsTracker = new GpsTracker(NoticeActivity.this);
         if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
 
-
         } else {
             gpsTracker.showSettingsAlert();
-
         }
+        tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));*/
+        ////////////////
+
+        getLocation();
 
 
 
@@ -110,19 +113,38 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         survayoffDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "survayTable").allowMainThreadQueries().build();
     }
-
+/*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getLocation();
+    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
-        gpsTracker = new GpsTracker(NoticeActivity.this);
-
-            latitude = gpsTracker.getLatitude();
-            longitude = gpsTracker.getLongitude();
-            tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
-
-
+        getLocation();
     }
+
+    public void getLocation(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                gpsTracker = new GpsTracker(NoticeActivity.this);
+                if (gpsTracker.canGetLocation()) {
+                    latitude = gpsTracker.getLatitude();
+                    longitude = gpsTracker.getLongitude();
+
+                } else {
+                    gpsTracker.showSettingsAlert();
+                }
+                tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
+            }
+        }, 1000);
+    }
+
 
 
     @Override
@@ -203,6 +225,8 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
             String internetSeed = basicInfoData.getString("internetSeed");
             String projectName = ConstMethods.getSavedprogectid(NoticeActivity.this);
             String office_name_or_id = basicInfoData.getString("office_name_or_id");
+            String officeVisit = basicInfoData.getString("office_visit");
+
             String  OwnerShipType= basicInfoData.getString("OwnerShipType");
             //---
             String shiftType = basicInfoData.getString("shiftType");
@@ -283,13 +307,14 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                         inDoorPhotos,
                         posisionData,
                         office_name_or_id,
+                        officeVisit,
                         other_city,
                         other_district,
                         OwnerShipType
                 ));
-//                ConstMethods.saveSketch(NoticeActivity.this, "");
-//                ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
-//                ConstMethods.saveOutDoorPhotos(NoticeActivity.this, "");
+                ConstMethods.saveSketch(NoticeActivity.this, "");
+                ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
+                ConstMethods.saveOutDoorPhotos(NoticeActivity.this, "");
 
                 startActivity(new Intent(NoticeActivity.this, SendingCompleteActivity.class));
                 finish();
@@ -334,9 +359,9 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                         OwnerShipType,
                         "false"
                 ));
-//                ConstMethods.saveSketch(NoticeActivity.this, "");
-//                ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
-//                ConstMethods.saveOutDoorPhotos(NoticeActivity.this, "");
+                ConstMethods.saveSketch(NoticeActivity.this, "");
+                ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
+                ConstMethods.saveOutDoorPhotos(NoticeActivity.this, "");
                 startActivity(new Intent(NoticeActivity.this, SendingCompleteActivity.class));
                 finish();
             }

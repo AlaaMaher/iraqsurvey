@@ -35,13 +35,16 @@ import com.example.asamir.iraqproject.LoginActivity;
 import com.example.asamir.iraqproject.Models.CitiesModels;
 import com.example.asamir.iraqproject.Models.DistrictsModels;
 import com.example.asamir.iraqproject.Models.GovModels;
+import com.example.asamir.iraqproject.Models.OfficeModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.adapter.CitiesSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
+import com.example.asamir.iraqproject.adapter.OfficeAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.android.gms.common.internal.Objects;
 import com.google.firebase.auth.FirebaseAuth;
@@ -163,7 +166,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     List<GovModels> govList = new ArrayList<>();
     List<CitiesModels> citiesList = new ArrayList<>();
     final List<DistrictsModels> districsList = new ArrayList<>();
-    private List<DistrictsModels> officesList = new ArrayList<>();
+    private List<OfficeModel> officesList = new ArrayList<>();
     String strShiftType = "+";
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
@@ -176,11 +179,13 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     Button btnDeleteFromEve;
     @BindView(R.id.btn_delet_to_eve)
     Button btnDeleteToEve;
+    String officeVisit;
 
     Boolean valMor=false;
     Boolean valEve=false;
     boolean clicked=false;
     Boolean impty=false;
+    String govName,cityName,disName,officeName;
 
 
 
@@ -627,6 +632,16 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
 
+    public  boolean fun(String asd){
+        try{
+            double d = Double.parseDouble(asd);
+            return false ;
+        }catch(NumberFormatException ex){
+            return true ;
+        }
+
+    }
+
     public void goTONext(View view) {
 
 
@@ -639,7 +654,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
          * */
 
 
-        if (!TextUtils.isEmpty(edtOtherCities.getText().toString() )&& !TextUtils.isEmpty(edtOtherDistrict.getText().toString()))
+        if (!TextUtils.isEmpty(edtOtherCities.getText().toString() )&& !TextUtils.isEmpty(edtOtherDistrict.getText().toString()) && !fun(edtOtherCities.getText().toString())&&!fun(edtOtherDistrict.getText().toString()))
         {
             if (strShiftType.equals("1")) {
                 if (!validateEditText(idsMor) && error1.getError() == null && error11.getError() == null ) {
@@ -671,9 +686,9 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                 Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
             }
         }else {
-            if (strCityId.equals("dummyid")&&strDisrtric.equals("dummyid"))
+            if (strCityId.equals("dummyid")&&strDisrtric.equals("dummyid")&&strofficeid.equals("dummyid"))
             {
-                Toast.makeText(this, "برجاء أختيار قيمة من القائمة او ادخال المحافظة والمدينة", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "برجاء أختيار قيمة من القائمة او ادخال المحافظة والمدينة بشكل صحيح", Toast.LENGTH_SHORT).show();
 
             }else {
                 if (strShiftType.equals("1")) {
@@ -731,14 +746,19 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     public void saveData() {
         Map<String, String> basicInfoMap = new HashMap<>();
         basicInfoMap.put("gov", strGovId);
+        basicInfoMap.put("gov_name", govName);
         basicInfoMap.put("city", strCityId);
+        basicInfoMap.put("city_name", cityName);
         basicInfoMap.put("district", strDisrtric);
+        basicInfoMap.put("district_name",disName);
         basicInfoMap.put("address", edt_address.getText().toString());
         basicInfoMap.put("phone", edt_phone.getText().toString());
         basicInfoMap.put("hasInternet", hasInternet);
         basicInfoMap.put("isNetwork", isNetwork);
         basicInfoMap.put("internetSeed", edt_internetSeed.getText().toString());
         basicInfoMap.put("office_name_or_id", strofficeid);
+        basicInfoMap.put("office_name", officeName);
+        basicInfoMap.put("office_visit", officeVisit);
         basicInfoMap.put("shiftType", strShiftType);
         basicInfoMap.put("OwnerShipType",strOwnerShipType);
         basicInfoMap.put("morning_shift_from", edt_morning_shift_from.getText().toString());
@@ -880,7 +900,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 govList.clear();
-                govList.add(0,new GovModels("dummyid","--أختر--"));
+                govList.add(0,new GovModels("dummyid","--اختر المحافظة--"));
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
 
@@ -903,6 +923,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 strGovId = govList.get(position).getId();
+                govName=govList.get(position).getName();
                 Log.e("KEY-->", strGovId);
                 citiesList.clear();
 
@@ -934,7 +955,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 citiesList.clear();
-                citiesList.add(0,new CitiesModels("dummyid","--أختر--"));
+                citiesList.add(0,new CitiesModels("dummyid","--اختر المدينة --"));
                 if (!strGovId.equals("dummyid"))
                 {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -964,6 +985,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
                 if (citiesList.size() != 0) {
+                    cityName=citiesList.get(position).getName();
 
                     String city = citiesList.get(position).getName();
                     String other = new String("اخري");
@@ -1014,7 +1036,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 districsList.clear();
-                districsList.add(0,new DistrictsModels("dummyid","--أختر--"));
+                districsList.add(0,new DistrictsModels("dummyid","--اختر الحى --"));
                 if (!strCityId.equals("dummyid"))
                 {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -1041,6 +1063,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (districsList.size() != 0) {
+
+                    disName = districsList.get(position).getName();
 
                     String dist = districsList.get(position).getName();
                     String other = new String("اخرى");
@@ -1079,40 +1103,52 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Office").child(strDisrtric);
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                officesList.clear();
-                officesList.add(0,new DistrictsModels("dummyid","--أختر--"));
-                if (!strDisrtric.equals("dummyid"))
-                {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    officesList.clear();
+                    officesList.add(0, new OfficeModel("dummyid", "--اختر المكتب--","0"));
+                    if (!strDisrtric.equals("dummyid")) {
+
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SurvayScreen.this)))
+
+                            officesList.add(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString(), "1"));
+                        }
 
 
-                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    } else {
+                       OfficeAdapter officeAdapter = new OfficeAdapter(SurvayScreen.this, R.layout.spinneritem, officesList);
+                        spinnerOfficeName.setAdapter(officeAdapter);
                     }
 
-
-                }else {
-                    DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, officesList);
-                    spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+            });
+
+
+        
 
         spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (officesList.size() != 0) {
                     strofficeid = officesList.get(position).getId();
+                    officeName=officesList.get(position).getName();
+                    officeVisit=officesList.get(position).getVis();
+
                     Log.e("OFFICE ID -->", strofficeid);
+                    Log.e("OFFICE Vis -->", officeVisit);
+
+                    // ConstMethods.saveOffice(strofficeid,SurvayScreen.this);
+
                 }
             }
 
