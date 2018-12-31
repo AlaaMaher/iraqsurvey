@@ -119,6 +119,10 @@
             </intent-filter>
         </receiver>
 
+
+        <service
+            android:name=".services.MyService"
+            android:enabled="true"></service>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
+import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
@@ -108,6 +109,8 @@ public class RegistedList extends AppCompatActivity implements NavigationView.On
         startActivity(new Intent(RegistedList.this, LoginActivity.class));
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
+        //////////////////////////////////BY_Mohammed
+        Sesstion.getInstance(this).logout();
     }
 
     public void goToSurvayList(View view) {

@@ -18,6 +18,7 @@ import com.example.asamir.iraqproject.Models.ProjectsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
+import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -297,6 +298,11 @@ public class ProjectsActivity extends AppCompatActivity {
 
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
+
+        FirebaseAuth.getInstance().signOut();
+        //////////////////////////////////BY_Mohammed
+        Sesstion.getInstance(this).logout();
+      //////////////////////////////////////////
     }
 
     public boolean checkIfBareedOrNot(String name) {
