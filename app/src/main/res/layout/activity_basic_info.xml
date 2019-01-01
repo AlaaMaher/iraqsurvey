@@ -515,6 +515,7 @@
                     android:id="@+id/edt_morning_shift_from"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
 
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
@@ -559,6 +560,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
+                        android:focusableInTouchMode="false"
 
                         android:ems="10"
                         android:focusable="false"
@@ -601,6 +603,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/editback"
+                    android:focusableInTouchMode="false"
                     android:editable="false"
                     android:ems="10"
                     android:focusable="false"
@@ -642,7 +645,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
-
+                        android:focusableInTouchMode="false"
                         android:ems="10"
                         android:focusable="false"
                         android:hint="نهاية وقت الدوام المسائي  "

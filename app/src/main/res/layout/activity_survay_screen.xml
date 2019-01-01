@@ -508,6 +508,7 @@
                     android:clickable="false"
                     android:background="@drawable/editback"
                     android:editable="false"
+                    android:focusableInTouchMode="false"
                     android:inputType="none"
                     android:ems="10"
                     android:hint="بداية وقت الدوام الصباحي  "
@@ -554,6 +555,7 @@
                         android:background="@drawable/editback"
                         android:editable="false"
                         android:ems="10"
+                        android:focusableInTouchMode="false"
                         android:hint="نهاية وقت العمل الصباحي"
                         />
                 </android.support.design.widget.TextInputLayout>
@@ -592,6 +594,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/editback"
+                    android:focusableInTouchMode="false"
                     android:editable="false"
                     android:ems="10"
                     android:layout_marginTop="10dp"
@@ -634,6 +637,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
                         android:ems="10"
                         android:inputType="none"
                         android:hint="نهاية وقت الدوام المسائي  "
