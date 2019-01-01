@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,9 +40,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,9 +57,11 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
     @BindView(R.id.btnSendData)
     Button btnSendData;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
     private Database survayoffDB;
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
+   DatabaseReference df2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +108,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
 
         tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
         databaseReference = FirebaseDatabase.getInstance().getReference("OFFICE_DATA");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("Office");
         survayoffDB = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "survayTable").allowMainThreadQueries().build();
     }
@@ -224,7 +223,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
             String isNetwork = basicInfoData.getString("isNetwork");
             String internetSeed = basicInfoData.getString("internetSeed");
             String projectName = ConstMethods.getSavedprogectid(NoticeActivity.this);
-            String office_name_or_id = basicInfoData.getString("office_name_or_id");
+            final String office_name_or_id = basicInfoData.getString("office_name_or_id");
             String officeVisit = basicInfoData.getString("office_visit");
 
             String  OwnerShipType= basicInfoData.getString("OwnerShipType");
@@ -273,9 +272,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
              * */
 
             if (ConnectivityHelper.isConnectedToNetwork(NoticeActivity.this)) {
-
-                // save Data online
-                databaseReference.child(office_name_or_id).child(id).setValue(new DataCollectionModel(
+                DataCollectionModel dataCollectionModel=new DataCollectionModel(
                         gov,
                         cityid,
                         districtId,
@@ -307,11 +304,18 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                         inDoorPhotos,
                         posisionData,
                         office_name_or_id,
-                        officeVisit,
                         other_city,
                         other_district,
-                        OwnerShipType
-                ));
+                        OwnerShipType);
+
+
+
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("visited", 1);
+                databaseReference2.child(districtId).child(office_name_or_id).updateChildren(result);
+                databaseReference.child(office_name_or_id).child(id).setValue(dataCollectionModel);
+
+
                 ConstMethods.saveSketch(NoticeActivity.this, "");
                 ConstMethods.saveInDoorPhotos(NoticeActivity.this, "");
                 ConstMethods.saveOutDoorPhotos(NoticeActivity.this, "");

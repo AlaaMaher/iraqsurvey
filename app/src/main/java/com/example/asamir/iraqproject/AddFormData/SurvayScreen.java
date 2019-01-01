@@ -56,6 +56,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pedromassango.doubleclick.DoubleClick;
 import com.pedromassango.doubleclick.DoubleClickListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
@@ -180,6 +181,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     @BindView(R.id.btn_delet_to_eve)
     Button btnDeleteToEve;
     String officeVisit;
+    String visit;
 
     Boolean valMor=false;
     Boolean valEve=false;
@@ -1104,19 +1106,29 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("Office").child(strDisrtric);
 
-            ref.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     officesList.clear();
                     officesList.add(0, new OfficeModel("dummyid", "--اختر المكتب--","0"));
                     if (!strDisrtric.equals("dummyid")) {
 
+
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            Log.e("Visited",dataSnapshot1.child("visited").getValue().toString());
+                            if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SurvayScreen.this)) ) {
+                                if (Integer.valueOf(dataSnapshot1.child("visited").getValue().toString()) == 0)  {
 
-                            if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SurvayScreen.this)))
+                                    officesList.add(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString(), "1"));
+                                    DatabaseReference ref2 = database.getReference("Office").child(strofficeid);
 
-                            officesList.add(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString(), "1"));
+                                    //officesList.remove(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("visited").getValue().toString(), visit));
+                                }
+
+                            }
+
                         }
+
 
 
                     } else {

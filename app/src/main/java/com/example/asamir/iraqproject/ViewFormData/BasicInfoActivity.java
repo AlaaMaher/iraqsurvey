@@ -895,11 +895,8 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                    try {
-                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
-                    } catch (NullPointerException e) {
 
-                    }
+                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
 
                 }
                 DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(BasicInfoActivity.this, R.layout.spinneritem, officesList);
