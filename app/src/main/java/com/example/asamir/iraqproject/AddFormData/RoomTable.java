@@ -175,19 +175,19 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
     }
 
     public void goTONext(View view) {
-        new AlertDialog.Builder(this)
-                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
-                .setCancelable(false)
-                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        saveData();
-                        startActivity(new Intent(RoomTable.this,SketchPlace.class));
-                    }
-                })
-                .setNegativeButton("الغاء", null)
-                .show();
+//        new AlertDialog.Builder(this)
+//                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
+//                .setCancelable(false)
+//                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                    }
+//                })
+//                .setNegativeButton("الغاء", null)
+//                .show();
 
-
+        saveData();
+        startActivity(new Intent(RoomTable.this,SketchPlace.class));
 }
     public void saveData(){
         Gson gson = new Gson();
@@ -301,7 +301,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
     }
     public void closeScreen(View view) {
         new AlertDialog.Builder(this)
-                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
+                .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
                 .setCancelable(false)
                 .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -316,7 +316,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
     public void onBackPressed() {
 
         new AlertDialog.Builder(this)
-                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
+                .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
                 .setCancelable(false)
                 .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
