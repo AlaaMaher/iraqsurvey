@@ -303,7 +303,7 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
 
         /*
         final Handler handler = new Handler();
