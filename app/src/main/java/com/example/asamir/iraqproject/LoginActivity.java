@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.asamir.iraqproject.Models.UsersModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
@@ -26,9 +25,7 @@ import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
-import com.example.asamir.iraqproject.services.MyService;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
-import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -74,16 +71,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
             ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
             ConstMethods.saveInDoorPhotos(LoginActivity.this,"");
             ConstMethods.saveSketch(LoginActivity.this,"");
             finish();
-
-            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
-            //////////////////////////////////BY_Mohammed
-            startService(new Intent(this, MyService.class));
-            //////////////////////////////////
-
         }
         if (!checkPermission()) {
             requestPermission();
@@ -267,70 +259,55 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
 
-//                        DatabaseReference userProjectsRef = firebaseDatabase.getReference("User").child(mAuth.getUid());
-//                        userProjectsRef.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//
-//                                if (dataSnapshot.child("is_active").getValue().toString().equals("1"))
-//                                {
-//                                    DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
-//                                    userProjectsRef.addValueEventListener(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            progressDialog.cancel();
-//                                            for (DataSnapshot dataSnapshotProjects : dataSnapshot.getChildren()) {
-//                                                Log.e("PROJECTNAME-->",dataSnapshotProjects.child("project_name").getValue().toString());
-//                                                userProjectsDB.userDao().insertProjects(new UserProjectsEntity( dataSnapshotProjects.child("project_id").getValue().toString(),
-//                                                        dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
-//                                                Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
-//
-//                                            }
-//                                            getGoves();
-//                                            Log.e("Projects DB Created "," =====>  Done");
-//                                            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
-//                                            finish();
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                        }
-//                                    });
-//                                }else {
-//                                    progressDialog.cancel();
-//                                    Toast.makeText(LoginActivity.this, " هذا المستخدم غير مفعل  ", Toast.LENGTH_LONG).show();
-//                                    FirebaseAuth.getInstance().signOut();
-//                                }
-//
-//
-//
-//
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                            }
-//                        });
-//
+                        DatabaseReference userProjectsRef = firebaseDatabase.getReference("User").child(mAuth.getUid());
+                        userProjectsRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        progressDialog.cancel();
 
-                        //////////////////////////////////BY_Mohammed
-                        UsersModel usersModel = new UsersModel();
-                        usersModel.setUserID(mAuth.getCurrentUser().getUid());
-                        usersModel.setPassowrd(edtPass.getText().toString());
-                        usersModel.setUserName(edit_user_name.getText().toString());
-                        Sesstion.getInstance(LoginActivity.this).userLogin(usersModel);
+                                if (dataSnapshot.child("is_active").getValue().toString().equals("1"))
+                                {
+                                    DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
+                                    userProjectsRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            progressDialog.cancel();
+                                            for (DataSnapshot dataSnapshotProjects : dataSnapshot.getChildren()) {
+                                                Log.e("PROJECTNAME-->",dataSnapshotProjects.child("project_name").getValue().toString());
+                                                userProjectsDB.userDao().insertProjects(new UserProjectsEntity( dataSnapshotProjects.child("project_id").getValue().toString(),
+                                                        dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
+                                                Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
 
-                        startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
-                        startService(new Intent(LoginActivity.this, MyService.class));
-                        Toast.makeText(LoginActivity.this, "MyService is started", Toast.LENGTH_SHORT).show();
-                        ////////////////////////////////
-                        finish();
+                                            }
+                                            getGoves();
+                                            Log.e("Projects DB Created "," =====>  Done");
+                                            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }else {
+                                    progressDialog.cancel();
+                                    Toast.makeText(LoginActivity.this, " هذا المستخدم غير مفعل  ", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                }
+
+
+
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
 
 
                     } else {
