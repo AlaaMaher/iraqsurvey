@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
             ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
