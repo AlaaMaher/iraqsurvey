@@ -413,6 +413,7 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
     public void deleteImage(View view) {
         click=true;
         ConstMethods.saveSketch(ViewSketchImageActivity.this, "");
+        btnDeletePhoto.setVisibility(View.GONE);
 
         ivPicImage.setImageDrawable(getResources().getDrawable(R.drawable.blueprint));
 

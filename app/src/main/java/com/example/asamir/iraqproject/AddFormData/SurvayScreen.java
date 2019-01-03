@@ -233,6 +233,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         btnDeleteFromEve.setVisibility(View.GONE);
         btnDeleteToEve.setVisibility(View.GONE);
 
+
         iniRadio();
         iniGovSpinner();
 
@@ -964,6 +965,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
                         citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                     }
+
 
                     CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, citiesList);
                     spinnerCities.setAdapter(citiesSpinnerAdapter);

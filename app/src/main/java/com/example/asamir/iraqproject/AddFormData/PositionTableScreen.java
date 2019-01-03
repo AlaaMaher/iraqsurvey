@@ -15,12 +15,15 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -71,7 +74,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     ArrayList<JobsModel> projectsModels = new ArrayList<>();
     private String jobName;
     ArrayList<String>  jobNameList=new ArrayList();
-
+     EditText edt_rooms_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +213,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
             rvJobs.setVisibility(View.VISIBLE);
             tvEmptyList.setVisibility(View.GONE);
         }
-        roomsTableAdapter = new JobsTableAdapter(PositionTableScreen.this, jobList);
+        roomsTableAdapter = new JobsTableAdapter(PositionTableScreen.this, jobList,jobNameList);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvJobs.setLayoutManager(manager);
@@ -263,11 +266,21 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
 
         LayoutInflater li = LayoutInflater.from(PositionTableScreen.this);
         final View promptsView = li.inflate(R.layout.addjobdialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PositionTableScreen.this);
-        alertDialogBuilder.setView(promptsView);
-        final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
-        final EditText edt_job_note = promptsView.findViewById(R.id.edt_job_note);
-        final Spinner spinnerJobs = promptsView.findViewById(R.id.spinnerJobs);
+      //  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PositionTableScreen.this);
+        //alertDialogBuilder.setView(promptsView);
+        final Dialog dialog  = new Dialog(PositionTableScreen.this);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.addjobdialog);
+        Button addBtn = dialog.findViewById(R.id.button_add_dialog);
+        Button cancelBtn=dialog.findViewById(R.id.button_cancel_dialog);
+       // alertDialogBuilder.setCancelable(false);
+        Window window = dialog.getWindow();
+        window.setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+
+         edt_rooms_count = dialog.findViewById(R.id.edt_roomCount);
+        final EditText edt_job_note = dialog.findViewById(R.id.edt_job_note);
+        final Spinner spinnerJobs = dialog.findViewById(R.id.spinnerJobs);
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -296,6 +309,11 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 jobName = projectsModels.get(position).getName();
+                if(jobNameList.contains(jobName)) {
+                    Toast.makeText(PositionTableScreen.this, "هذا الوظيفة مضافة من قبل بالفعل ", Toast.LENGTH_LONG).show();
+                }
+
+
             }
 
             @Override
@@ -304,8 +322,67 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
             }
         });
 
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
+                {
+                    Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة واختيار الوظيفة",Toast.LENGTH_LONG).show();
+
+
+                }
+                else if(edt_rooms_count.getText().toString().trim().isEmpty()){
+                    //  Toast.makeText(PositionTableScreen.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+                    edt_rooms_count.setError("برجاء ادخال العدد");
+                }
+                else if(jobName.equals("--أختر--")){
+                    Toast.makeText(PositionTableScreen.this,"اختر ليست وظيفه",Toast.LENGTH_LONG).show();
+                }
+
+                else  {
+
+
+
+                    if(jobNameList.contains(jobName))
+                    {
+                        Toast.makeText(PositionTableScreen.this,"هذا الوظيفة مضافة من قبل بالفعل ",Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(PositionTableScreen.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                        final String roomCount = edt_rooms_count.getText().toString();
+
+                        final String note = edt_job_note.getText().toString();
+                        jobNameList.add(jobName);
+                        jobList.add(new JobsModel(jobName, roomCount, note));
+                        roomsTableAdapter.notifyData(jobList,jobNameList);
+                        if (jobList.isEmpty()) {
+                            rvJobs.setVisibility(View.GONE);
+                            tvEmptyList.setVisibility(View.VISIBLE);
+
+                        } else {
+
+                            rvJobs.setVisibility(View.VISIBLE);
+                            tvEmptyList.setVisibility(View.GONE);
+                        }
+                    }
+
+                    dialog.cancel();
+                }
+
+            }
+        });
+
+        dialog.show();
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
         // set dialog message
-        alertDialogBuilder
+
+      /*  alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton("إضافة",
                         new DialogInterface.OnClickListener() {
@@ -314,9 +391,12 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                                 if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
                                 {
                                     Toast.makeText(PositionTableScreen.this,"برجاء ادخال جميع الحقول المطلوبة واختيار الوظيفة",Toast.LENGTH_LONG).show();
+
+
                                 }
                                 else if(edt_rooms_count.getText().toString().trim().isEmpty()){
-                                Toast.makeText(PositionTableScreen.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+                              //  Toast.makeText(PositionTableScreen.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+                                    edt_rooms_count.setError("برجاء ادخال العدد");
                                 }
                                 else if(jobName.equals("--أختر--")){
                                     Toast.makeText(PositionTableScreen.this,"اختر ليست وظيفه",Toast.LENGTH_LONG).show();
@@ -348,7 +428,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                                         }
                                     }
 
-                                    dialog.cancel();
+                                 //  dialog.cancel();
                                 }
 
                             }
@@ -365,6 +445,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
 
         // show it
         alertDialog.show();
+        */
     }
     public void closeScreen(View view) {
         new AlertDialog.Builder(this)

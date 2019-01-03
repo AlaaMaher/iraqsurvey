@@ -15,11 +15,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -211,7 +213,7 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             rvJobs.setVisibility(View.VISIBLE);
             tvEmptyList.setVisibility(View.GONE);
         }
-        roomsTableAdapter = new JobsTableAdapter(PositionTablesActivity.this, jobList);
+        roomsTableAdapter = new JobsTableAdapter(PositionTablesActivity.this, jobList,jobNameList);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvJobs.setLayoutManager(manager);
@@ -237,11 +239,19 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
 
         LayoutInflater li = LayoutInflater.from(PositionTablesActivity.this);
         final View promptsView = li.inflate(R.layout.addjobdialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PositionTablesActivity.this);
-        alertDialogBuilder.setView(promptsView);
-        final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
-        final EditText edt_job_note = promptsView.findViewById(R.id.edt_job_note);
-        final Spinner spinnerJobs = promptsView.findViewById(R.id.spinnerJobs);
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PositionTablesActivity.this);
+//        alertDialogBuilder.setView(promptsView);
+        final Dialog dialog  = new Dialog(PositionTablesActivity.this);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.addjobdialog);
+        Button addBtn = dialog.findViewById(R.id.button_add_dialog);
+        Button cancelBtn=dialog.findViewById(R.id.button_cancel_dialog);
+        final EditText edt_rooms_count = dialog.findViewById(R.id.edt_roomCount);
+        final EditText edt_job_note = dialog.findViewById(R.id.edt_job_note);
+        final Spinner spinnerJobs = dialog.findViewById(R.id.spinnerJobs);
+        Window window = dialog.getWindow();
+        window.setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
 
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -276,60 +286,67 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             }
         });
 
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
+                {
+                    Toast.makeText(PositionTablesActivity.this,"برجاء ادخال جميع الحقول المطلوبة واختيار الوظيفة",Toast.LENGTH_LONG).show();
+
+
+                }
+                else if(edt_rooms_count.getText().toString().trim().isEmpty()){
+                    //  Toast.makeText(PositionTableScreen.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
+                    edt_rooms_count.setError("برجاء ادخال العدد");
+                }
+                else if(jobName.equals("--أختر--")){
+                    Toast.makeText(PositionTablesActivity.this,"اختر ليست وظيفه",Toast.LENGTH_LONG).show();
+                }
+
+                else  {
+
+
+
+                    if(jobNameList.contains(jobName)&& newJobList.contains(jobName))
+                    {
+                        Toast.makeText(PositionTablesActivity.this,"هذا الوظيفة مضافة من قبل بالفعل ",Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(PositionTablesActivity.this,"تم أضافة("+jobName +")كوظيفة جديدة ",Toast.LENGTH_LONG).show();
+                        final String roomCount = edt_rooms_count.getText().toString();
+
+                        final String note = edt_job_note.getText().toString();
+                        jobNameList.add(jobName);
+                        jobList.add(new JobsModel(jobName, roomCount, note));
+                        roomsTableAdapter.notifyData(jobList,jobNameList);
+                        if (jobList.isEmpty()) {
+                            rvJobs.setVisibility(View.GONE);
+                            tvEmptyList.setVisibility(View.VISIBLE);
+
+                        } else {
+
+                            rvJobs.setVisibility(View.VISIBLE);
+                            tvEmptyList.setVisibility(View.GONE);
+                        }
+                    }
+
+                    dialog.cancel();
+                }
+
+            }
+        });
+
+        dialog.show();
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
 
         // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("إضافة",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
 
-
-                                if (edt_job_note.getText().toString().trim().isEmpty() && edt_rooms_count.getText().toString().trim().isEmpty())
-                                {
-                                    Toast.makeText(PositionTablesActivity.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
-                                }else if(edt_rooms_count.getText().toString().trim().isEmpty()){
-                                    Toast.makeText(PositionTablesActivity.this,"برجاء ادخال العدد",Toast.LENGTH_LONG).show();
-
-                                }
-                                else  {
-                                    if(jobNameList.contains(jobName))
-                                    {
-                                        Toast.makeText(PositionTablesActivity.this,"هذا الوظيفة مضافة من قبل بالفعل ",Toast.LENGTH_LONG).show();
-                                    }else {
-                                        Toast.makeText(PositionTablesActivity.this, "تم أضافة(" + jobName + ")كوظيفة جديدة ", Toast.LENGTH_LONG).show();
-                                        final String roomCount = edt_rooms_count.getText().toString();
-
-                                        final String note = edt_job_note.getText().toString();
-                                        jobNameList.add(jobName);
-                                        jobList.add(new JobsModel(jobName, roomCount, note));
-                                        roomsTableAdapter.notifyData(jobList);
-                                        if (jobList.isEmpty()) {
-                                            rvJobs.setVisibility(View.GONE);
-                                            tvEmptyList.setVisibility(View.VISIBLE);
-
-                                        } else {
-                                            rvJobs.setVisibility(View.VISIBLE);
-                                            tvEmptyList.setVisibility(View.GONE);
-                                        }
-                                    }
-                                    dialog.cancel();
-                                }
-
-                            }
-                        })
-                .setNegativeButton("إلغاء",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
     }
 
     @Override

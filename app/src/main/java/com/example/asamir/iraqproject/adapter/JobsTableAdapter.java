@@ -39,14 +39,17 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
 
     private List<JobsModel> roomList;
     private List<JobsModel> filteredroomList;
+    private ArrayList<String>  jobNameList=new ArrayList();
+
     private Context context;
     ArrayList<JobsModel> projectsModels=new ArrayList<>();
     private String jobName;
-    public JobsTableAdapter(Context context, List<JobsModel> roomList)
+    public JobsTableAdapter(Context context, List<JobsModel> roomList, ArrayList<String>  jobNameList)
     {
         this.context = context;
         this.roomList = roomList;
         this.filteredroomList = roomList;
+        this.jobNameList=jobNameList;
     }
 
     @Override
@@ -92,8 +95,9 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
                         .setCancelable(false)
                         .setPositiveButton("مسح", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                roomList.remove(position);
-                                notifyData(roomList);
+                                roomList.remove(roomList.get(position));
+                                jobNameList.remove(jobNameList.get(position));
+                                notifyData(roomList,jobNameList);
                             }
                         })
                         .setNegativeButton("الغاء", null)
@@ -190,7 +194,7 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 final String note = edt_job_note.getText().toString();
                                 roomList.add(new JobsModel(jobName, roomCount,note));
-                                notifyData(roomList);
+                                notifyData(roomList,jobNameList);
 
 
                                 dialog.cancel();
@@ -277,9 +281,10 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
         };
     }
 
-    public void notifyData(List<JobsModel> myList) {
+    public void notifyData(List<JobsModel> myList,ArrayList<String> list) {
 
         this.roomList = myList;
+        this.jobNameList=list;
         notifyDataSetChanged();
     }
 
