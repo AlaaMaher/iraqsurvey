@@ -454,6 +454,7 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
     }
 
 
+
     public void iniCitiesSpinner() {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
