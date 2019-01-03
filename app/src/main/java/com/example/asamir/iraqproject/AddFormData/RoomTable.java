@@ -174,6 +174,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
 
+
     public void goTONext(View view) {
 //        new AlertDialog.Builder(this)
 //                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
