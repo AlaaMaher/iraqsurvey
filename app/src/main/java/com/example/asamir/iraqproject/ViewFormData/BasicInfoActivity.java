@@ -441,7 +441,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 }
                 else
                 {
-                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -520,7 +520,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
                 }else {
-                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -538,7 +538,6 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
                     if (!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null) {

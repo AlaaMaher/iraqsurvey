@@ -239,20 +239,25 @@ public class LoginActivity extends AppCompatActivity {
     public void CheckUser() {
 
         if (edit_user_name.getText().toString().isEmpty()&&edtPass.getText().toString().isEmpty() ) {
-            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة اسم المستخدم و كلمة المرور ", Toast.LENGTH_LONG).show();
+            //Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة اسم المستخدم و كلمة المرور ", Toast.LENGTH_LONG).show();
+            edit_user_name.setError("الرجاء ادخال كلمة اسم المستخدم");
+            edtPass.setError("الرجاء ادخال كلمة المرور");
 
         }
         else if (edit_user_name.getText().toString().isEmpty() ) {
-            Toast.makeText(LoginActivity.this, "الرجاء ادخال اسم المستخدم ", Toast.LENGTH_LONG).show();
+           // Toast.makeText(LoginActivity.this, "الرجاء ادخال اسم المستخدم ", Toast.LENGTH_LONG).show();
+            edit_user_name.setError("الرجاء ادخال كلمة اسم المستخدم");
+
         }
         else if(edtPass.getText().toString().isEmpty()){
-            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
+            //Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
+            edtPass.setError("الرجاء ادخال كلمة المرور");
 
         }
         else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("برجاء الانتظار جاري تسجيل الدخول ... ");
-            progressDialog.setCancelable(false);
+            progressDialog.setCancelable(true);
             progressDialog.show();
             mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString(), edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -288,6 +293,7 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                                            progressDialog.cancel();
                                         }
                                     });
                                 }else {
@@ -304,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                progressDialog.cancel();
                             }
                         });
 
@@ -312,6 +318,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     } else {
 
+                        progressDialog.cancel();
                         Toast.makeText(LoginActivity.this, "خطا في البريد  وكلمة المرور ", Toast.LENGTH_LONG).show();
                     }
                 }

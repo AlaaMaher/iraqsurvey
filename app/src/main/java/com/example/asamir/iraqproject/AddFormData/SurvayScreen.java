@@ -715,7 +715,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
                     } else {
 
-                        Toast.makeText(this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "برجاء أختيار  نوع الدو" +
+                                "ام", Toast.LENGTH_SHORT).show();
                     }
                 } else if (strShiftType.equals("+")) {
                     Toast.makeText(this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
@@ -725,11 +726,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-
-
-
     }
-
+//
     ///////////////////////////////////
     public void deleteMorningFrom(View view){
         edt_morning_shift_from.getText().clear();
