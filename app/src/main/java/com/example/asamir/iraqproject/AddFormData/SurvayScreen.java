@@ -727,6 +727,8 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
+    //
+
 
     ///////////////////////////////////
     public void deleteMorningFrom(View view){
@@ -838,6 +840,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
         return isEmpty;
     }
+
 
     public void iniRadio() {
         radioHasInternet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
