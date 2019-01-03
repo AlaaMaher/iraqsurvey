@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.Models.UsersModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
@@ -25,7 +26,9 @@ import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.services.MyService;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
+import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -69,13 +72,12 @@ public class LoginActivity extends AppCompatActivity {
         edtPass = findViewById(R.id.edtPass);
         mAuth = FirebaseAuth.getInstance();
 
-
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
             ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
             ConstMethods.saveInDoorPhotos(LoginActivity.this,"");
             ConstMethods.saveSketch(LoginActivity.this,"");
-            finish();
+            startService(new Intent(this, MyService.class));
         }
         if (!checkPermission()) {
             requestPermission();
@@ -96,11 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         userProjectsDB=Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
 
-
-
     }
-
-
 
 
     public static void getGoves() {
@@ -119,14 +117,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 Log.e("Gov Database Created"," =====>  Done");
 
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
 
         });
 
@@ -297,9 +293,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
 
-
-
-
                             }
 
                             @Override
@@ -309,6 +302,16 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
 
+                        //////////////////////////////////BY_Mohammed
+                        UsersModel usersModel = new UsersModel();
+                        usersModel.setUserID(mAuth.getCurrentUser().getUid());
+                        usersModel.setPassowrd(edtPass.getText().toString());
+                        usersModel.setUserName(edit_user_name.getText().toString());
+                        Sesstion.getInstance(LoginActivity.this).userLogin(usersModel);
+
+                        startService(new Intent(LoginActivity.this, MyService.class));
+                        Toast.makeText(LoginActivity.this, "MyService is started", Toast.LENGTH_SHORT).show();
+                        ////////////////////////////////
 
                     } else {
 
