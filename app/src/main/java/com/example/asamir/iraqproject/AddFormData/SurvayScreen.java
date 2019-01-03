@@ -9,6 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.SnackbarContentLayout;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -74,7 +77,8 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SurvayScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
+public class SurvayScreen extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.spinnerGov)
     Spinner spinnerGov;
@@ -115,14 +119,17 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
     private DatabaseReference databaseDisReference;
     private DatabaseReference databaseCityReference;
     /////////////////////////////////////////////////////////////
+
     @BindView(R.id.edt_morning_shift_from)
     EditText edt_morning_shift_from;
+
     @BindView(R.id.edt_morning_shift_to)
     EditText edt_morning_shift_to;
     @BindView(R.id.edt_evening_shift_from)
     EditText edt_evening_shift_from;
     @BindView(R.id.edt_evening_shift_to)
     EditText edt_evening_shift_to;
+
     @BindView(R.id.btn_morning)
     Button btnMorning;
     @BindView(R.id.btn_afternoon)
@@ -240,6 +247,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
 
+                edt_morning_shift_from.setFocusable(true);
                     // edt_morning_shift_to.setVisibility(View.VISIBLE);
                     edt_morning_shift_from.setVisibility(View.VISIBLE);
                     btnDeleteFromMor.setVisibility(View.VISIBLE);
@@ -271,6 +279,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         btnAfternoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
                 // edt_morning_shift_to.setVisibility(View.GONE);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
@@ -299,6 +308,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
         btnBothTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
                 btnDeleteFromMor.setVisibility(View.VISIBLE);
@@ -346,7 +356,7 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
-
+                        edt_morning_shift_to.setFocusable(true);
 
                         try {
                             inTime = sdf.parse(edt_morning_shift_from.getText().toString());
@@ -732,16 +742,16 @@ public class SurvayScreen extends AppCompatActivity implements AdapterView.OnIte
 
     ///////////////////////////////////
     public void deleteMorningFrom(View view){
-        edt_morning_shift_from.getText().clear();
+        edt_morning_shift_from.setText("");
     }
     public void deleteMorningTo(View view){
-        edt_morning_shift_to.getText().clear();
+        edt_morning_shift_to.setText("");
     }
     public void deleteEveningFrom(View view){
-        edt_evening_shift_from.getText().clear();
+        edt_evening_shift_from.setText("");
     }
     public void deleteEveningTo(View view){
-        edt_evening_shift_to.getText().clear();
+        edt_evening_shift_to.setText("");
     }
     public void saveData() {
         Map<String, String> basicInfoMap = new HashMap<>();

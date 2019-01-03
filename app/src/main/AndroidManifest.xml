@@ -63,7 +63,10 @@
         <activity
             android:name=".AddFormData.RoomTable"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+        </activity>
         <activity
             android:name=".AddFormData.SketchPlace"
             android:screenOrientation="portrait"

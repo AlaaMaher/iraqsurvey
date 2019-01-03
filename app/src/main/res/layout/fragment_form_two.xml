@@ -99,10 +99,11 @@
                 android:background="@drawable/editback"
                 android:clickable="true"
                 android:editable="false"
+                android:textAlignment="viewEnd"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:ems="10"
-                android:focusable="false"
-                android:hint="بداية وقت الدوام الصباحي  "
-                android:inputType="number" />
+                 android:hint="بداية وقت الدوام الصباحي  "
+                />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_input_layout"
@@ -119,8 +120,8 @@
                 android:clickable="true"
                 android:editable="false"
                 android:ems="10"
-                android:focusable="false"
-
+                android:textAlignment="viewEnd"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:hint="نهاية وقت العمل الصباحي"
                 android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
@@ -134,9 +135,10 @@
                 android:clickable="true"
                 android:editable="false"
                 android:ems="10"
-                android:focusable="false"
-                android:hint="بداية وقت الدوام المسائي  "
-                android:inputType="text" />
+                android:textAlignment="viewEnd"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                 android:hint="بداية وقت الدوام المسائي  "
+                  />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_input_layout2"
@@ -153,9 +155,11 @@
                 android:clickable="true"
                 android:editable="false"
                 android:ems="10"
-                android:focusable="false"
+                android:textAlignment="viewEnd"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                 android:focusable="false"
                 android:hint="نهاية وقت الدوام المسائي  "
-                android:inputType="text" />
+               />
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>

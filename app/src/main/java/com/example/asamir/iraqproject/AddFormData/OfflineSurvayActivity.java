@@ -261,6 +261,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         btnAfternoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
                 // edt_morning_shift_to.setVisibility(View.GONE);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
@@ -289,6 +290,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         btnBothTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
+                edt_morning_shift_from.setFocusable(true);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
                 btnDeleteFromMor.setVisibility(View.VISIBLE);
@@ -332,6 +335,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                             amPm = " " +" AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        edt_morning_shift_to.setFocusable(true);
                         try {
                             inTime = sdf.parse(edt_morning_shift_from.getText().toString());
                         } catch (ParseException e) {
@@ -366,6 +370,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                                 amPm = " " + " AM";
                             }
                             edt_morning_shift_to.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
                             try {
                                 outTime = sdf.parse(edt_morning_shift_to.getText().toString());
                             } catch (ParseException e) {

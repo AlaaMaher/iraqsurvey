@@ -23,6 +23,12 @@
         android:layout_margin="10dp"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+         android:text="العدد:"
+        android:textColor="#000" />
     <EditText
         android:id="@+id/edt_roomCount"
         android:hint="العدد"
@@ -32,6 +38,12 @@
         android:layout_marginTop="5dp"
         android:inputType="number"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="ملاحظات:"
+        android:textColor="#000" />
     <EditText
         android:id="@+id/edt_job_note"
         android:hint="ملاحظات"

@@ -228,10 +228,19 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
                                 final String roomFer = edt_roomFre.getText().toString();
-                                if (roomName.trim().isEmpty()&&roomCount.trim().isEmpty()&&roomFer.trim().isEmpty())
+                                if (roomName.trim().isEmpty())
                                 {
-                                    Toast.makeText(RoomsTableActivity.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
-                                }else {
+                                    Toast.makeText(RoomsTableActivity.this,"برجاء ادخال اسم الغرفه ! ",Toast.LENGTH_LONG).show();
+
+                                } else if (roomCount.trim().isEmpty()) {
+                                    Toast.makeText(RoomsTableActivity.this,"برجاء ادخال عدد الغرف ! ",Toast.LENGTH_LONG).show();
+                                }
+
+//                                else if (roomFer.trim().isEmpty()) {
+//                                    Toast.makeText(RoomsTableActivity.this,"برجاء ادخال الاثاث الموجود في الغرفه ! ",Toast.LENGTH_LONG).show();
+//                                }
+
+                                else {
                                     roomList.add(new RoomsModel(roomName, roomCount, roomFer));
                                     roomsTableAdapter.notifyData(roomList);
                                     if (roomList.isEmpty()) {
