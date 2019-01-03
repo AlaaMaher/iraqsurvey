@@ -4,8 +4,10 @@ import android.app.TimePickerDialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
@@ -45,6 +47,7 @@ import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.OfficeofflineS
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -175,6 +178,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     Boolean valMor=false;
     Boolean valEve=false;
     boolean clicked=false;
+    private String pn;
 
     /**
      * NOTE :
@@ -188,6 +192,15 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_survay);
         ButterKnife.bind(this);
+
+        //pn = getIntent().getExtras().getString("pn");
+        /*SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String restoredText = prefs.getString("pn", null);
+        if (restoredText != null)
+        {
+            pn = prefs.getString("pn", "");
+        }*/
+        
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvTootBarTitle.setText("المسح الميداني");
         setSupportActionBar(toolbar);
@@ -214,6 +227,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
 
         databaseDisReference = FirebaseDatabase.getInstance().getReference("District");
+
         govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         citiesDataBase = Room.databaseBuilder(getApplicationContext(),
@@ -786,6 +800,11 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     }
 
     public void iniGovSpinner() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
         // Spinner click listener
         spinnerGov.setPrompt("أختار المحافظة");
         govList.add(0,new GovEntity("dummyid","--أختر--"));
@@ -812,14 +831,24 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             }
         });
 
+            }
+        }, 2000);
+
 
     }
 
 
     public void iniCitiesSpinner() {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+
         // Spinner click listener
         spinnerCities.setPrompt("أختار المدينة");
-        spinnerCities.setOnItemSelectedListener(this);
+        spinnerCities.setOnItemSelectedListener(OfflineSurvayActivity.this);
 
         citiesList.add(0,new CityEntity("dummyid","--أختر--",""));
         if (!strGovId.equals("dummyid"))
@@ -855,9 +884,18 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
             }
         });
+            }
+        }, 1000);
+
     }
 
     public void iniDistrictsSpinner() {
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
 
         // Spinner Drop down elements
         spinnerDistrict.setPrompt("أختار الحي");
@@ -899,10 +937,20 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
             }
         });
+            }
+        }, 1000);
+
     }
 
     public void iniOfficesSpinner() {
 
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+
+        /*
         // Spinner Drop down elements
         spinnerOfficeName.setPrompt("أختار المكتب");
         officesList.add(0,new OfficeEntity("dummyid","--أختر--","",""));
@@ -936,6 +984,47 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
             }
         });
+        */
+
+        pn=ConstMethods.getSavedprogectid(OfflineSurvayActivity.this);
+        //Toast.makeText(OfflineSurvayActivity.this,pn,Toast.LENGTH_LONG).show();
+
+        // Spinner Drop down elements
+        spinnerOfficeName.setPrompt("أختار المكتب");
+        officesList.add(0,new OfficeEntity("dummyid","--أختر--","",""));
+        if (!strDisrtric.equals(""))
+        {
+            for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).size(); i++) {
+
+                officesList.add(new OfficeEntity(officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeId(),
+                        officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeName(),
+                        strDisrtric, officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getProject_id()));
+            }
+            OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
+            spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+        }else {
+            OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
+            spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+        }
+
+
+        spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (officesList.size() != 0) {
+                    strofficeid = officesList.get(position).getOfficeId();
+                    Log.e("OFFICE ID -->", strofficeid);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+            }
+        }, 1000);
+
     }
 
 

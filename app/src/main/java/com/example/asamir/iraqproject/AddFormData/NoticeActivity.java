@@ -180,7 +180,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
 
                 tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
             }
-        }, 9000);
+        }, 6000);
     }
 
 
@@ -206,7 +206,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                 }
                 tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
             }
-        }, 3000);
+        }, 1000);
     }
 
 

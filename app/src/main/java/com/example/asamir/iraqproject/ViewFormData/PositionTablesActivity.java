@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
@@ -35,6 +38,10 @@ import com.example.asamir.iraqproject.LoginActivity;
 import com.example.asamir.iraqproject.Models.DataCollectionModel;
 import com.example.asamir.iraqproject.Models.JobsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
+import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.JobsOfflineSpinnerAdapter;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
@@ -57,6 +64,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//import static com.example.asamir.iraqproject.OfflineWork.Database.MIGRATION_11_12;
+
 public class PositionTablesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     int scrollX = 0;
     ArrayList<JobsModel> jobList = new ArrayList<>();
@@ -78,6 +87,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
     private DataCollectionModel dataCollectionModel;
     List<JobsModel> newJobList;
     ArrayList<String>  jobNameList=new ArrayList();
+    private Database jobDataBase;
+    List<JobEntity> jobList1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +106,14 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        jobDataBase = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "jobTable").allowMainThreadQueries().build();
+
+        /*jobDataBase = Room.databaseBuilder(getApplicationContext(), Database.class, "jobTable")
+                .addMigrations(MIGRATION_11_12,).build();*/
+
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -244,7 +263,7 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         final Spinner spinnerJobs = promptsView.findViewById(R.id.spinnerJobs);
 
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        /*final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(PositionTablesActivity.this));
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
@@ -274,7 +293,42 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
+
+        /*
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms*/
+                // Spinner click listener
+                spinnerJobs.setPrompt("أختار الوظيفة");
+                jobList1.add(0,new JobEntity("dummyid","--أختر--"));
+                for (int i = 0; i < jobDataBase.userDao().getJobs().size(); i++) {
+                    Log.e("Gov DATA --->", jobDataBase.userDao().getJobs().get(i).toString());
+                    jobList1.add(new JobEntity(jobDataBase.userDao().getJobs().get(i).getJobId(), jobDataBase.userDao().getJobs().get(i).getJobName()));
+                }
+                JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, jobList1);
+                spinnerJobs.setAdapter(govofflineSpinnerAdapter);
+                spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        jobName = jobList1.get(position).getJobName();
+                        //Log.e("KEY-->", strGovId);
+                        //citiesList.clear();
+                        //iniCitiesSpinner();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        Toast.makeText(PositionTablesActivity.this, "Please Choose Your Job", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
+
+           /* }
+        }, 1000);*/
 
 
         // set dialog message
