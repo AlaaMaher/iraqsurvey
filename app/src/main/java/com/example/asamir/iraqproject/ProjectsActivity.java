@@ -3,7 +3,9 @@ package com.example.asamir.iraqproject;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.example.asamir.iraqproject.Models.ProjectsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
+import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProjectsActivity extends AppCompatActivity {
+
+
 
 
     @BindView(R.id.tvp1)
@@ -65,6 +70,14 @@ public class ProjectsActivity extends AppCompatActivity {
                 Database.class, "userProjects").allowMainThreadQueries().build();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String id = FirebaseAuth.getInstance().getUid();
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+
         if (ConnectivityHelper.isConnectedToNetwork(ProjectsActivity.this)) {
             progressBar.setVisibility(View.VISIBLE);
             DatabaseReference ref = database.getReference("Project_user").child(id);
@@ -119,10 +132,19 @@ public class ProjectsActivity extends AppCompatActivity {
                     if (checkIfBareedOrNot(tvp1.getText().toString())) {
                         ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                        //Intent i=new Intent(ProjectsActivity.this, SurvayScreen.class);
+                        //i.putExtra("pn",projectsModels.get(0).getName());
+                        //startActivity(i);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
 
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                     }
@@ -135,10 +157,16 @@ public class ProjectsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (checkIfBareedOrNot(tvp2.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
                     }
@@ -151,10 +179,16 @@ public class ProjectsActivity extends AppCompatActivity {
 
                     if (checkIfBareedOrNot(tvp3.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
                         startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
                     }
@@ -248,6 +282,9 @@ public class ProjectsActivity extends AppCompatActivity {
             });
         }
 
+            }
+        }, 3000);
+
         Log.e("SURVAY DATA -->",Room.databaseBuilder(getApplicationContext(),
                 Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
 
@@ -297,6 +334,11 @@ public class ProjectsActivity extends AppCompatActivity {
 
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
+
+        FirebaseAuth.getInstance().signOut();
+        //////////////////////////////////BY_Mohammed
+        Sesstion.getInstance(this).logout();
+      //////////////////////////////////////////
     }
 
     public boolean checkIfBareedOrNot(String name) {

@@ -271,7 +271,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btnMorning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                edt_morning_shift_from.setFocusable(true);
                 // edt_morning_shift_to.setVisibility(View.VISIBLE);
                 edt_morning_shift_from.setVisibility(View.VISIBLE);
                 btnDeleteFromMor.setVisibility(View.VISIBLE);
@@ -301,6 +301,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btnAfternoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
                 // edt_morning_shift_to.setVisibility(View.GONE);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
@@ -329,6 +330,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btnBothTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edt_morning_shift_from.setFocusable(true);
                 btnDeleteFromEve.setVisibility(View.VISIBLE);
                 btnDeleteToEve.setVisibility(View.VISIBLE);
                 btnDeleteFromMor.setVisibility(View.VISIBLE);
@@ -373,6 +375,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                             amPm =" "+ " AM";
                         }
                         edt_morning_shift_from.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                        edt_morning_shift_to.setFocusable(true);
                         try {
                             inTime = sdf.parse(edt_morning_shift_from.getText().toString());
                         } catch (ParseException e) {
@@ -441,7 +444,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 }
                 else
                 {
-                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -520,7 +523,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
 
                 }else {
-                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BasicInfoActivity.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -538,7 +541,6 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
                     if (!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null) {

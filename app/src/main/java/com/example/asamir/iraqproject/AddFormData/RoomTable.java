@@ -4,13 +4,13 @@ import android.app.Dialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -174,14 +174,22 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();
     }
 
+
     public void goTONext(View view) {
+//        new AlertDialog.Builder(this)
+//                .setMessage("هل أنت متاكد من الخروج من الصفحة ؟ ")
+//                .setCancelable(false)
+//                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                    }
+//                })
+//                .setNegativeButton("الغاء", null)
+//                .show();
 
-
-            saveData();
-            startActivity(new Intent(RoomTable.this,SketchPlace.class));
-
-
-    }
+        saveData();
+        startActivity(new Intent(RoomTable.this,SketchPlace.class));
+}
     public void saveData(){
         Gson gson = new Gson();
         String roomsArray = gson.toJson(roomList);
@@ -251,11 +259,19 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                                 final String roomCount = edt_rooms_count.getText().toString();
                                 EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
                                 final String roomFer = edt_roomFre.getText().toString();
-                                if (roomName.trim().isEmpty()&&roomCount.trim().isEmpty()&&roomFer.trim().isEmpty())
-                                {
-                                    Toast.makeText(RoomTable.this,"برجاء ادخال جميع الحقول المطلوبة",Toast.LENGTH_LONG).show();
 
-                                }else {
+                                if (roomName.trim().isEmpty())
+                                {
+                                    Toast.makeText(RoomTable.this, "برجاء ادخال اسم الغرفه ! ", Toast.LENGTH_LONG).show();
+
+                                } else if (roomCount.trim().isEmpty()) {
+                                    Toast.makeText(RoomTable.this, "برجاء ادخال عدد الغرف ! ", Toast.LENGTH_LONG).show();
+                                }
+
+//                                else if (roomFer.trim().isEmpty()) {
+//                                    Toast.makeText(RoomTable.this,"برجاء ادخال الاثاث الموجود في الغرفه ! ",Toast.LENGTH_LONG).show();
+//                                }
+                                else {
                                     roomList.add(new RoomsModel(roomName, roomCount, roomFer));
                                     roomsTableAdapter.notifyData(roomList);
                                     if (roomList.isEmpty())
@@ -291,6 +307,21 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
                 .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finish();
+                    }
+                })
+                .setNegativeButton("الغاء", null)
+                .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(this)
+                .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                .setCancelable(false)
+                .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        RoomTable.super.onBackPressed();
                     }
                 })
                 .setNegativeButton("الغاء", null)

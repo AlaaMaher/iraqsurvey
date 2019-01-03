@@ -126,9 +126,14 @@
                     </LinearLayout>
 
 
-
-
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:maxLength="32"
+                    android:text=" أضافة مدينة غير موجودة:"
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_other_cities"
                     android:layout_width="match_parent"
@@ -188,6 +193,14 @@
                     />
             </LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:maxLength="32"
+                    android:text=" أضافة حي غير موجود:"
+                    android:textColor="#000" />
 
                 <EditText
                     android:id="@+id/edt_other_district"
@@ -263,7 +276,14 @@
                 </LinearLayout>
 
 
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:maxLength="32"
+                    android:text="العنوان:"
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_address"
                     android:layout_width="match_parent"
@@ -275,6 +295,15 @@
                     android:hint="العنوان"
                     android:maxLength="255"
                     />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:maxLength="32"
+                    android:text="رقم الهاتف :"
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
@@ -399,6 +428,15 @@
 
                 </RadioGroup>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:maxLength="100"
+                    android:text="سرعة الانترنت بالميجابت لكل ثانيه"
+                    android:textColor="#000" />
+
                 <EditText
                     android:id="@+id/edt_internetSeed"
                     android:layout_width="match_parent"
@@ -490,6 +528,7 @@
                     android:background="@drawable/corner_gray"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginEnd="8dp"/>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_layout3"
                     android:layout_width="0dp"
@@ -662,6 +701,14 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+
+                    android:text="عدد اجهزه الحاسب الآلي  :"
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_computer_count"
                     android:layout_width="match_parent"
@@ -672,6 +719,15 @@
                     android:inputType="number"
                     android:maxLength="10"
                     android:hint="عدد اجهزه الحاسب الآلي   " />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+
+                    android:text="ملاحظات علي اجهزة الحاسب الآلي "
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_computer_notes"
                     android:layout_width="match_parent"
@@ -682,6 +738,15 @@
                     android:inputType="textMultiLine"
                     android:maxLength="255"
                     android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+
+                    android:text="عدد الطابعات "
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_printers_count"
                     android:layout_width="match_parent"
@@ -692,6 +757,15 @@
                     android:maxLength="10"
                     android:inputType="number"
                     android:hint="عدد الطابعات "  />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+
+                    android:text="ملاحظات علي عدد الطابعات  :"
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_printers_notes"
                     android:layout_width="match_parent"
@@ -702,6 +776,14 @@
                     android:inputType="textMultiLine"
                     android:maxLength="255"
                     android:hint="ملاحظات علي عدد الطابعات "  />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:text="عدد الماسحات الضوئية : "
+                    android:textColor="#000" />
                 <EditText
                     android:id="@+id/edt_scanners_count"
                     android:layout_width="match_parent"
@@ -712,6 +794,34 @@
                     android:background="@drawable/editback"
                     android:inputType="number"
                     android:hint="عدد الماسحات الضوئية  "  />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:text="ملاحظات علي عدد الماسحات الضوئية "
+                    android:textColor="#000" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/editback"
+                    android:ems="10"
+                    android:hint="ملاحظات علي عدد الماسحات الضوئية "
+                    android:inputType="textMultiLine"
+                    android:maxLength="255" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:text="ملاحظات علي عدد الماسحات الضوئية :"
+                    android:textColor="#000" />
+
+
                 <EditText
                     android:id="@+id/edt_scanners_notes"
                     android:layout_width="match_parent"

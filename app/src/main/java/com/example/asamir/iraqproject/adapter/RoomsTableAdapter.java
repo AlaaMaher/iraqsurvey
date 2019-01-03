@@ -12,11 +12,14 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Filter;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.asamir.iraqproject.AddFormData.RoomTable;
 import com.example.asamir.iraqproject.Models.RoomsModel;
 import com.example.asamir.iraqproject.R;
+import com.example.asamir.iraqproject.ViewFormData.RoomsTableActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,11 +213,23 @@ public class RoomsTableAdapter extends RecyclerView.Adapter<RoomsTableAdapter.Cl
 
                                 final String roomFer = edt_roomFre.getText().toString();
 
-                               // final String roomDisc = edt_desc.getText().toString();
-                                roomList.add(new RoomsModel(roomName, roomCount, roomFer));
-                                notifyData(roomList);
+                                if (roomName.trim().isEmpty())
+                                {
+                                    Toast.makeText(context,"برجاء ادخال اسم الغرفه ! ",Toast.LENGTH_LONG).show();
 
-                                dialog.cancel();
+                                } else if (roomCount.trim().isEmpty()) {
+                                    Toast.makeText(context,"برجاء ادخال عدد الغرف ! ",Toast.LENGTH_LONG).show();
+                                }
+//                                else if (roomFer.trim().isEmpty()) {
+//                                    Toast.makeText(context,"برجاء ادخال الاثاث الموجود في الغرفه ! ",Toast.LENGTH_LONG).show();
+//                                }
+                                else {
+                                    // final String roomDisc = edt_desc.getText().toString();
+                                    roomList.add(new RoomsModel(roomName, roomCount, roomFer));
+                                    notifyData(roomList);
+
+                                    dialog.cancel();
+                                }
                             }
                         })
                 .setNegativeButton("إلغاء",

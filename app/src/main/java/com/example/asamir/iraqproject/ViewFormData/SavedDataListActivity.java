@@ -3,7 +3,9 @@ package com.example.asamir.iraqproject.ViewFormData;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.NoticeActivity;
+import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
@@ -30,6 +33,14 @@ import com.example.asamir.iraqproject.Models.DistrictsModels;
 import com.example.asamir.iraqproject.Models.GovModels;
 import com.example.asamir.iraqproject.Models.OfficeModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
+import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.CitiesOfflineSpinnerAdapter;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.DistricofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.OfficeofflineSpinnerAdapter;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
@@ -37,6 +48,7 @@ import com.example.asamir.iraqproject.adapter.CitiesSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.OfficeAdapter;
+import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,15 +91,52 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
     private String strCityName;
     private String strDistricName;
     private String strofficeName;
+    private String strDisrtric;
     String officeVisit;
     private DataCollectionModel dataCollectionModel;
+    private static Database govDataBase1, citiesDataBase1, districDataBase1, officeDataBase1;
+    List<GovEntity> govList1 = new ArrayList<>();
+    List<CityEntity> citiesList1 = new ArrayList<>();
+    final List<DistricEntity> districsList1 = new ArrayList<>();
+    private List<OfficeEntity> officesList1 = new ArrayList<>();
+    private DatabaseReference databaseDisReference;
+    private String pn;
+    private Database officeByProjectDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_data_list);
         ButterKnife.bind(this);
+
+        //pn = getIntent().getExtras().getString("pn");
+
+        /*SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String restoredText = prefs.getString("pn", null);
+        if (restoredText != null)
+        {
+            pn = prefs.getString("pn", "");
+        }*/
+
+
+
+        databaseDisReference = FirebaseDatabase.getInstance().getReference("District");
+
+        govDataBase1 = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "govTable").allowMainThreadQueries().build();
+        citiesDataBase1 = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "cityTable").allowMainThreadQueries().build();
+
+        districDataBase1 = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "districTable").allowMainThreadQueries().build();
+
+        officeDataBase1 = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "officeTable").allowMainThreadQueries().build();
+        
+        officeByProjectDataBase=Room.databaseBuilder(getApplicationContext(),Database.class,"cityTable").allowMainThreadQueries().build();
+
         iniGovSpinner();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -313,217 +362,443 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
     }
 
     public void iniGovSpinner() {
-        // Spinner click listener
 
-        spinnerGov.setPrompt("أختار المحافظة");
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Governorate");
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                govList.clear();
-                govList.add(0,new GovModels("dummyid","--اختر المحافظة--"));
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
-                    govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+            public void run() {
+                // Do something after 5s = 5000ms
+
+        if (ConnectivityHelper.isConnectedToNetwork(SavedDataListActivity.this)) {
+            // Spinner click listener
+
+            spinnerGov.setPrompt("أختار المحافظة");
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("Governorate");
+            // Attach a listener to read the data at our posts reference
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    govList.clear();
+                    govList.add(0, new GovModels("dummyid", "--اختر المحافظة--"));
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
+                        govList.add(new GovModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                    }
+                    GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, govList);
+                    spinnerGov.setAdapter(govSpinnerAdapter);
                 }
-                GovSpinnerAdapter govSpinnerAdapter = new GovSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, govList);
-                spinnerGov.setAdapter(govSpinnerAdapter);
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
+            spinnerGov.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    strGovId = govList.get(position).getId();
+                    strGovName = govList.get(position).getName();
+
+                    Log.e("KEY-->", strGovId);
+                    citiesList.clear();
+
+
+                    iniCitiesSpinner();
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }else{
+            // Spinner click listener
+            spinnerGov.setPrompt("أختار المحافظة");
+            govList1.add(0,new GovEntity("dummyid","--أختر--"));
+            for (int i = 0; i < govDataBase1.userDao().getGovs().size(); i++) {
+                Log.e("Gov DATA --->", govDataBase1.userDao().getGovs().get(i).toString());
+                govList1.add(new GovEntity(govDataBase1.userDao().getGovs().get(i).getGovId(), govDataBase1.userDao().getGovs().get(i).getGovName()));
+
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+
+
+            GovofflineSpinnerAdapter govofflineSpinnerAdapter = new GovofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, govList1);
+            spinnerGov.setAdapter(govofflineSpinnerAdapter);
+            spinnerGov.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    strGovId = govList1.get(position).getGovId();
+                    strGovName = govList1.get(position).getGovName();
+                    Log.e("KEY-->", strGovId);
+                    citiesList1.clear();
+                    iniCitiesSpinner();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    Toast.makeText(SavedDataListActivity.this, "Please Choose Your Gov", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+        }
             }
-        });
-        spinnerGov.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                strGovId = govList.get(position).getId();
-                strGovName=govList.get(position).getName();
-
-                Log.e("KEY-->", strGovId);
-                citiesList.clear();
-
-
-                iniCitiesSpinner();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        }, 2000);
 
 
     }
+
 
 
     public void iniCitiesSpinner() {
-        // Spinner click listener
-        spinnerCities.setOnItemSelectedListener(this);
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("City").child(strGovId);
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                citiesList.clear();
-                citiesList.add(0,new CitiesModels("dummyid","--اختر المدينة--"));
-                if (!strGovId.equals("dummyid")) {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+            public void run() {
+                // Do something after 5s = 5000ms
+        if (ConnectivityHelper.isConnectedToNetwork(SavedDataListActivity.this)) {
+            // Spinner click listener
+            spinnerCities.setOnItemSelectedListener(SavedDataListActivity.this);
 
-                        citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("City").child(strGovId);
+            // Attach a listener to read the data at our posts reference
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    citiesList.clear();
+                    citiesList.add(0, new CitiesModels("dummyid", "--اختر المدينة--"));
+                    if (!strGovId.equals("dummyid")) {
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                        }
+                        CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList);
+                        spinnerCities.setAdapter(citiesSpinnerAdapter);
+                    } else {
+                        CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList);
+                        spinnerCities.setAdapter(citiesSpinnerAdapter);
                     }
-                    CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList);
-                    spinnerCities.setAdapter(citiesSpinnerAdapter);
-                }
-                else {
-                    CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList);
-                    spinnerCities.setAdapter(citiesSpinnerAdapter);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-        spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (citiesList.size() != 0) {
-                    districsList.clear();
-                    strCityId = citiesList.get(position).getId();
-                    strCityName=citiesList.get(position).getName();
-
-                    iniDistrictsSpinner();
 
                 }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
+            spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (citiesList.size() != 0) {
+                        districsList.clear();
+                        strCityId = citiesList.get(position).getId();
+                        strCityName = citiesList.get(position).getName();
+
+                        iniDistrictsSpinner();
+
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }else{
+            // Spinner click listener
+            spinnerCities.setPrompt("أختار المدينة");
+            spinnerCities.setOnItemSelectedListener(SavedDataListActivity.this);
+
+            citiesList1.add(0,new CityEntity("dummyid","--أختر--",""));
+            if (!strGovId.equals("dummyid"))
+            {
+                for (int i = 0; i < citiesDataBase1.userDao().getCityBygovId(strGovId).size(); i++) {
+
+                    citiesList1.add(new CityEntity(citiesDataBase1.userDao().getCityBygovId(strGovId).get(i).getCityId(),
+                            citiesDataBase1.userDao().getCityBygovId(strGovId).get(i).getCityName(), strGovId));
+                }
+                CitiesOfflineSpinnerAdapter citiesSpinnerAdapter = new CitiesOfflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList1);
+                spinnerCities.setAdapter(citiesSpinnerAdapter);
+            }else {
+                CitiesOfflineSpinnerAdapter citiesSpinnerAdapter = new CitiesOfflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, citiesList1);
+                spinnerCities.setAdapter(citiesSpinnerAdapter);
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+
+            spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (citiesList1.size() != 0) {
+                        strCityId = citiesList1.get(position).getCityId();
+                        districsList1.clear();
+                        iniDistrictsSpinner();
+                    }
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    Toast.makeText(SavedDataListActivity.this, "Please Choose Your city", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
             }
-        });
+        }, 1000);
     }
 
     public void iniDistrictsSpinner() {
-
-        // Spinner Drop down elements
-
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("District").child(strCityId);
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                districsList.clear();
-                districsList.add(0,new DistrictsModels("dummyid","--اختر الحى--"));
-                if (!strCityId.equals("dummyid"))
-                {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+            public void run() {
+                // Do something after 5s = 5000ms
 
-                    districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+        if (ConnectivityHelper.isConnectedToNetwork(SavedDataListActivity.this)) {
+
+            // Spinner Drop down elements
+
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("District").child(strCityId);
+            // Attach a listener to read the data at our posts reference
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    districsList.clear();
+                    districsList.add(0, new DistrictsModels("dummyid", "--اختر الحى--"));
+                    if (!strCityId.equals("dummyid")) {
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
+                        }
+                        DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList);
+                        spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+                    } else {
+                        DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList);
+                        spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+                    }
                 }
-                DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList);
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
+            spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (districsList.size() != 0) {
+                        officesList.clear();
+                        strDistricId = districsList.get(position).getId();
+                        strDistricName = districsList.get(position).getName();
+
+                        iniOfficesSpinner();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }else{
+            // Spinner Drop down elements
+            spinnerDistrict.setPrompt("أختار الحي");
+            districsList1.add(0,new DistricEntity("dummyid","--أختر--",""));
+            if (!strCityId.equals(""))
+            {
+                for (int i = 0; i < districDataBase1.userDao().getDistricByCityId(strCityId).size(); i++) {
+
+                    districsList1.add(new DistricEntity(strCityId, districDataBase1.userDao().getDistricByCityId(strCityId).get(i).getDistricName(),
+                            districDataBase1.userDao().getDistricByCityId(strCityId).get(i).getDistricId()));
+                }
+
+                DistricofflineSpinnerAdapter citiesSpinnerAdapter = new DistricofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList1);
                 spinnerDistrict.setAdapter(citiesSpinnerAdapter);
-                }else {
-                    DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList);
-                    spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+
+            }else {
+                DistricofflineSpinnerAdapter citiesSpinnerAdapter = new DistricofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, districsList1);
+                spinnerDistrict.setAdapter(citiesSpinnerAdapter);
+            }
+
+
+
+            spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (districsList1.size() != 0) {
+
+                        strDisrtric = districsList1.get(position).getDistricId();
+                        officesList1.clear();
+                        iniOfficesSpinner();
+
+
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    Toast.makeText(SavedDataListActivity.this, "Please Choose Your District", Toast.LENGTH_SHORT).show();
 
-        spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (districsList.size() != 0) {
-                    officesList.clear();
-                    strDistricId = districsList.get(position).getId();
-                   strDistricName=districsList.get(position).getName();
-
-                    iniOfficesSpinner();
                 }
+            });
+        }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        }, 1000);
     }
 
     public void iniOfficesSpinner() {
 
-        // Spinner Drop down elements
-
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Office").child(strDistricId);
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                officesList.clear();
-                officesList.add(0,new OfficeModel("dummyid","--اختر المكتب--","0"));
-                if (!strDistricId.equals("dummyid"))
-                {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+            public void run() {
+                // Do something after 5s = 5000ms
 
-                    if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SavedDataListActivity.this)))
-                        officesList.add(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString(), dataSnapshot1.child("visited").getValue().toString()));
+        if (ConnectivityHelper.isConnectedToNetwork(SavedDataListActivity.this)) {
+
+            // Spinner Drop down elements
+
+
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("Office").child(strDistricId);
+            // Attach a listener to read the data at our posts reference
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    officesList.clear();
+                    officesList.add(0, new OfficeModel("dummyid", "--اختر المكتب--", "0"));
+                    if (!strDistricId.equals("dummyid")) {
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            if (dataSnapshot1.child("project_id").getValue().toString().equals(ConstMethods.getSavedprogectid(SavedDataListActivity.this)))
+                                officesList.add(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString(), dataSnapshot1.child("visited").getValue().toString()));
+                        }
+                        OfficeAdapter citiesSpinnerAdapter = new OfficeAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList);
+                        spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+                    } else {
+                        OfficeAdapter citiesSpinnerAdapter = new OfficeAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList);
+                        spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+                    }
                 }
-                    OfficeAdapter citiesSpinnerAdapter = new OfficeAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList);
-                    spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
-                }else {
-                    OfficeAdapter citiesSpinnerAdapter = new OfficeAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList);
-                    spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-        spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (officesList.size() != 0) {
-                    strofficeid = officesList.get(position).getId();
-                    officeVisit=officesList.get(position).getVis();
-                    strofficeName=officesList.get(position).getName();
+            spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (officesList.size() != 0) {
+                        strofficeid = officesList.get(position).getId();
+                        officeVisit = officesList.get(position).getVis();
+                        strofficeName = officesList.get(position).getName();
 
 
-                    Log.e("OFFICE Vis -->", String.valueOf(officeVisit));
+                        Log.e("OFFICE Vis -->", String.valueOf(officeVisit));
 
 
-
-                    Log.e("OFFICE ID -->", strofficeid);
+                        Log.e("OFFICE ID -->", strofficeid);
+                    }
                 }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }else {
+            /*
+            // Spinner Drop down elements
+            spinnerOfficeName.setPrompt("أختار المكتب");
+            officesList1.add(0,new OfficeEntity("dummyid","--أختر--","",""));
+            if (!strDisrtric.equals(""))
+            {
+                for (int i = 0; i < officeDataBase1.userDao().getOfficeByDistricId(strDisrtric).size(); i++) {
+
+                    officesList1.add(new OfficeEntity(officeDataBase1.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeId(),
+                            officeDataBase1.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeName(),
+                            strDisrtric, officeDataBase1.userDao().getOfficeByDistricId(strDisrtric).get(i).getProject_id()));
+                }
+                OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList1);
+                spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+            }else {
+                OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList1);
+                spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+            spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (officesList1.size() != 0) {
+                        strofficeid = officesList1.get(position).getOfficeId();
+                        Log.e("OFFICE ID -->", strofficeid);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            */
+
+
+            pn=ConstMethods.getSavedprogectid(SavedDataListActivity.this);
+            //Toast.makeText(SavedDataListActivity.this,pn,Toast.LENGTH_LONG).show();
+
+
+            // Spinner Drop down elements
+            spinnerOfficeName.setPrompt("أختار المكتب");
+            officesList1.add(0,new OfficeEntity("dummyid","--أختر--","",""));
+            if (!strDisrtric.equals(""))
+            {
+                for (int i = 0; i < officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).size(); i++) {
+
+                    officesList1.add(new OfficeEntity(officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeId(),
+                            officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeName(),
+                            strDisrtric, officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getProject_id()));
+                }
+                OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList1);
+                spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
+            }else {
+                OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList1);
+                spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
             }
-        });
+
+
+            spinnerOfficeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (officesList1.size() != 0) {
+                        strofficeid = officesList1.get(position).getOfficeId();
+                        Log.e("OFFICE ID -->", strofficeid);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        }
+            }
+        }, 1000);
     }
 
 
