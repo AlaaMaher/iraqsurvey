@@ -3,6 +3,7 @@ package com.example.asamir.iraqproject.AddFormData;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -101,12 +102,15 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));*/
         ////////////////
 
-        getLocation();
+
 
 
 
 
         tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
+
+        getLocation();
+
         databaseReference = FirebaseDatabase.getInstance().getReference("OFFICE_DATA");
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Office");
         survayoffDB = Room.databaseBuilder(getApplicationContext(),
@@ -119,11 +123,66 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         getLocation();
     }*/
 
+/*
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+                String restoredText = prefs.getString("latitude", null);
+                if (restoredText != null)
+                {
+                    //mSaved.setText(restoredText, TextView.BufferType.EDITABLE);
+                    latitude = Double.parseDouble(prefs.getString("latitude", ""));
+                    longitude = Double.parseDouble(prefs.getString("longitude", ""));
+
+                }
+
+                tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
+            }
+        }, 3000);
+
+    }
+    */
+
+    /*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getLocation();
+    }*/
+
     @Override
     protected void onResume() {
         super.onResume();
-        getLocation();
+        //getLocation();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms
+                SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+                String restoredText = prefs.getString("latitude", null);
+                if (restoredText != null)
+                {
+                    //mSaved.setText(restoredText, TextView.BufferType.EDITABLE);
+                    latitude = Double.parseDouble(prefs.getString("latitude", ""));
+                    longitude = Double.parseDouble(prefs.getString("longitude", ""));
+
+                }
+
+                tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
+            }
+        }, 9000);
     }
+
+
 
     public void getLocation(){
         final Handler handler = new Handler();
@@ -136,12 +195,17 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
                     latitude = gpsTracker.getLatitude();
                     longitude = gpsTracker.getLongitude();
 
+                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                    editor.putString("latitude", String.valueOf(latitude));
+                    editor.putString("longitude", String.valueOf(longitude));
+                    editor.apply();
+
                 } else {
                     gpsTracker.showSettingsAlert();
                 }
                 tvLatLang.setText(String.valueOf(latitude) + " -- " + String.valueOf(longitude));
             }
-        }, 1000);
+        }, 3000);
     }
 
 
