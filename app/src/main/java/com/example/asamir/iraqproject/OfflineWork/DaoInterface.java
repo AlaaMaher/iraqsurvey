@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.SurvayEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
@@ -50,8 +51,10 @@ public interface DaoInterface {
     void insertoffice(OfficeEntity officeEntity);
     @Query("SELECT * FROM officeTable")
     List<OfficeEntity> getAllOfficeies();
-    @Query("SELECT * FROM officeTable WHERE  districId=:districId")
+    @Query("SELECT * FROM officeTable WHERE  districId=:districId ")
     List<OfficeEntity> getOfficeByDistricId(String districId);
+    @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId ")
+    List<OfficeEntity> getOfficeByDistricIdandProjectId(String districId,String projectId);
     @Query("DELETE FROM officeTable")
     void deleteOfficeData();
 
@@ -75,4 +78,15 @@ public interface DaoInterface {
     List<UserProjectsEntity> getUserProjectsbyId(String userId);
     @Query("DELETE FROM userProjects")
     void deleteUserProjectsData();
+
+
+    //--------  gobs work
+    @Insert
+    void insertJob(JobEntity jobEntity);
+    @Query("SELECT * FROM jobTable")
+    List<JobEntity> getJobs();
+    @Query("DELETE FROM jobTable")
+    void deleteJobData();
+
+
 }

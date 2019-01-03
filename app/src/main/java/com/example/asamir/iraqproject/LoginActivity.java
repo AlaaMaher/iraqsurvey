@@ -22,6 +22,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
@@ -56,9 +57,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 200;
     static ArrayList<GovEntity> govEntities = new ArrayList<>();
     static FirebaseDatabase firebaseDatabase;
-    private static String govId;
+    private static String govId,jobId;
     List<GovEntity> govList = new ArrayList<>();
     GovofflineSpinnerAdapter govofflineSpinnerAdapter;
+    private static Database jobsDataDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,9 @@ public class LoginActivity extends AppCompatActivity {
         userProjectsDB=Room.databaseBuilder(getApplicationContext(),
                 Database.class, "userProjects").allowMainThreadQueries().build();
 
+        jobsDataDB=Room.databaseBuilder(getApplicationContext(),
+                Database.class, "jobTable").allowMainThreadQueries().build();
+
 
 
     }
@@ -131,6 +136,37 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    public static void getJobs() {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("positions");
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                    jobId = dataSnapshot1.getKey();
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString()));
+
+
+                }
+                Log.e("Job Database Created"," =====>  Done");
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
+
+    }
+
+
 
 
     public static void saveCities(String id) {
