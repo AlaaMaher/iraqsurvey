@@ -66,38 +66,47 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        edit_user_name = findViewById(R.id.edit_user_name);
-        edtPass = findViewById(R.id.edtPass);
-        mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
-            ConstMethods.saveOutDoorPhotos(LoginActivity.this,"");
-            ConstMethods.saveInDoorPhotos(LoginActivity.this,"");
-            ConstMethods.saveSketch(LoginActivity.this,"");
-            startService(new Intent(this, MyService.class));
+        if(ConstMethods.getUserLoginInfo(LoginActivity.this) != null)
+        {
+
+         startActivity(new Intent(LoginActivity.this , ProjectsActivity.class));
         }
-        if (!checkPermission()) {
-            requestPermission();
+
+        else {
+            setContentView(R.layout.activity_login);
+            ButterKnife.bind(this);
+            edit_user_name = findViewById(R.id.edit_user_name);
+            edtPass = findViewById(R.id.edtPass);
+            mAuth = FirebaseAuth.getInstance();
+
+            if (mAuth.getCurrentUser() != null) {
+                startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+                ConstMethods.saveOutDoorPhotos(LoginActivity.this, "");
+                ConstMethods.saveInDoorPhotos(LoginActivity.this, "");
+                ConstMethods.saveSketch(LoginActivity.this, "");
+                startService(new Intent(this, MyService.class));
+            }
+            if (!checkPermission()) {
+                requestPermission();
+
+            }
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            govDataBase = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "govTable").allowMainThreadQueries().build();
+            citiesDataBase = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "cityTable").allowMainThreadQueries().build();
+
+            districDataBase = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "districTable").allowMainThreadQueries().build();
+
+            officeDataBase = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "officeTable").allowMainThreadQueries().build();
+
+            userProjectsDB = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "userProjects").allowMainThreadQueries().build();
 
         }
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        govDataBase = Room.databaseBuilder(getApplicationContext(),
-                Database.class, "govTable").allowMainThreadQueries().build();
-        citiesDataBase = Room.databaseBuilder(getApplicationContext(),
-                Database.class, "cityTable").allowMainThreadQueries().build();
-
-        districDataBase = Room.databaseBuilder(getApplicationContext(),
-                Database.class, "districTable").allowMainThreadQueries().build();
-
-        officeDataBase = Room.databaseBuilder(getApplicationContext(),
-                Database.class, "officeTable").allowMainThreadQueries().build();
-
-        userProjectsDB=Room.databaseBuilder(getApplicationContext(),
-                Database.class, "userProjects").allowMainThreadQueries().build();
-
     }
 
 
@@ -277,7 +286,9 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                             getGoves();
                                             Log.e("Projects DB Created "," =====>  Done");
+                                            ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
+
                                             finish();
                                         }
 

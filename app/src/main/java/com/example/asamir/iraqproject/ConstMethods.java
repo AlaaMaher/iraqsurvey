@@ -13,6 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
  public class ConstMethods {
 
     public static final String MyPREFERENCES = "PREF" ;
+    public static final String USER_PREFERENCES = "USER_PREFERENCES" ;
 
     public static final String MyPREFERENCEdadsS = "PREF" ;
     public  static  void saveBasicInformationData(String value, Context context)
@@ -26,6 +27,27 @@ import static android.content.Context.MODE_PRIVATE;
     {
         SharedPreferences prefs = context.getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         return prefs.getString("basicinfo", "");
+    }
+
+
+
+    public  static  void saveUserLoginInfo(String username, String password, Context context)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(USER_PREFERENCES,0).edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.apply();
+
+    }
+    public  static  String   getUserLoginInfo( Context context)
+    {
+        SharedPreferences prefs = context.getSharedPreferences(USER_PREFERENCES, 0);
+       String username =  prefs.getString("username", null);
+       String password =  prefs.getString("password" , null);
+
+       return username;
+
+
     }
 
     public  static  void saveOffice (String value, Context context)

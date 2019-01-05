@@ -870,12 +870,10 @@ public class SurvayScreen extends AppCompatActivity
                     edt_internetSeed.setVisibility(View.VISIBLE);
                     edt_internetSeed.setText(" ");
 
-
-
-
                 }
             }
         });
+
         radioIsNetWork.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -1060,7 +1058,8 @@ public class SurvayScreen extends AppCompatActivity
                     }
 
 
-                }else {
+                }
+                else {
                     DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(SurvayScreen.this, R.layout.spinneritem, districsList);
                     spinnerDistrict.setAdapter(citiesSpinnerAdapter);
                 }
