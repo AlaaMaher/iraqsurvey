@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         {
 
          startActivity(new Intent(LoginActivity.this , ProjectsActivity.class));
+
         }
 
         else {
@@ -213,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 for (DataSnapshot officeSnapShot : dataSnapshot.getChildren()) {
                     String districId = dataSnapshot.getKey();
-                    officeDataBase.userDao().insertoffice(new OfficeEntity( officeSnapShot.getKey(),officeSnapShot.child("office_name").getValue().toString(),districId, officeSnapShot.child("project_id").getValue().toString()));
+                    officeDataBase.userDao().insertoffice(new OfficeEntity( officeSnapShot.getKey(),officeSnapShot.child("office_name").getValue().toString(),districId, officeSnapShot.child("project_id").getValue().toString(),"1"));
                 }
                 Log.e("Office DB Created "," =====>  Done");
 

@@ -15,12 +15,29 @@ public class OfficeEntity {
     private String officeName;
     private String districId;
     private String project_id;
+    private String officeVisit;
 
-    public OfficeEntity(String officeId, String officeName, String districId, String project_id) {
+    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public String getOfficeVisit() {
+        return officeVisit;
+    }
+
+    public void setOfficeVisit(String officeVisit) {
+        this.officeVisit = officeVisit;
+    }
+
+
+
+    public OfficeEntity(String officeId, String officeName, String districId, String project_id , String officeVisit) {
         this.OfficeId = officeId;
         this.officeName = officeName;
         this.districId = districId;
         this.project_id = project_id;
+        this.officeVisit = officeVisit ;
     }
 
     public OfficeEntity() {
@@ -70,6 +87,7 @@ public class OfficeEntity {
                 ", officeName='" + officeName + '\'' +
                 ", districId='" + districId + '\'' +
                 ", project_id='" + project_id + '\'' +
+                ", office_visit='" + officeVisit + '\''+
                 '}';
     }
 }

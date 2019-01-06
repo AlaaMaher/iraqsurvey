@@ -543,25 +543,25 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             public void onClick(View v) {
 
 
-                    if (!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null) {
-                        Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
-                        intent.putExtra("data", dataCollectionModel);
-                        saveBasicInformation();
-                        startActivity(intent);
+                if (!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null) {
+                    Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
+                    intent.putExtra("data", dataCollectionModel);
+                    saveBasicInformation();
+                    startActivity(intent);
 
 
-                    }
+                }
 
 
-                    else  if (!validateEditText(idsEv)&& error2.getError()==null && error4.getError()==null) {
-                        Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
-                        intent.putExtra("data", dataCollectionModel);
-                        saveBasicInformation();
-                        startActivity(intent);
-                    }
+                else  if (!validateEditText(idsEv)&& error2.getError()==null && error4.getError()==null) {
+                    Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
+                    intent.putExtra("data", dataCollectionModel);
+                    saveBasicInformation();
+                    startActivity(intent);
+                }
 
 
-                    else if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error3.getError()==null && error4.getError()==null) {
+                else if (!validateEditText(ids) && error1.getError()==null && error2.getError()==null && error3.getError()==null && error4.getError()==null) {
                     Intent intent = new Intent(getBaseContext(), PositionTablesActivity.class);
                     intent.putExtra("data", dataCollectionModel);
                     saveBasicInformation();
@@ -570,12 +570,12 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 }
 
 
-                    else {
+                else {
 
-                        Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(BasicInfoActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                }
 
-           }
+            }
         });
 
 
@@ -750,7 +750,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 govList.clear();
-             //   govList.add(0,new GovModels(strGovId,);
+                //   govList.add(0,new GovModels(strGovId,);
                 govList.add(0,new GovModels(govId,gov_name));
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Log.e("NAME AND VALUE -->", dataSnapshot1.child("name").getValue() + "\n" + dataSnapshot1.getKey());
@@ -898,7 +898,7 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
 
-                        officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
+                    officesList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("office_name").getValue().toString()));
 
                 }
                 DistricSpinnerAdapter citiesSpinnerAdapter = new DistricSpinnerAdapter(BasicInfoActivity.this, R.layout.spinneritem, officesList);

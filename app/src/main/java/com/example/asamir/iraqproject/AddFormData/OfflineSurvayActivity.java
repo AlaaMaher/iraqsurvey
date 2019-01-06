@@ -179,6 +179,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     Boolean valEve=false;
     boolean clicked=false;
     private String pn;
+    String officevisit;
 
     /**
      * NOTE :
@@ -693,6 +694,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         basicInfoMap.put("printers_count", edt_printers_count.getText().toString());
         basicInfoMap.put("printers_notes", edt_printers_notes.getText().toString());
         basicInfoMap.put("scanners_count", edt_scanners_count.getText().toString());
+        basicInfoMap.put("office_visit", officevisit);
+
         basicInfoMap.put("scanners_notes", edt_scanners_notes.getText().toString());
         basicInfoMap.put("other_city", edtOtherCities.getText().toString());
         basicInfoMap.put("other_district", edtOtherDistrict.getText().toString());
@@ -962,9 +965,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         if (!strDisrtric.equals(""))
         {
             for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricId(strDisrtric).size(); i++) {
-
-                officesList.add(new OfficeEntity(officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeId(),
-                        officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getOfficeName(),
+roocId(strDisrtric).get(i).getOfficeName(),
                         strDisrtric, officeDataBase.userDao().getOfficeByDistricId(strDisrtric).get(i).getProject_id()));
             }
             OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
@@ -996,14 +997,14 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         // Spinner Drop down elements
         spinnerOfficeName.setPrompt("أختار المكتب");
-        officesList.add(0,new OfficeEntity("dummyid","--أختر--","",""));
+        officesList.add(0,new OfficeEntity("dummyid","--أختر--","","",""));
         if (!strDisrtric.equals(""))
         {
             for (int i = 0; i < officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).size(); i++) {
 
                 officesList.add(new OfficeEntity(officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeId(),
                         officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeName(),
-                        strDisrtric, officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getProject_id()));
+                        strDisrtric, officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getProject_id() , officeDataBase.userDao().getOfficeByDistricIdandProjectId(strDisrtric , pn).get(i).getOfficeVisit()));
             }
             OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(OfflineSurvayActivity.this, R.layout.spinneritem, officesList);
             spinnerOfficeName.setAdapter(citiesSpinnerAdapter);
@@ -1018,6 +1019,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (officesList.size() != 0) {
                     strofficeid = officesList.get(position).getOfficeId();
+                    officevisit=officesList.get(position).getOfficeVisit();
+
                     Log.e("OFFICE ID -->", strofficeid);
                 }
             }
