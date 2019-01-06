@@ -213,8 +213,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot officeSnapShot : dataSnapshot.getChildren()) {
-                    String districId = dataSnapshot.getKey();
-                    officeDataBase.userDao().insertoffice(new OfficeEntity( officeSnapShot.getKey(),officeSnapShot.child("office_name").getValue().toString(),districId, officeSnapShot.child("project_id").getValue().toString(),"1"));
+                    if (Integer.valueOf(officeSnapShot.child("visited").getValue().toString()) == 0) {
+                        String districId = dataSnapshot.getKey();
+                        officeDataBase.userDao().insertoffice(new OfficeEntity(officeSnapShot.getKey(), officeSnapShot.child("office_name").getValue().toString(), districId, officeSnapShot.child("project_id").getValue().toString(), "0"));
+                    }else{
+                        String districId = dataSnapshot.getKey();
+                        officeDataBase.userDao().insertoffice(new OfficeEntity(officeSnapShot.getKey(), officeSnapShot.child("office_name").getValue().toString(), districId, officeSnapShot.child("project_id").getValue().toString(), "1"));
+                    }
                 }
                 Log.e("Office DB Created "," =====>  Done");
 

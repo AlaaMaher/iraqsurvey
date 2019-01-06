@@ -776,11 +776,11 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
                     officesList1.add(0,new OfficeEntity("dummyid","--أختر--","","" , ""));
                     if (!strDisrtric.equals(""))
                     {
-                        for (int i = 0; i < officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).size(); i++) {
+                        for (int i = 0; i < officeDataBase1.userDao().getOfficeByDistricIdandProjectId2(strDisrtric,pn).size(); i++) {
 
-                            officesList1.add(new OfficeEntity(officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeId(),
-                                    officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getOfficeName(),
-                                    strDisrtric, officeDataBase1.userDao().getOfficeByDistricIdandProjectId(strDisrtric,pn).get(i).getProject_id() , "1"));
+                            officesList1.add(new OfficeEntity(officeDataBase1.userDao().getOfficeByDistricIdandProjectId2(strDisrtric,pn).get(i).getOfficeId(),
+                                    officeDataBase1.userDao().getOfficeByDistricIdandProjectId2(strDisrtric,pn).get(i).getOfficeName(),
+                                    strDisrtric, officeDataBase1.userDao().getOfficeByDistricIdandProjectId2(strDisrtric,pn).get(i).getProject_id() , "1"));
                         }
                         OfficeofflineSpinnerAdapter citiesSpinnerAdapter = new OfficeofflineSpinnerAdapter(SavedDataListActivity.this, R.layout.spinneritem, officesList1);
                         spinnerOfficeName.setAdapter(citiesSpinnerAdapter);

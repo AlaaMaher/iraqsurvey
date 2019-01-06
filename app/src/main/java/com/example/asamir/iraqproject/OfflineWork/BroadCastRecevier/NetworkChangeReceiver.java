@@ -66,6 +66,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     private String currentDateandTime;
     private String ImageUploadId;
     private DatabaseReference survayDatabaseReference;
+    DatabaseReference databaseReference2;
 
     ArrayList<SketchModel> inDoorList = new ArrayList<>();
     ArrayList<SketchModel> outDoorList = new ArrayList<>();
@@ -251,6 +252,10 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                 otherDistric,
                 ownerShiptype
         ));
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("visited", 1);
+        databaseReference2.child(survayEntity.getDistricId()).child(office_name_or_id).updateChildren(result);
 
 
     }

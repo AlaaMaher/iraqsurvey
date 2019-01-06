@@ -16,39 +16,7 @@
             layout="@layout/app_bar_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
 
-
-
-            <ImageView
-                android:id="@+id/logoXmarks"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:paddingLeft="10dp"
-                android:src="@drawable/logoicon"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="150dp"
-                android:layout_marginRight="150dp"
-                android:layout_marginEnd="0dp"
-                android:gravity="right"
-                android:text="المسح الميدانى"
-                android:textColor="@color/colorRow"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -158,24 +126,23 @@
                     </LinearLayout>
 
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
                         android:maxLength="32"
-                        android:text="أضافة مدينة غير موجودة"
+                        android:text=" أضافة مدينة غير موجودة:"
                         android:textColor="#000" />
-
                     <EditText
                         android:id="@+id/edt_other_cities"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="32"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="text"
+                        android:maxLength="32"
                         android:hint="أضافة مدينة غير موجودة" />
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -232,17 +199,18 @@
                         android:layout_marginTop="10dp"
                         android:ems="10"
                         android:maxLength="32"
-                        android:text="أضافة حي غير موجود"
+                        android:text=" أضافة حي غير موجود:"
                         android:textColor="#000" />
+
                     <EditText
                         android:id="@+id/edt_other_district"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="32"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="text"
+                        android:maxLength="32"
                         android:hint="أضافة حي غير موجود" />
 
                     <LinearLayout
@@ -313,149 +281,142 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="العنوان"
+                        android:maxLength="32"
+                        android:text="العنوان:"
                         android:textColor="#000" />
-
                     <EditText
                         android:id="@+id/edt_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="255"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="text"
-                        android:hint="العنوان" />
+                        android:hint="العنوان"
+                        android:maxLength="255"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="رقم الهاتف:"
+                        android:maxLength="32"
+                        android:text="رقم الهاتف :"
                         android:textColor="#000" />
                     <EditText
                         android:id="@+id/edt_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="16"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
-                        android:inputType="phone"
-
-                    android:hint="رقم الهاتف" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    >
+                        android:inputType="number"
+                        android:maxLength="16"
+                        android:hint="رقم الهاتف" />
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
                         >
-                        <TextView
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="15sp"
-                            android:textColor="#000"
-                            android:layout_marginTop="10dp"
-                            android:text="به شبكة داخلية " />
-                        <RadioGroup
-                            android:id="@+id/radioIsNetWork"
-                            android:layout_gravity="end"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:orientation="vertical"
                             >
-
-                            <RadioButton
-                                android:id="@+id/isNetworkYes"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="15sp"
+                                android:textColor="#000"
+                                android:layout_marginTop="10dp"
+                                android:text="به شبكة داخلية " />
+                            <RadioGroup
+                                android:id="@+id/radioIsNetWork"
+                                android:layout_gravity="end"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="نعم"
-                                android:checked="true" />
+                                android:layout_margin="10dp"
+                                >
 
-                            <RadioButton
-                                android:id="@+id/isNetworkNo"
+                                <RadioButton
+                                    android:id="@+id/isNetworkYes"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="نعم"
+                                    android:checked="true" />
+
+                                <RadioButton
+                                    android:id="@+id/isNetworkNo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="لا" />
+
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textSize="15sp"
+                                android:textColor="#000"
+                                android:layout_marginTop="10dp"
+                                android:text="نوع الملكية " />
+                            <RadioGroup
+                                android:id="@+id/radioOwnerShipType"
+                                android:layout_gravity="end"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="لا" />
+                                android:layout_margin="10dp"
+                                >
 
-                        </RadioGroup>
+                                <RadioButton
+                                    android:id="@+id/radioOwner"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="مالك"
+                                    android:checked="true" />
 
+                                <RadioButton
+                                    android:id="@+id/radioRent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="مؤجر" />
+
+                            </RadioGroup>
+
+                        </LinearLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="#000"
+                        android:layout_marginTop="10dp"
+                        android:text="لديه أنترنت " />
+                    <RadioGroup
+                        android:id="@+id/radioHasInternet"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         >
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textSize="15sp"
-                            android:textColor="#000"
-                            android:layout_marginTop="10dp"
-                            android:text="نوع الملكية " />
-                        <RadioGroup
-                            android:id="@+id/radioOwnerShipType"
-                            android:layout_gravity="end"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            >
-
-                            <RadioButton
-                                android:id="@+id/radioOwner"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="مالك"
-                                android:checked="true" />
-
-                            <RadioButton
-                                android:id="@+id/radioRent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="مؤجر" />
-
-                        </RadioGroup>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:textColor="#000"
-                    android:layout_marginTop="10dp"
-                    android:text="لديه أنترنت " />
-                <RadioGroup
-                    android:id="@+id/radioHasInternet"
-                    android:layout_gravity="right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    >
-
                         <RadioButton
                             android:id="@+id/hasinternetYes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:text="نعم"
                             android:checked="true" />
 
@@ -472,18 +433,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="سرعة الانترنت بالميجابت لكل ثانيه" />
-                    android:textColor="#000" />
+                        android:maxLength="100"
+                        android:text="سرعة الانترنت بالميجابت لكل ثانيه"
+                        android:textColor="#000" />
+
                     <EditText
                         android:id="@+id/edt_internetSeed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="100"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="text"
+                        android:maxLength="100"
                         android:hint="سرعة الانترنت بالميجابت لكل ثانيه" />
 
                     <View
@@ -547,172 +509,180 @@
                             android:textColor="#fff" />
 
                     </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_delet_from_mor"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="حذف"
-                        android:onClick="deleteMorningFrom"
-                        android:background="@drawable/corner_gray"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginEnd="8dp"/>
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_error3view"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="2.5"
-                        android:layout_height="wrap_content"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false">
 
-                        <Button
-                        android:id="@+id/edt_morning_shift_from"
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/editback"
-                        android:editable="false"
-                            android:textAlignment="viewEnd"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                        android:ems="10"
-                        android:hint="بداية وقت الدوام الصباحي  "
-                        android:inputType="none" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linearLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_delet_to_mor"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="حذف"
-                        android:onClick="deleteMorningTo"
-                        android:background="@drawable/corner_gray"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginEnd="8dp"/>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_input_layout"
-                        android:layout_width="0dp"
-                        android:layout_weight="2.5"
-                        android:layout_height="wrap_content"
-                        app:errorEnabled="true">
-
+                        android:weightSum="3"
+                        android:orientation="horizontal">
                         <Button
-                            android:textAlignment="viewEnd"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                            android:id="@+id/edt_morning_shift_to"
-                            android:layout_width="match_parent"
+                            android:id="@+id/btn_delet_from_mor"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="حذف"
+                            android:onClick="deleteMorningFrom"
+                            android:background="@drawable/corner_gray"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginEnd="8dp"/>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/text_input_layout3"
+                            android:layout_width="0dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/editback"
-                            android:editable="false"
-                            android:ems="10"
-                            android:focusable="false"
-                            android:hint="نهاية وقت العمل الصباحي"
-                            android:inputType="none" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
+                            android:layout_weight="2.5"
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true"
+                            app:hintEnabled="false">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_delet_from_eve"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="حذف"
-                        android:onClick="deleteEveningFrom"
-                        android:background="@drawable/corner_gray"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginEnd="8dp"/>
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_error4view"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="2.5"
-                        android:layout_height="wrap_content"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false">
+                            <EditText
+                                android:id="@+id/edt_morning_shift_from"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2.5"
+                                android:layout_marginTop="10dp"
+                                android:clickable="false"
+                                android:background="@drawable/editback"
+                                android:editable="false"
+                                android:focusableInTouchMode="false"
+                                android:inputType="none"
+                                android:ems="10"
+                                android:hint="بداية وقت الدوام الصباحي  "
+                                />
+                        </android.support.design.widget.TextInputLayout>
 
-                        <Button
-                            android:textAlignment="viewEnd"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                        android:id="@+id/edt_evening_shift_from"
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/editback"
-                        android:editable="false"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:hint="بداية وقت الدوام المسائي  "
-                        android:inputType="none" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/linearLayout6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="3"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_delet_to_eve"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-
-                        android:text="حذف"
-                        android:onClick="deleteEveningTo"
-                        android:background="@drawable/corner_gray"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginEnd="8dp"/>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/text_input_layout2"
-                        android:layout_width="0dp"
-                        android:layout_weight="2.5"
-                        android:layout_height="wrap_content"
-                        app:errorEnabled="true">
-
+                        android:weightSum="3"
+                        android:orientation="horizontal">
                         <Button
-                            android:textAlignment="viewEnd"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                            android:id="@+id/edt_evening_shift_to"
-                            android:layout_width="match_parent"
+                            android:id="@+id/btn_delet_to_mor"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="حذف"
+                            android:onClick="deleteMorningTo"
+                            android:background="@drawable/corner_gray"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginEnd="8dp"/>
+
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/text_input_layout"
+                            android:layout_width="0dp"
+                            android:layout_weight="2.5"
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true"
+                            app:hintEnabled="false">
+
+                            <EditText
+                                android:id="@+id/edt_morning_shift_to"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/editback"
+                                android:editable="false"
+                                android:ems="10"
+                                android:focusableInTouchMode="false"
+                                android:hint="نهاية وقت العمل الصباحي"
+                                />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/btn_delet_from_eve"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="حذف"
+                            android:onClick="deleteEveningFrom"
+                            android:background="@drawable/corner_gray"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginEnd="8dp"/>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/text_input_layout4"
+                            android:layout_width="0dp"
+                            android:layout_weight="2.5"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/editback"
-                            android:editable="false"
-                            android:ems="10"
-                            android:focusable="false"
-                            android:hint="نهاية وقت الدوام المسائي  "
-                            android:inputType="none" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true"
+                            app:hintEnabled="false">
+
+                            <EditText
+                                android:id="@+id/edt_evening_shift_from"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/editback"
+                                android:focusableInTouchMode="false"
+                                android:editable="false"
+                                android:ems="10"
+                                android:layout_marginTop="10dp"
+                                android:hint="بداية وقت الدوام المسائي  "
+                                />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/linearLayout6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="3"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/btn_delet_to_eve"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+
+                            android:text="حذف"
+                            android:onClick="deleteEveningTo"
+                            android:background="@drawable/corner_gray"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginEnd="8dp"/>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/text_input_layout2"
+                            android:layout_width="0dp"
+                            android:layout_weight="2.5"
+                            android:layout_height="wrap_content"
+                            app:errorEnabled="true"
+                            app:hintEnabled="false">
+
+                            <EditText
+                                android:id="@+id/edt_evening_shift_to"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/editback"
+                                android:editable="false"
+                                android:focusableInTouchMode="false"
+                                android:ems="10"
+                                android:inputType="none"
+                                android:hint="نهاية وقت الدوام المسائي  "
+                                />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -736,18 +706,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="عدد اجهزة الحاسب الآلي :"
+
+                        android:text="عدد اجهزه الحاسب الآلي  :"
                         android:textColor="#000" />
                     <EditText
                         android:id="@+id/edt_computer_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="10"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:hint="عدد اجهزه الحاسب الآلي   " />
 
                     <TextView
@@ -755,18 +725,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="ملاحظات علي اجهزة الحاسب الآلي :"
+
+                        android:text="ملاحظات علي اجهزة الحاسب الآلي "
                         android:textColor="#000" />
                     <EditText
                         android:id="@+id/edt_computer_notes"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:ems="10"
-                        android:maxLength="255"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="textMultiLine"
+                        android:maxLength="255"
                         android:hint="ملاحظات علي اجهزة الحاسب الآلي " />
 
                     <TextView
@@ -774,8 +744,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="عدد الطابعات :"
+
+                        android:text="عدد الطابعات "
                         android:textColor="#000" />
                     <EditText
                         android:id="@+id/edt_printers_count"
@@ -784,8 +754,8 @@
                         android:ems="10"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
-                        android:inputType="number"
                         android:maxLength="10"
+                        android:inputType="number"
                         android:hint="عدد الطابعات "  />
 
                     <TextView
@@ -793,18 +763,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="ملاحظات علي عدد الطابعات :"
+
+                        android:text="ملاحظات علي عدد الطابعات  :"
                         android:textColor="#000" />
                     <EditText
                         android:id="@+id/edt_printers_notes"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:ems="10"
-                        android:maxLength="255"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/editback"
                         android:inputType="textMultiLine"
+                        android:maxLength="255"
                         android:hint="ملاحظات علي عدد الطابعات "  />
 
                     <TextView
@@ -812,7 +782,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
                         android:text="عدد الماسحات الضوئية : "
                         android:textColor="#000" />
                     <EditText
@@ -831,9 +800,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:maxLength="255"
-                        android:text="ملاحظات علي عدد الماسحات الضوئية: "
+                        android:text="ملاحظات علي عدد الماسحات الضوئية "
                         android:textColor="#000" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/editback"
+                        android:ems="10"
+                        android:hint="ملاحظات علي عدد الماسحات الضوئية "
+                        android:inputType="textMultiLine"
+                        android:maxLength="255" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ems="10"
+                        android:text="ملاحظات علي عدد الماسحات الضوئية :"
+                        android:textColor="#000" />
+
 
                     <EditText
                         android:id="@+id/edt_scanners_notes"
@@ -845,6 +832,28 @@
                         android:background="@drawable/editback"
                         android:inputType="textMultiLine"
                         android:hint="ملاحظات علي عدد الماسحات الضوئية "  />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_error4view"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2.5"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:visibility="gone"
+                        app:hintEnabled="false">
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_error3view"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="2.5"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:visibility="gone"
+                        app:hintEnabled="false">
+                    </android.support.design.widget.TextInputLayout>
 
 
 
@@ -880,4 +889,5 @@
         app:menu="@menu/activity_home_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
+
 

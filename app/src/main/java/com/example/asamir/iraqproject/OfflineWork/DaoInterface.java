@@ -53,8 +53,10 @@ public interface DaoInterface {
     List<OfficeEntity> getAllOfficeies();
     @Query("SELECT * FROM officeTable WHERE  districId=:districId ")
     List<OfficeEntity> getOfficeByDistricId(String districId);
-    @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId ")
+    @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId and officeVisit=0 ")
     List<OfficeEntity> getOfficeByDistricIdandProjectId(String districId,String projectId);
+    @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId and officeVisit=1 ")
+    List<OfficeEntity> getOfficeByDistricIdandProjectId2(String districId,String projectId);
     @Query("DELETE FROM officeTable")
     void deleteOfficeData();
 
