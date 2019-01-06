@@ -7,4 +7,6 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorRow">#E5E6EC</color>
+    <color name="gray">#58585B</color>
+    <color name="opengray">#B7B9BB</color>
 </resources>
