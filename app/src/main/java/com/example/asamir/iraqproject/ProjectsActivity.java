@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.Models.ProjectsModel;
@@ -51,6 +52,8 @@ public class ProjectsActivity extends AppCompatActivity {
     TextView pro_name2;
     @BindView(R.id.pro_name3)
     TextView pro_name3;
+
+
 
 
     ArrayList<ProjectsModel> projectsModels = new ArrayList<>();
@@ -149,7 +152,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
 
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);

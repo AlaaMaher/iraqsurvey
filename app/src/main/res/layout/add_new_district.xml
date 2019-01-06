@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="20sp"
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="أضف حي جديد" />
+
+
+    <EditText
+
+        android:layout_margin="10dp"
+        android:id="@+id/edit_district_name_dialog"
+        android:hint="اسم الحي"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:layout_margin="5dp"
+
+            android:id="@+id/button_add_district_dialog"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorBlue"
+            android:text="موافق"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_margin="5dp"
+            android:id="@+id/button_cancel_district_dialog"
+            android:background="@color/colorWhite"
+            android:text="الغاء"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>
