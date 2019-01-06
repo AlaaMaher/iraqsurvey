@@ -1,79 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".LoginActivity"
+    android:background="@drawable/bk"
     android:layoutDirection="rtl"
+    android:orientation="vertical"
     android:textDirection="rtl"
-    >
+    tools:context=".LoginActivity">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        app:srcCompat="@drawable/ic_logo" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="أهلا بك"
+        android:textColor="#58585B"
+        android:textSize="32pt"
+        android:textStyle="bold" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="سجل حضورك للمتابعه في استخدام النظام "
+         android:textColor="#B7B9BB"
+        android:textSize="10pt" />
 
     <EditText
 
-        android:layoutDirection="rtl"
-        android:textDirection="rtl"
         android:id="@+id/edit_user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="551dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/userinput"
         android:ems="10"
         android:hint="اسم المستخدم"
         android:inputType="textPersonName"
+        android:layoutDirection="rtl"
+
+        android:drawablePadding="15dp"
+        android:paddingRight="40dp"
+        android:textDirection="rtl"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableRight="@drawable/ic_usericon"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+
+        android:id="@+id/edtPass"
+        android:layout_width="470dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/passwordinput"
+        android:drawableRight="@drawable/ic_passwordicon"
+        android:ems="10"
+        android:hint="كلمة المرور"
+        android:inputType="textPersonName"
+        android:layoutDirection="rtl"
+        android:drawablePadding="20dp"
+        android:paddingRight="29dp"
+        android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-    <EditText
-
-        android:layoutDirection="rtl"
-        android:textDirection="rtl"
-        android:id="@+id/edtPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="8dp"
-        android:hint="كلمة المرور"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_user_name" />
-
     <Button
-        android:layoutDirection="rtl"
-        android:textDirection="rtl"
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="236dp"
+        android:layout_height="67dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+         android:background="@drawable/logininput"
+        android:layoutDirection="rtl"
         android:onClick="userLogin"
         android:text="تسجيل الدخول "
-        android:background="@drawable/corner"
         android:textColor="#fff"
+        android:textDirection="rtl"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="10dp"
-        app:layout_goneMarginStart="10dp"
         app:layout_constraintEnd_toEndOf="@+id/edtPass"
         app:layout_constraintStart_toStartOf="@+id/edtPass"
-        app:layout_constraintTop_toBottomOf="@+id/edtPass" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPass"
+        app:layout_goneMarginStart="10dp" />
 
 
     <Button
         android:id="@+id/button4"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,21 +116,22 @@
         android:layout_marginEnd="8dp"
         android:onClick="deleteDBData"
         android:text="DeleteDataBase"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <Button
         android:id="@+id/button5"
-        android:visibility="gone"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:onClick="createDbData"
         android:text="createDataBase"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button4" />
@@ -108,17 +144,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:onClick="ShowData"
-        android:visibility="gone"
-
         android:text="ShowData"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-
     <Spinner
         android:id="@+id/spinnerGov"
-        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -126,6 +159,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:spinnerMode="dialog"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,28 +37,33 @@ import butterknife.ButterKnife;
 public class ProjectsActivity extends AppCompatActivity {
 
 
-
-
     @BindView(R.id.tvp1)
-    TextView tvp1;
+    LinearLayout tvp1;
     @BindView(R.id.tvp2)
-    TextView tvp2;
+    LinearLayout tvp2;
     @BindView(R.id.tvp3)
-    TextView tvp3;
+    LinearLayout tvp3;
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
+    @BindView(R.id.pro_name)
+    TextView pro_name;
+    @BindView(R.id.pro_name2)
+    TextView pro_name2;
+    @BindView(R.id.pro_name3)
+    TextView pro_name3;
+
 
     ArrayList<ProjectsModel> projectsModels = new ArrayList<>();
     ArrayList<UserProjectsEntity> userProjectsEntities = new ArrayList<>();
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
+//    @BindView(R.id.progressBar)
+//    ProgressBar progressBar;
     private Database userProjectsDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_projects);
+        setContentView(R.layout.activity_main3);
         ButterKnife.bind(this);
         tvTootBarTitle.setText("المشاريع");
         Database survayDB = Room.databaseBuilder(ProjectsActivity.this,
@@ -79,13 +85,13 @@ public class ProjectsActivity extends AppCompatActivity {
                 // Do something after 5s = 5000ms
 
         if (ConnectivityHelper.isConnectedToNetwork(ProjectsActivity.this)) {
-            progressBar.setVisibility(View.VISIBLE);
+         //   progressBar.setVisibility(View.VISIBLE);
             DatabaseReference ref = database.getReference("Project_user").child(id);
             // Attach a listener to read the data at our posts reference
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    progressBar.setVisibility(View.GONE);
+                //    progressBar.setVisibility(View.GONE);
                     tvp1.setVisibility(View.GONE);
                     tvp2.setVisibility(View.GONE);
                     tvp3.setVisibility(View.GONE);
@@ -98,20 +104,25 @@ public class ProjectsActivity extends AppCompatActivity {
                         tvp1.setVisibility(View.VISIBLE);
                         tvp2.setVisibility(View.VISIBLE);
                         tvp3.setVisibility(View.VISIBLE);
-                        tvp1.setText(projectsModels.get(0).getName());
-                        tvp2.setText(projectsModels.get(1).getName());
-                        tvp3.setText(projectsModels.get(2).getName());
+                        //TODO
+
+                        pro_name.setText(projectsModels.get(0).getName());
+                        pro_name2.setText(projectsModels.get(1).getName());
+                        pro_name3.setText(projectsModels.get(2).getName());
+
                     } else if (projectsModels.size() == 2) {
                         tvp1.setVisibility(View.VISIBLE);
                         tvp2.setVisibility(View.VISIBLE);
+//TODO
 
-                        tvp1.setText(projectsModels.get(0).getName());
-                        tvp2.setText(projectsModels.get(1).getName());
+                        pro_name.setText(projectsModels.get(0).getName());
+                        pro_name2.setText(projectsModels.get(1).getName());
+
                         tvp3.setVisibility(View.GONE);
                     } else if (projectsModels.size() == 1) {
                         tvp1.setVisibility(View.VISIBLE);
 
-                        tvp1.setText(projectsModels.get(0).getName());
+                        /* tvp1.setText(projectsModels.get(0).getName());*/
                         tvp3.setVisibility(View.GONE);
                         tvp2.setVisibility(View.GONE);
                     }
@@ -119,7 +130,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    progressBar.setVisibility(View.GONE);
+               //     progressBar.setVisibility(View.GONE);
                     System.out.println("The read failed: " + databaseError.getCode());
 
                 }
@@ -129,7 +140,7 @@ public class ProjectsActivity extends AppCompatActivity {
             tvp1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (checkIfBareedOrNot(tvp1.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name.getText().toString())) {
                         ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         //Intent i=new Intent(ProjectsActivity.this, SurvayScreen.class);
@@ -155,7 +166,7 @@ public class ProjectsActivity extends AppCompatActivity {
             tvp2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (checkIfBareedOrNot(tvp2.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name2.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
@@ -177,7 +188,7 @@ public class ProjectsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (checkIfBareedOrNot(tvp3.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name3.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
@@ -213,21 +224,30 @@ public class ProjectsActivity extends AppCompatActivity {
                 tvp1.setVisibility(View.VISIBLE);
                 tvp2.setVisibility(View.VISIBLE);
                 tvp3.setVisibility(View.VISIBLE);
-                tvp1.setText(userProjectsEntities.get(0).getProject_name());
-                tvp2.setText(userProjectsEntities.get(1).getProject_name());
-                tvp3.setText(userProjectsEntities.get(2).getProject_name());
+                //TODO
+
+                pro_name.setText(userProjectsEntities.get(0).getProject_name());
+                pro_name2.setText(userProjectsEntities.get(1).getProject_name());
+                pro_name3.setText(userProjectsEntities.get(2).getProject_name());
+
             } else if (userProjectsEntities.size() == 2) {
                 tvp1.setVisibility(View.VISIBLE);
                 tvp2.setVisibility(View.VISIBLE);
                 tvp3.setVisibility(View.GONE);
-                tvp1.setText(userProjectsEntities.get(0).getProject_name());
-                tvp2.setText(userProjectsEntities.get(1).getProject_name());
+                //TODO
+
+                pro_name.setText(userProjectsEntities.get(0).getProject_name());
+                pro_name2.setText(userProjectsEntities.get(1).getProject_name());
+
                 tvp3.setVisibility(View.GONE);
             } else if (userProjectsEntities.size() == 1) {
                 tvp1.setVisibility(View.VISIBLE);
                 tvp2.setVisibility(View.GONE);
                 tvp3.setVisibility(View.GONE);
-                tvp1.setText(userProjectsEntities.get(0).getProject_name());
+                //TODO
+
+                pro_name.setText(userProjectsEntities.get(0).getProject_name());
+
                 tvp3.setVisibility(View.GONE);
                 tvp2.setVisibility(View.GONE);
             }
@@ -236,7 +256,7 @@ public class ProjectsActivity extends AppCompatActivity {
             tvp1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (checkIfBareedOrNot(tvp1.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name.getText().toString())) {
                         ConstMethods.SaveProjectId(userProjectsEntities.get(0).getProject_id(), ProjectsActivity.this);
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
@@ -253,7 +273,7 @@ public class ProjectsActivity extends AppCompatActivity {
             tvp2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (checkIfBareedOrNot(tvp2.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name2.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
                         ConstMethods.SaveProjectId(userProjectsEntities.get(1).getProject_id(), ProjectsActivity.this);
@@ -269,7 +289,7 @@ public class ProjectsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    if (checkIfBareedOrNot(tvp3.getText().toString())) {
+                    if (checkIfBareedOrNot(pro_name3.getText().toString())) {
                         ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
                         startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
                         ConstMethods.SaveProjectId(userProjectsEntities.get(2).getProject_id(), ProjectsActivity.this);

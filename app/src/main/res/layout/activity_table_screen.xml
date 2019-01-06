@@ -31,61 +31,61 @@
     android:layout_height="match_parent"
     >
 
-    <LinearLayout android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:weightSum="4"
-        android:background="@color/colorPrimary"
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/txtName"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/margin"
-            android:text="اسم الوظيفة"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:gravity="center|start"
-            android:textColor="@android:color/white"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/txtLogo"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/margin"
-            android:text="العدد"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:gravity="center|start"
-            android:textColor="@android:color/white"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/tvJobNotes"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/margin"
-            android:text="ملاحظات"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:gravity="center|start"
-            android:textColor="@android:color/white"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/margin"
-            android:text="حذف او تعديل "
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:gravity="center|start"
-            android:textColor="@android:color/white"
-            android:layout_height="match_parent"/>
+    <!--<LinearLayout android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:weightSum="4"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/txtName"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginStart="@dimen/margin"-->
+            <!--android:text="اسم الوظيفة"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:gravity="center|start"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_height="match_parent"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/txtLogo"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginStart="@dimen/margin"-->
+            <!--android:text="العدد"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:gravity="center|start"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_height="match_parent"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/tvJobNotes"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginStart="@dimen/margin"-->
+            <!--android:text="ملاحظات"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:gravity="center|start"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_height="match_parent"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_marginStart="@dimen/margin"-->
+            <!--android:text="حذف او تعديل "-->
+            <!--android:textAlignment="center"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:gravity="center|start"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:layout_height="match_parent"/>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -98,29 +98,76 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+
+        <LinearLayout
             android:id="@+id/tvEmptyList"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:text="لا توجد وظائف مضافة بعد اضغط علي مفتاح الاضافة بالاعلي لاضافة وظيفة"
-            />
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="70dp"
+            android:background="#CF2530"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:textSize="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:padding="10dp"
+                android:text="لا توجد وظائف مضافه "
+                android:textColor="#fff"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/add_job_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="50dp"
+                android:padding="10dp"
+                android:text="أضافة وظيفه"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="50dp"
+            android:onClick="add_fad"
+            app:backgroundTint="#216C9F"
+            app:useCompatPadding="true">
+
+        </android.support.design.widget.FloatingActionButton>
     </FrameLayout>
 
 </LinearLayout>
     <Button
         android:id="@+id/btnSendData"
-        android:layout_width="match_parent"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:onClick="goTONext"
-        android:background="@drawable/corner"
-        android:textColor="#fff"
+        android:background="@drawable/disablebtn"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:layout_alignParentBottom="true"
-        android:textStyle="bold"
         android:text="التالي" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/btnSendData"
+        android:background="@drawable/btnback"
+        android:onClick="goTOback"
+        android:text="رجوع  >"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 </RelativeLayout>
     </RelativeLayout>
 

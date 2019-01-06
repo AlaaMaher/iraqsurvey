@@ -5,13 +5,13 @@ import android.app.Dialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,6 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
-import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
@@ -55,7 +55,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PositionTableScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class PositionTableScreen extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
     int scrollX = 0;
@@ -63,7 +64,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     @BindView(R.id.rvJobs)
     RecyclerView rvJobs;
     @BindView(R.id.tvEmptyList)
-    TextView tvEmptyList;
+    LinearLayout tvEmptyList;
     JobsTableAdapter roomsTableAdapter;
     Dialog myDialog;
     private String result;
@@ -80,6 +81,12 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_screen);
+        findViewById(R.id.add_job_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddDialog();
+            }
+        });
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvToolBar.setText("الوظائف");
@@ -275,7 +282,7 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
         Button cancelBtn=dialog.findViewById(R.id.button_cancel_dialog);
        // alertDialogBuilder.setCancelable(false);
         Window window = dialog.getWindow();
-        window.setLayout(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
 
          edt_rooms_count = dialog.findViewById(R.id.edt_roomCount);
@@ -460,4 +467,16 @@ public class PositionTableScreen extends AppCompatActivity implements Navigation
                 .show();
     }
 
+    public void add_fad(View view) {
+        showAddDialog();
+    }
+
+    public void goTOback(View view) {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

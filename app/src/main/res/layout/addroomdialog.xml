@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="25dp">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-         android:text=" اسم الغرفة :"
-        android:textColor="#000" />
-
-    <EditText
-        android:id="@+id/edt_roomName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/editback"
-        android:hint="اسم الغرفة"
-        android:inputType="text" />
-
+        android:layout_width="100dp"
+        android:layout_height="28dp"
+        android:text="أضافة غرفة"
+        android:textColor="#000000"
+        android:textSize="20dp" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-         android:text=" العدد :"
-        android:textColor="#000" />
+        android:layout_width="61dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="18dp"
+        android:text="أضافة غرفة"
+        android:textColor="#131313"
+        android:textSize="13dp" />
+
     <EditText
         android:id="@+id/edt_roomDesc"
         android:layout_width="match_parent"
@@ -39,27 +32,57 @@
         android:visibility="gone" />
 
     <EditText
-        android:id="@+id/edt_roomCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/edt_room_name"
+        android:layout_width="234dp"
+        android:layout_height="50dp"
+        android:hint="اسم الغرفة"
+        android:inputType="text"
         android:layout_marginTop="5dp"
-        android:background="@drawable/editback"
-        android:hint="العدد"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/edt_roomCount"
+        android:layout_width="234dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+         android:hint="العدد"
+        android:textSize="15dp"
         android:inputType="number" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-         android:text=" الأثاث :"
-        android:textColor="#000" />
     <EditText
         android:id="@+id/edt_roomFre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="234dp"
+         android:layout_height="50dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/editback"
-        android:hint="الأثاث"
+         android:hint="الأثاث"
+        android:textSize="15dp"
         android:inputType="text" />
+    <LinearLayout
+        android:layout_width="233dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_height="60dp">
 
+        <Button
+            android:id="@+id/button_add_dialog11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:background="@drawable/nextbtn"
+            android:paddingLeft="10dp"
+            android:text="حفظ" />
+
+        <Button
+            android:id="@+id/button_cancel_dialog11"
+            android:text="الغاء"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
+
+
+    </LinearLayout>
 </LinearLayout>
