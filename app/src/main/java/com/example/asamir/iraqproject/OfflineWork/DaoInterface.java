@@ -54,8 +54,10 @@ public interface DaoInterface {
     @Query("SELECT * FROM officeTable WHERE  districId=:districId ")
     List<OfficeEntity> getOfficeByDistricId(String districId);
     @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId and officeVisit=0 ")
+    //@Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId ")
     List<OfficeEntity> getOfficeByDistricIdandProjectId(String districId,String projectId);
     @Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId and officeVisit=1 ")
+    //@Query("SELECT * FROM officeTable WHERE  districId=:districId and project_id=:projectId  ")
     List<OfficeEntity> getOfficeByDistricIdandProjectId2(String districId,String projectId);
     @Query("DELETE FROM officeTable")
     void deleteOfficeData();
@@ -85,8 +87,8 @@ public interface DaoInterface {
     //--------  gobs work
     @Insert
     void insertJob(JobEntity jobEntity);
-    @Query("SELECT * FROM jobTable")
-    List<JobEntity> getJobs();
+    @Query("SELECT * FROM jobTable where projectId=:projectId")
+    List<JobEntity> getJobs(String projectId);
     @Query("DELETE FROM jobTable")
     void deleteJobData();
 
