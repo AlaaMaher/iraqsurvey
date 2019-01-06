@@ -1,6 +1,7 @@
 package com.example.asamir.iraqproject.AddFormData;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.ContentResolver;
@@ -22,10 +23,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -231,33 +235,73 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"التقاط صورة", "اختيار من الاستديو",
-                "إلغاء"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setTitle("إضافة صورة رسم كروكي للمكان");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        final Dialog dialog  = new Dialog(SketchPlace.this);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.sketckdialog);
+        TextView  pic=dialog.findViewById(R.id.pic);
+        ImageButton btnPic = dialog.findViewById(R.id.picImage);
+        ImageButton btnChoose=dialog.findViewById(R.id.chooseImage);
+        Window window = dialog.getWindow();
+        window.setLayout(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        final boolean result = Utility.checkPermission(getApplicationContext());
+        btnPic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int item) {
-                boolean result = Utility.checkPermission(getApplicationContext());
-
-                if (items[item].equals("التقاط صورة")) {
-                    userChoosenTask = "Take Photo";
-                    if (result)
-                        cameraIntent();
-
-                } else if (items[item].equals("اختيار من الاستديو")) {
-                    userChoosenTask = "Choose from Library";
-                    if (result)
-                        galleryIntent();
-
-                } else if (items[item].equals("إلغاء")) {
-                    dialog.dismiss();
+            public void onClick(View v) {
+                if (result) {
+                    cameraIntent();
                 }
+                dialog.cancel();
+
+
             }
         });
-        builder.show();
+        dialog.show();
+
+
+        btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (result) {
+                    galleryIntent();
+                }
+                dialog.cancel();
+
+            }
+        });
+        dialog.show();
+
+
+
+//
+//        final CharSequence[] items = {"التقاط صورة", "اختيار من الاستديو",
+//                "إلغاء"};
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setCancelable(false);
+//        builder.setTitle("إضافة صورة رسم كروكي للمكان");
+//        builder.setItems(items, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int item) {
+//                boolean result = Utility.checkPermission(getApplicationContext());
+//
+//                if (items[item].equals("التقاط صورة")) {
+//                    userChoosenTask = "Take Photo";
+//                    if (result)
+//                        cameraIntent();
+//
+//                } else if (items[item].equals("اختيار من الاستديو")) {
+//                    userChoosenTask = "Choose from Library";
+//                    if (result)
+//                        galleryIntent();
+//
+//                } else if (items[item].equals("إلغاء")) {
+//                    dialog.dismiss();
+//                }
+//            }
+//        });
+//        builder.show();
     }
 
     private void galleryIntent() {
@@ -420,12 +464,12 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
     public void deleteImage(View view) {
         ConstMethods.saveSketch(SketchPlace.this, "");
-        ivPicImage.setImageDrawable(getResources().getDrawable(R.drawable.blueprint));
+        ivPicImage.setImageDrawable(getResources().getDrawable(R.drawable.addfile));
         databaseReference.child(ImageUploadId).removeValue();
 
     }
 
-    public void closeScreen(View view) {
+    public void goTOBack(View view) {
         new AlertDialog.Builder(this)
                 .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
                 .setCancelable(false)
