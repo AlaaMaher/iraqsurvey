@@ -44,8 +44,8 @@ public class ProjectsActivity extends AppCompatActivity {
     LinearLayout tvp2;
     @BindView(R.id.tvp3)
     LinearLayout tvp3;
-    @BindView(R.id.tvTootBarTitle)
-    TextView tvTootBarTitle;
+//    @BindView(R.id.tvTootBarTitle)
+//    TextView tvTootBarTitle;
     @BindView(R.id.pro_name)
     TextView pro_name;
     @BindView(R.id.pro_name2)
@@ -68,7 +68,7 @@ public class ProjectsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         ButterKnife.bind(this);
-        tvTootBarTitle.setText("المشاريع");
+       // tvTootBarTitle.setText("المشاريع");
         Database survayDB = Room.databaseBuilder(ProjectsActivity.this,
                 Database.class, "survayTable").allowMainThreadQueries().build();
 
@@ -159,7 +159,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                     }
 

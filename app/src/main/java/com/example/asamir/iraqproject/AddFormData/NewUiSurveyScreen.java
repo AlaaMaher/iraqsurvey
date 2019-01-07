@@ -51,6 +51,7 @@ import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.OfficeAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
+import com.example.asamir.iraqproject.util.CustomToast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -129,6 +130,9 @@ public class NewUiSurveyScreen extends AppCompatActivity
     @BindView(R.id.imageView_add_new_city)
     ImageView addNewCity;
 
+    @BindView(R.id.tvTootBarTitle)
+    TextView tvTootBarTitle;
+
 
 
     @BindView(R.id.imageView_add_new_district)
@@ -147,11 +151,13 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
     String strOwnerShipType="1";
 
+    private CustomToast customToast ;
 
     //////////////////////////////////////////////////////
 
     Boolean isOnePressed = false, isSecondOne = false, isThirdOne = false;
-    TimePickerDialog timePickerDialog;
+    TimePickerDialog timePickerDialog ,timePickerDialogMorningFrom , timePickerDialogMorningTo,
+    timePickerDialogNightFrom , timePickerDialogNightTo;
     Calendar calendar;
     int currentHour;
     int currentMinute;
@@ -203,13 +209,13 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
 
         ButterKnife.bind(this);
-       // tvTootBarTitle.setText("المسح الميداني");
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
-      //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+        tvTootBarTitle.setText("المسح الميداني");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+       // getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-       /*
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -218,13 +224,30 @@ public class NewUiSurveyScreen extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-*/
+
+
+
+
 
         iniRadio();
         iniGovSpinner();
+        setDefault();
+
+
 
         databaseDisReference = FirebaseDatabase.getInstance().getReference("District");
         ////////////////////////////////////////////////////////////////////////////////////////
+
+
+         // TODO Next Action
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateOnFields();
+            }
+        });
+
         morningShift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,7 +282,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 currentHour = cal.get(Calendar.HOUR_OF_DAY);
                 currentMinute = cal.get(Calendar.MINUTE);
 
-                timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                timePickerDialogMorningFrom = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
                     //  @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
@@ -284,7 +307,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 clicked=true;
 
 
-                timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, "التالي", new DialogInterface.OnClickListener() {
+                timePickerDialogMorningFrom.setButton(TimePickerDialog.BUTTON_POSITIVE, "التالي", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -296,7 +319,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                             currentMinute = cal.get(Calendar.MINUTE);
 
 
-                            timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                            timePickerDialogMorningTo = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
                                 //    @RequiresApi(api = Build.VERSION_CODES.O)
                                 @Override
                                 public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
@@ -336,17 +359,17 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                                 }
                             }, currentHour, currentMinute, false);
-                            timePickerDialog.show();
 
 
-                            timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, "موافق", new DialogInterface.OnClickListener() {
+                            timePickerDialogMorningTo.setButton(TimePickerDialog.BUTTON_POSITIVE, "موافق", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+
 
                                 }
                             });
 
-                            timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, "الغاء", new DialogInterface.OnClickListener() {
+                            timePickerDialogMorningTo.setButton(TimePickerDialog.BUTTON_NEGATIVE, "الغاء", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -360,12 +383,13 @@ public class NewUiSurveyScreen extends AppCompatActivity
                             Toast.makeText(NewUiSurveyScreen.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
                         }
 
+                        timePickerDialogMorningTo.show();
 
                     }
                 });
 
 
-                timePickerDialog.setButton(TimePickerDialog.BUTTON_NEGATIVE, "الغاء", new DialogInterface.OnClickListener() {
+                timePickerDialogMorningFrom.setButton(TimePickerDialog.BUTTON_NEGATIVE, "الغاء", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -374,7 +398,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 });
 
 
-                timePickerDialog.show();
+                timePickerDialogMorningFrom.show();
 
 
             }
@@ -412,7 +436,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 currentMinute = calendar.get(Calendar.MINUTE);
-                timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                timePickerDialogNightFrom = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
@@ -434,7 +458,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 timePickerDialog.show();
                 clicked=true;
 
-                timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, "التالي", new DialogInterface.OnClickListener() {
+                timePickerDialogNightFrom.setButton(TimePickerDialog.BUTTON_POSITIVE, "التالي", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -443,7 +467,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                             calendar = Calendar.getInstance();
                             currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                             currentMinute = calendar.get(Calendar.MINUTE);
-                            timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                            timePickerDialogNightTo = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
                                 @Override
                                 public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                                     if (hourOfDay >= 12) {
@@ -473,7 +497,22 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                                 }
                             }, currentHour, currentMinute, false);
-                            timePickerDialog.show();
+
+                            timePickerDialogNightTo.setButton(TimePickerDialog.BUTTON_POSITIVE, "موافق", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            timePickerDialogNightTo.setButton(TimePickerDialog.BUTTON_NEGATIVE, "الغاء", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            timePickerDialogNightTo.show();
                         }else {
                             Toast.makeText(NewUiSurveyScreen.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
 
@@ -485,7 +524,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 });
 
 
-                timePickerDialog.setButton(TimePickerDialog.BUTTON_POSITIVE, "الغاء", new DialogInterface.OnClickListener() {
+                timePickerDialogNightFrom.setButton(TimePickerDialog.BUTTON_POSITIVE, "الغاء", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                          dialog.dismiss();
@@ -738,6 +777,166 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
     }
 
+
+    private  void setDefault()
+    {
+
+        if(strOwnerShipType.equals("1"))
+
+        {
+            strOwnerShipType = "1";
+            radioOwner.setBackgroundResource(R.drawable.blue_toggle);
+            radioOwner.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+            radioRent.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+            radioRent.setBackgroundResource(R.drawable.white_toggle_left);
+
+        }
+        else {
+
+            strOwnerShipType = "2";
+            radioRent.setBackgroundResource(R.drawable.blue_toggle_left);
+            radioOwner.setBackgroundResource(R.drawable.white_toggle);
+            radioOwner.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+            radioRent.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+
+        }
+
+        if(isNetwork.equals("1"))
+        {
+            isNetwork="1";
+
+            radioIsNetWorkYes.setBackgroundResource(R.drawable.blue_toggle);
+            radioIsNetWorkYes.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+
+            radioIsNetWorkNo.setBackgroundResource(R.drawable.white_toggle_left);
+            radioIsNetWorkNo.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+        }
+        else
+        {
+
+                    isNetwork="0";
+
+                    radioIsNetWorkYes.setBackgroundResource(R.drawable.white_toggle);
+                    radioIsNetWorkYes.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+
+                    radioIsNetWorkNo.setBackgroundResource(R.drawable.blue_toggle_left);
+                    radioIsNetWorkNo.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+        }
+
+
+
+        if(hasInternet .equals( "1"))
+        {
+            radioHasInternetYes.setBackgroundResource(R.drawable.blue_toggle);
+            radioHasInternetYes.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+
+            radioHasInternetNo.setBackgroundResource(R.drawable.white_toggle_left);
+            radioHasInternetNo.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+            editInternetSpeed.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            hasInternet  = "0";
+            editInternetSpeed.setVisibility(View.GONE);
+
+            radioHasInternetYes.setBackgroundResource(R.drawable.white_toggle);
+            radioHasInternetYes.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorPrimaryText));
+
+            radioHasInternetNo.setBackgroundResource(R.drawable.blue_toggle_left);
+            radioHasInternetNo.setTextColor(ContextCompat.getColor(NewUiSurveyScreen.this, R.color.colorWhite));
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+    private  void validateOnFields()
+    {
+    if(govName.length() == 0 || govName .equals("--اختر المحافظة--"))
+    {
+
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك اخترالمحافظة");
+    }
+    else if(cityName.length() == 0 || cityName.equals("--اختر المدينة --"))
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك اخترالمدينة");
+
+    }
+
+    else if(disName.length() == 0 || disName.equals("--اختر الحي --"))
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك اختر الحي");
+
+    }
+
+    else if(officeName.length() == 0 || officeName.equals("--اختر المكتب--"))
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك  اختر المكتب ");
+
+    }
+
+    else if(edt_address.getText().toString().length() == 0)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل العنوان ");
+
+    }
+
+    else if(edt_phone.getText().toString().length() == 0)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل رقم الهاتف ");
+
+    }
+
+
+  else  if(hasInternet.equals("1"))
+    {
+        if(editInternetSpeed.getText().toString().length() == 0 )
+        {
+            customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل سرعة الانترنت  ");
+
+        }
+    }
+
+    else if(strShiftType .equals("+"))
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك وقت الدوام  ");
+
+    }
+    else if(edt_computer_count.getText().toString().length() == 0)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل عدد الاجهزة ");
+
+    }
+
+    else if(edt_printers_count.getText().toString().length() == 0)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل عدد أجهزة الطباعة ");
+
+    }
+
+    else if(edt_scanners_count.getText().toString().length() == 0)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل عدد أجهزة الماسح الضوئي ");
+
+    }
+
+    else
+    {
+        saveData();
+        startActivity(new Intent(NewUiSurveyScreen.this, PositionTableScreen.class));
+
+    }
+
+
+    }
+
+
     public void goTONext(View view) {
 
 
@@ -749,11 +948,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
          * Shift type ---> 3 Both
          * */
 
+   // TODO Action Next
 
-        saveData();
-        startActivity(new Intent(NewUiSurveyScreen.this, PositionTableScreen.class));
 
-           /*
+         /*
         if (!TextUtils.isEmpty(edtOtherCities.getText().toString() )&& !TextUtils.isEmpty(edtOtherDistrict.getText().toString()) && !fun(edtOtherCities.getText().toString())&&!fun(edtOtherDistrict.getText().toString()))
         {
 
@@ -828,8 +1026,8 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
         }
 
- */
 
+*/
     }
     //
 

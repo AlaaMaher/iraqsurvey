@@ -34,11 +34,11 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".SendingCompleteActivity"
@@ -127,7 +127,9 @@
             android:name=".services.MyService"
             android:enabled="true" />
 
-        <activity android:name=".AddFormData.NewUiSurveyScreen">
+        <activity android:name=".AddFormData.NewUiSurveyScreen"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
 
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -136,7 +138,6 @@
             <!--</intent-filter>-->
 
         </activity>
-            android:enabled="true" />
 
         <activity android:name=".SplashActivity">
 
