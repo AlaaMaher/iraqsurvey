@@ -98,6 +98,14 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
     ImageView logo;
     ArrayList<SketchModel>  outDoorList=new ArrayList<>();
 
+
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +130,32 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
         storageReference = FirebaseStorage.getInstance().getReference();
         // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(IndoorPhotos.this,NoticeActivity.class));
+
+            }
+        });
+
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(IndoorPhotos.this)
+                        .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

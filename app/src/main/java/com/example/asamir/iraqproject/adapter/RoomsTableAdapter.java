@@ -1,5 +1,6 @@
 package com.example.asamir.iraqproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -195,9 +197,15 @@ public class RoomsTableAdapter extends RecyclerView.Adapter<RoomsTableAdapter.Cl
             final View promptsView = li.inflate(R.layout.addroomdialog, null);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setView(promptsView);
-            final EditText edt_roomName = promptsView.findViewById(R.id.edt_roomName);
+             final EditText edt_roomName = promptsView.findViewById(R.id.edt_room_name);
             edt_roomName.setText(roomName);
 
+            Button addBtn = promptsView.findViewById(R.id.button_add_dialog11);
+            Button cancelBtn = promptsView.findViewById(R.id.button_cancel_dialog11);
+
+            addBtn.setVisibility(View.GONE);
+            cancelBtn.setVisibility(View.GONE);
+            
             final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
             edt_rooms_count.setText(roomNum);
             final EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);

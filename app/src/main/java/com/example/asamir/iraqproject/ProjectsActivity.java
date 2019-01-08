@@ -160,7 +160,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
 
-                                    finish();
 
                                 } else {
                                     ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
@@ -169,7 +168,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.putString("pn", projectsModels.get(0).getName());
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                    finish();
 
                                     ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                                 }
@@ -186,7 +184,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.putString("pn", projectsModels.get(0).getName());
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                    finish();
 
                                     ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
                                 } else {
@@ -195,7 +192,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.putString("pn", projectsModels.get(0).getName());
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                    finish();
 
                                     ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
                                 }
@@ -212,7 +208,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.putString("pn", projectsModels.get(0).getName());
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                    finish();
 
                                     ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
                                 } else {
@@ -221,7 +216,6 @@ public class ProjectsActivity extends AppCompatActivity {
                                     editor.putString("pn", projectsModels.get(0).getName());
                                     editor.apply();
                                     startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                    finish();
 
                                     ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
                                 }

@@ -595,32 +595,59 @@
     </android.support.design.widget.TextInputLayout>
 
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_marginBottom="1dp"
-        android:id="@+id/linear_next_click"
         android:layout_marginTop="1200dp"
         android:background="@color/colorBlue"
         android:layout_width="match_parent"
         android:layout_height="60dp" >
 
         <TextView
-            android:layout_marginRight="400dp"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_next_click"
+            android:layout_weight="1"
+            android:layout_marginRight="80dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:text="التالي"
             android:textColor="@color/colorWhite"
-            android:textSize="25sp" />
+            android:textSize="35sp" />
 
-        <ImageView
-            android:layout_marginRight="340dp"
+        <!--<ImageView-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:layout_centerVertical="true"-->
+
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--app:srcCompat="@drawable/ic_nexticon" />-->
+
+        <TextView
+            android:id="@+id/text_back_click"
+            android:layout_weight="1"
+            android:layout_marginRight="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:text="الرجوع"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp" />
 
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ic_nexticon" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:layout_marginRight="700dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textSize="30dp"-->
+            <!--android:textColor="#fff"-->
+            <!--android:text="<"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+             <!--/>-->
+        <!---->
+
+    </LinearLayout>
+
 </RelativeLayout>
     </ScrollView>
     </RelativeLayout>

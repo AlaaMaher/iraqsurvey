@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -135,9 +136,15 @@ public class JobsTableAdapter extends RecyclerView.Adapter<JobsTableAdapter.Club
         alertDialogBuilder.setView(promptsView);
         final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
         edt_rooms_count.setText(num);
+        Button addBtn = promptsView.findViewById(R.id.button_add_dialog);
+        Button cancelBtn=promptsView.findViewById(R.id.button_cancel_dialog);
+
         final EditText edt_job_note = promptsView.findViewById(R.id.edt_job_note);
         edt_job_note.setText(jobNote);
         final Spinner spinnerJobs=promptsView.findViewById(R.id.spinnerJobs);
+
+        addBtn.setVisibility(View.GONE);
+        cancelBtn.setVisibility(View.GONE);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(context));
 

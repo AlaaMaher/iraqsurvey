@@ -131,6 +131,13 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
     TextInputLayout error2;
 
 
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+
+
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
     //////////////////////////////////////////////////////
     private static Database govDataBase, citiesDataBase, districDataBase, officeDataBase;
     @BindView(R.id.edt_computer_count)
@@ -243,6 +250,64 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
         iniGovSpinner();
 
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (strShiftType.equals("1"))
+                {
+                    if(!validateEditText(idsMor)&& error1.getError()==null && error3.getError()==null)
+                    {
+                        saveData();
+                        startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+                    }else{
+                        Toast.makeText(OfflineSurvayActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+                }else if (strShiftType.equals("2"))
+                {
+                    if(!validateEditText(idsEv)&& error3.getError()==null && error4.getError()==null)
+                    {
+                        saveData();
+                        startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+                    }else{
+                        Toast.makeText(OfflineSurvayActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+                    }
+                }else if (strShiftType.equals("3"))
+                {
+                    if(!validateEditText(ids))
+                    {
+                        saveData();
+                        startActivity(new Intent(OfflineSurvayActivity.this, PositionTableScreen.class));
+
+                    }else{
+                        Toast.makeText(OfflineSurvayActivity.this, "برجاء أختيار  نوع الدوام", Toast.LENGTH_SHORT).show();
+
+                    }
+                }else if (strShiftType.equals("+")){
+                    Toast.makeText(OfflineSurvayActivity.this, "برجاء أدخال الحقول الفارغة", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(OfflineSurvayActivity.this)
+                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(OfflineSurvayActivity.this, RegistedList.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
         ////////////////////////////////////////////////////////////////////////////////////////
 
         btnMorning.setOnClickListener(new View.OnClickListener() {
@@ -577,6 +642,7 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
                     })
                     .setNegativeButton("الغاء", null)
                     .show();
+
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(OfflineSurvayActivity.this))
             {

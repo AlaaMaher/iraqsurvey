@@ -76,6 +76,14 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
     RoomsTableAdapter roomsTableAdapter;
     Dialog myDialog;
 
+
+
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +128,31 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
             }
         });
         myDialog = new Dialog(this);
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {saveData();
+                startActivity(new Intent(RoomTable.this,SketchPlace.class));
+            }
+        });
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(RoomTable.this)
+                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(RoomTable.this, RegistedList.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
+
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

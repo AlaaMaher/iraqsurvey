@@ -79,6 +79,13 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
     private String userChoosenTask;
     private View view;
 
+
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
+
     @BindView(R.id.recyclerViewPhoto)
     RecyclerView recyclerView;
     // Creating StorageReference and DatabaseReference object.
@@ -122,6 +129,34 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
         storageReference = FirebaseStorage.getInstance().getReference();
         // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(OutdoorPhotos.this,IndoorPhotos.class));
+
+            }
+        });
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(OutdoorPhotos.this)
+                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(OutdoorPhotos.this, RegistedList.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
+
+
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

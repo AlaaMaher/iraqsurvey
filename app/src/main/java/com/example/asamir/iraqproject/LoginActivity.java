@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
         });*/
 
 
-
+/* // Commented For Amr
         try {
             DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
             userProjectsRef.addValueEventListener(new ValueEventListener() {
@@ -203,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot5) {
                                 for (final DataSnapshot dataSnapshot12 : dataSnapshot5.getChildren()) {
 
+                                    if(jobId!=null || jobsDataDB!=null)
                                     jobId = dataSnapshot12.getKey();
                                     jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot12.child("position_name").getValue().toString(), projid));
                                     //saveCities(govId);
@@ -231,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
         }catch (Exception ex){
             Log.e("ex",ex.getMessage().toString());
         }
-
+*/
 
 
     }
@@ -431,7 +432,6 @@ public class LoginActivity extends AppCompatActivity {
                                             ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
 
-                                            finish();
                                         }
 
                                         @Override
