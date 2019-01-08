@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                 for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     jobId = dataSnapshot1.getKey();
-                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString()));
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString(),dataSnapshot1.child("project_id").getValue().toString()));
                     //saveCities(govId);
 
                 }

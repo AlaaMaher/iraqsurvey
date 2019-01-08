@@ -89,8 +89,8 @@ public interface DaoInterface {
     void insertJob(JobEntity jobEntity);
     @Query("SELECT * FROM jobTable ")
     List<JobEntity> getJobs();
-    //@Query("SELECT * FROM jobTable where projectId=:projectId")
-    //List<JobEntity> getJobsByProject(String projectId);
+    @Query("SELECT * FROM jobTable where projectId=:projectId")
+    List<JobEntity> getJobsByProject(String projectId);
     @Query("DELETE FROM jobTable")
     void deleteJobData();
 
