@@ -17,11 +17,11 @@
         <TextView
             android:id="@+id/project_name"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:padding="7dp"
-            android:text=" مشروع كاتب العدل "
             android:textColor="@color/colorPrimaryText"
-            android:textSize="20dp" />
+            android:text=" مشروع كاتب العدل "
+            android:textSize="12pt" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,20 +30,20 @@
 
             <ImageView
                 android:id="@+id/asd"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:src="@drawable/fffffffff"
-                 android:layout_height="20dp" />
+                android:layout_height="40dp" />
 
 
             <TextView
                 android:id="@+id/tvRoomNums"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/asd"
                 android:text="التعليق"
-                android:textSize="10dp"
-                android:textColor="#B92D00" />
+                android:textColor="#B92D00"
+                android:textSize="23dp" />
         </RelativeLayout>
 
 
@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:padding="7dp"
+            android:textSize="21dp"
             android:text="بلتنيب تابلا نبللاابلا ةنيبلانميبلابانىبللااةتبلؤلا ةبلىانبلةلاابلىبلىانمبللااةلنتىلاةللاانمبلىانلا بلةانم"
             android:textColor="@color/colorSecondaryText" />
 
