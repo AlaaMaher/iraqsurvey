@@ -300,7 +300,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                            progressDialog.cancel();
                                         }
                                     });
                                 }else {
@@ -314,6 +314,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
+                                progressDialog.cancel();
 
                             }
                         });
@@ -322,12 +323,12 @@ public class LoginActivity extends AppCompatActivity {
                         //////////////////////////////////BY_Mohammed
                         UsersModel usersModel = new UsersModel();
                         usersModel.setUserID(mAuth.getCurrentUser().getUid());
-                        usersModel.setPassowrd(edtPass.getText().toString());
-                        usersModel.setUserName(edit_user_name.getText().toString());
+                        usersModel.setPassowrd(edtPass.getText().toString().trim());
+                        usersModel.setUserName(edit_user_name.getText().toString().trim());
                         Sesstion.getInstance(LoginActivity.this).userLogin(usersModel);
 
                         startService(new Intent(LoginActivity.this, MyService.class));
-                        Toast.makeText(LoginActivity.this, "MyService is started", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(LoginActivity.this, "MyService is started", Toast.LENGTH_SHORT).show();
                         ////////////////////////////////
 
                     } else {

@@ -29,6 +29,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:layout_marginRight="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -52,7 +53,7 @@
         android:inputType="textPersonName"
         android:layoutDirection="rtl"
 
-        android:drawablePadding="15dp"
+        android:drawablePadding="30dp"
         android:paddingRight="40dp"
         android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,9 +64,10 @@
 
     <EditText
 
-        android:id="@+id/edtPass"
-        android:layout_width="470dp"
+
+        android:layout_width="551dp"
         android:layout_height="72dp"
+        android:id="@+id/edtPass"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
@@ -74,10 +76,10 @@
         android:drawableRight="@drawable/ic_passwordicon"
         android:ems="10"
         android:hint="كلمة المرور"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:layoutDirection="rtl"
-        android:drawablePadding="20dp"
-        android:paddingRight="29dp"
+        android:drawablePadding="36dp"
+        android:paddingRight="40dp"
         android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -38,7 +38,7 @@ public class MyService extends Service {
         Log.e(TAG, "onStartCommand");
         firebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        Toast.makeText(this, Sesstion.getInstance(this).getUser().getUserID(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, Sesstion.getInstance(this).getUser().getUserID(), Toast.LENGTH_SHORT).show();
         databaseReference = firebaseDatabase.getReference().child("Project_user").child(mFirebaseAuth.getUid());
         CheckUser();
           attachDatabaseReadListener();
@@ -164,7 +164,7 @@ public class MyService extends Service {
                                         // Log.e("AAAAA" , postSnapshot.getKey() ) ;
                                         i++;
                                     }
-                                    Toast.makeText(MyService.this, "" + i, Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(MyService.this, "" + i, Toast.LENGTH_SHORT).show();
 
                                     if (i == 0) {
                                         logOut();

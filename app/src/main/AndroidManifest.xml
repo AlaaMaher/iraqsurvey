@@ -34,13 +34,11 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".SendingCompleteActivity"
@@ -65,7 +63,10 @@
         <activity
             android:name=".AddFormData.RoomTable"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" >
+
+
+        </activity>
         <activity
             android:name=".AddFormData.SketchPlace"
             android:screenOrientation="portrait"
@@ -121,42 +122,39 @@
             </intent-filter>
         </receiver>
 
+
         <service
             android:name=".services.MyService"
             android:enabled="true" />
 
-        <activity
-            android:name=".AddFormData.NewUiSurveyScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".AddFormData.NewUiSurveyScreen"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
         </activity>
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".SplashActivity">
+
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
-        <activity
-            android:name=".comments.CommentsActivity"
-            android:label="@string/title_activity_comments"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
