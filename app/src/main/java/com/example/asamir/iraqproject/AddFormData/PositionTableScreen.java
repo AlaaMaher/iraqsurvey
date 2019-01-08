@@ -6,6 +6,7 @@ import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,9 +37,13 @@ import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
 import com.example.asamir.iraqproject.Models.JobsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
+import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.JobsOfflineSpinnerAdapter;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
+import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
@@ -51,6 +57,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +83,9 @@ public class PositionTableScreen extends AppCompatActivity
     private String jobName;
     ArrayList<String>  jobNameList=new ArrayList();
      EditText edt_rooms_count;
+    List<JobEntity> jobList1 = new ArrayList<>();
+    private String pn;
+    private Database jobDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +109,9 @@ public class PositionTableScreen extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        jobDataBase = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "jobTable").allowMainThreadQueries().build();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -289,6 +302,13 @@ public class PositionTableScreen extends AppCompatActivity
         final EditText edt_job_note = dialog.findViewById(R.id.edt_job_note);
         final Spinner spinnerJobs = dialog.findViewById(R.id.spinnerJobs);
 
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {*/
+                // Do something after 5s = 5000ms
+                if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
+                    // Spinner click listener
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(PositionTableScreen.this));
@@ -328,9 +348,46 @@ public class PositionTableScreen extends AppCompatActivity
 
             }
         });
+                }else{
+                    pn=ConstMethods.getSavedprogectid(PositionTableScreen.this);
+
+        /*
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Do something after 5s = 5000ms*/
+                    // Spinner click listener
+                    spinnerJobs.setPrompt("أختار الوظيفة");
+                    jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
+                    for (int i = 0; i < jobDataBase.userDao().getJobs(pn).size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs(pn).get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs(pn).get(i).getJobId(), jobDataBase.userDao().getJobs(pn).get(i).getJobName(),pn));
+                    }
+                    JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTableScreen.this, R.layout.spinneritem, jobList1);
+                    spinnerJobs.setAdapter(govofflineSpinnerAdapter);
+                    spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            jobName = jobList1.get(position).getJobName();
+                            //Log.e("KEY-->", strGovId);
+                            //citiesList.clear();
+                            //iniCitiesSpinner();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(PositionTableScreen.this, "Please Choose Your Job", Toast.LENGTH_SHORT).show();
 
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
+                        }
+                    });
+
+                }
+            /*}
+        }, 1000);*/
+
+                    addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edt_job_note.getText().toString().trim().isEmpty() &&edt_rooms_count.getText().toString().trim().isEmpty()&&jobName.equals("--أختر--"))
