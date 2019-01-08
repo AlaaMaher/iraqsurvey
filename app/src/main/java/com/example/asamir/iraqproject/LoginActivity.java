@@ -329,6 +329,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                             getGoves();
+
+                                            getJobs();
+
                                             Log.e("Projects DB Created "," =====>  Done");
                                             ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
