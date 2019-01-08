@@ -1908,6 +1908,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                                 //officesList.remove(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("visited").getValue().toString(), visit));
                             }
+                            
 
                         }
 
