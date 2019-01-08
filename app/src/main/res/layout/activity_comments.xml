@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,14 +14,57 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layoutDirection="rtl"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvTootBarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/colorRow"
+                    android:textSize="20sp"
+                    android:text="التعليقات"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/logoXmarks"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="50dp"
+                    android:src="@drawable/logoicon" />
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:gravity="top"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                     android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_logo" />
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_comments" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

@@ -142,7 +142,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         }
                     });
 
-
+/*
                     tvp1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -287,7 +287,7 @@ public class ProjectsActivity extends AppCompatActivity {
                     */
 
 
-                    if (userProjectsEntities.size() == 3) {
+              if (userProjectsEntities.size() == 3) {
                         tvp1.setVisibility(View.VISIBLE);
                         tvp2.setVisibility(View.VISIBLE);
                         tvp3.setVisibility(View.VISIBLE);
