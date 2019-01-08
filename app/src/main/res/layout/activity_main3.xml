@@ -4,63 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <android.support.v7.widget.Toolbar
-             android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:background="?attr/colorPrimary"
-            android:layoutDirection="rtl"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layoutDirection="rtl">
-
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="100dp"
-                     android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/ic_menuicon" />
-
-                <TextView
-                    android:id="@+id/tvTootBarTitle"
-                    android:layout_width="150dp"
-                    android:layout_toLeftOf="@id/ivBack"
-                    android:layout_height="100dp"
-                    android:layout_centerVertical="true"
-                     android:layout_marginTop="15dp"
-                     android:layout_marginBottom="15dp"
-                    android:text="المشاريع"
-                    android:padding="10dp"
-                     android:textColor="#fff"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/logoXmarks"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="24dp"
-                    app:srcCompat="@drawable/ic_logo" />
+        <!--<android.support.v7.widget.Toolbar-->
+             <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="88dp"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--android:layoutDirection="rtl"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
 
 
-            </RelativeLayout>
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layoutDirection="rtl">-->
 
-        </android.support.v7.widget.Toolbar>
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivBack"-->
+                    <!--android:layout_width="100dp"-->
+                     <!--android:layout_height="100dp"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--app:srcCompat="@drawable/ic_menuicon" />-->
 
-    </android.support.design.widget.AppBarLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/tvTootBarTitle"-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_toLeftOf="@id/ivBack"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                     <!--android:layout_marginTop="15dp"-->
+                     <!--android:layout_marginBottom="15dp"-->
+                    <!--android:text="المشاريع"-->
+                    <!--android:padding="10dp"-->
+                     <!--android:textColor="#fff"-->
+                    <!--android:textSize="30dp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/logoXmarks"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginEnd="24dp"-->
+                    <!--app:srcCompat="@drawable/ic_logo" />-->
+
+
+            <!--</RelativeLayout>-->
+
+        <!--</android.support.v7.widget.Toolbar>-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <include layout="@layout/content_main3" />
 

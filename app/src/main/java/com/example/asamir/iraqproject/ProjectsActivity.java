@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.Models.ProjectsModel;
@@ -43,14 +44,16 @@ public class ProjectsActivity extends AppCompatActivity {
     LinearLayout tvp2;
     @BindView(R.id.tvp3)
     LinearLayout tvp3;
-    @BindView(R.id.tvTootBarTitle)
-    TextView tvTootBarTitle;
+//    @BindView(R.id.tvTootBarTitle)
+//    TextView tvTootBarTitle;
     @BindView(R.id.pro_name)
     TextView pro_name;
     @BindView(R.id.pro_name2)
     TextView pro_name2;
     @BindView(R.id.pro_name3)
     TextView pro_name3;
+
+
 
 
     ArrayList<ProjectsModel> projectsModels = new ArrayList<>();
@@ -65,7 +68,7 @@ public class ProjectsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         ButterKnife.bind(this);
-        tvTootBarTitle.setText("المشاريع");
+       // tvTootBarTitle.setText("المشاريع");
         Database survayDB = Room.databaseBuilder(ProjectsActivity.this,
                 Database.class, "survayTable").allowMainThreadQueries().build();
 
@@ -149,14 +152,14 @@ public class ProjectsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
 
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
                     }
 
