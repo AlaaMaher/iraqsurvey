@@ -129,6 +129,7 @@
 
         <activity android:name=".AddFormData.NewUiSurveyScreen"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
             >
 
             <!--<intent-filter>-->

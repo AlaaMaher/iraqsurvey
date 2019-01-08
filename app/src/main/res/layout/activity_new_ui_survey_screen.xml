@@ -114,6 +114,7 @@
 
 
     <EditText
+        android:focusable="false"
         android:id="@+id/edit_mobile"
         android:layout_width="350dp"
         android:layout_height="wrap_content"

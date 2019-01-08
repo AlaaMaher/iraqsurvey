@@ -781,6 +781,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
     private  void setDefault()
     {
 
+        edt_phone.setFocusable(false);
         if(strOwnerShipType.equals("1"))
 
         {
