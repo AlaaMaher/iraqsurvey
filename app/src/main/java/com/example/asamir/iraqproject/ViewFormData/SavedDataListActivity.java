@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.NoticeActivity;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -353,6 +354,8 @@ public class SavedDataListActivity extends AppCompatActivity implements AdapterV
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , SavedDataListActivity.this);
+
         startActivity(new Intent(SavedDataListActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

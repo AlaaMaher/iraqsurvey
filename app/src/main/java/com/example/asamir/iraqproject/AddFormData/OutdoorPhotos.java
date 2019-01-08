@@ -154,7 +154,7 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(OutdoorPhotos.this))
             {
-                startActivity(new Intent(OutdoorPhotos.this, SurvayScreen.class));
+                startActivity(new Intent(OutdoorPhotos.this, NewUiSurveyScreen.class));
                 finish();
             }else {
                 startActivity(new Intent(OutdoorPhotos.this, OfflineSurvayActivity.class));
@@ -176,6 +176,8 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
     }
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , OutdoorPhotos.this);
+
         startActivity(new Intent(OutdoorPhotos.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

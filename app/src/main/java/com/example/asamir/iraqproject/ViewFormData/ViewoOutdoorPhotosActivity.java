@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
@@ -199,6 +201,8 @@ public class ViewoOutdoorPhotosActivity extends AppCompatActivity implements Rec
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , ViewoOutdoorPhotosActivity.this);
+
         startActivity(new Intent(ViewoOutdoorPhotosActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
@@ -186,6 +187,8 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , ViewInDoorPhotosActivity.this);
+
         startActivity(new Intent(ViewInDoorPhotosActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

@@ -603,6 +603,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , OfflineSurvayActivity.this);
+
         startActivity(new Intent(OfflineSurvayActivity.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

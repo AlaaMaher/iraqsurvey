@@ -144,7 +144,7 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(IndoorPhotos.this))
             {
-                startActivity(new Intent(IndoorPhotos.this, SurvayScreen.class));
+                startActivity(new Intent(IndoorPhotos.this, NewUiSurveyScreen.class));
                 finish();
             }else {
                 startActivity(new Intent(IndoorPhotos.this, OfflineSurvayActivity.class));
@@ -166,6 +166,8 @@ public class IndoorPhotos extends AppCompatActivity implements RecyclerViewAdapt
     }
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , IndoorPhotos.this);
+
         startActivity(new Intent(IndoorPhotos.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

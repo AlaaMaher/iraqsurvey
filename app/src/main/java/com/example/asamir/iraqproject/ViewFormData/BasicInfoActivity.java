@@ -30,6 +30,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
@@ -686,6 +687,8 @@ public class BasicInfoActivity extends AppCompatActivity implements NavigationVi
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , BasicInfoActivity.this);
+
         startActivity(new Intent(BasicInfoActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

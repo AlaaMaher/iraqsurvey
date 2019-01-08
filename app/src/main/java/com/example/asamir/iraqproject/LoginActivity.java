@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if(ConstMethods.getUserLoginInfo(LoginActivity.this) != null)
         {
@@ -159,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                 for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     jobId = dataSnapshot1.getKey();
-                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString()));
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString(),dataSnapshot1.child("project_id").getValue().toString()));
                     //saveCities(govId);
 
                 }
@@ -210,6 +212,29 @@ public class LoginActivity extends AppCompatActivity {
 
         // }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage("هل تريد الخروج من الابلكشن ؟") ;
+        builder.setCancelable(false);
+        builder.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                LoginActivity.this.finish();
+            }
+        });
+        builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     public static void saveDistrict(String id)
@@ -298,11 +323,23 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
 
         }
+      else   if(edit_user_name.getText().toString().contains(" ") && edit_user_name.getText().toString().length()==1)
+        {
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال اسم المستخدم ", Toast.LENGTH_LONG).show();
+
+        }
+        else   if(edtPass.getText().toString().contains(" "))
+        {
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
+
+        }
+
         else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("برجاء الانتظار جاري تسجيل الدخول ... ");
             progressDialog.setCancelable(false);
             progressDialog.show();
+
             mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -329,6 +366,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                             getGoves();
+
+                                            getJobs();
+
                                             Log.e("Projects DB Created "," =====>  Done");
                                             ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));

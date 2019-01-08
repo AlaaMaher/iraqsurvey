@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -204,6 +205,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , PositionTablesActivity.this);
+
         startActivity(new Intent(PositionTablesActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
@@ -338,10 +341,10 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                 // Do something after 5s = 5000ms*/
                     // Spinner click listener
                     spinnerJobs.setPrompt("أختار الوظيفة");
-                    jobList1.add(0,new JobEntity("dummyid","--أختر--"));
-                    for (int i = 0; i < jobDataBase.userDao().getJobs().size(); i++) {
-                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs().get(i).toString());
-                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs().get(i).getJobId(), jobDataBase.userDao().getJobs().get(i).getJobName()));
+                    jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
+                    for (int i = 0; i < jobDataBase.userDao().getJobsByProject(pn).size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobsByProject(pn).get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobsByProject(pn).get(i).getJobId(), jobDataBase.userDao().getJobsByProject(pn).get(i).getJobName(),pn));
                     }
                     JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, jobList1);
                     spinnerJobs.setAdapter(govofflineSpinnerAdapter);

@@ -166,7 +166,7 @@ public class PositionTableScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
-                startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
+                startActivity(new Intent(PositionTableScreen.this, NewUiSurveyScreen.class));
                 finish();
             } else {
                 startActivity(new Intent(PositionTableScreen.this, OfflineSurvayActivity.class));
@@ -189,6 +189,8 @@ public class PositionTableScreen extends AppCompatActivity
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , PositionTableScreen.this);
+
         startActivity(new Intent(PositionTableScreen.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
@@ -364,10 +366,10 @@ public class PositionTableScreen extends AppCompatActivity
                 // Do something after 5s = 5000ms*/
                     // Spinner click listener
                     spinnerJobs.setPrompt("أختار الوظيفة");
-                    jobList1.add(0,new JobEntity("dummyid","--أختر--"));
-                    for (int i = 0; i < jobDataBase.userDao().getJobs().size(); i++) {
-                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs().get(i).toString());
-                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs().get(i).getJobId(), jobDataBase.userDao().getJobs().get(i).getJobName()));
+                    jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
+                    for (int i = 0; i < jobDataBase.userDao().getJobsByProject(pn).size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobsByProject(pn).get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobsByProject(pn).get(i).getJobId(), jobDataBase.userDao().getJobsByProject(pn).get(i).getJobName(),pn));
                     }
                     JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTableScreen.this, R.layout.spinneritem, jobList1);
                     spinnerJobs.setAdapter(govofflineSpinnerAdapter);
