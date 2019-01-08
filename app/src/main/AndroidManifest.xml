@@ -51,7 +51,14 @@
         <activity
             android:name=".AddFormData.PositionTableScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ProjectsActivity"
             android:screenOrientation="portrait"
@@ -90,7 +97,9 @@
         <activity
             android:name=".ViewFormData.PositionTablesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
         <activity
             android:name=".ViewFormData.RoomsTableActivity"
             android:screenOrientation="portrait"
@@ -141,12 +150,12 @@
 
         <activity android:name=".SplashActivity">
 
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
 
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".Main2Activity">
 

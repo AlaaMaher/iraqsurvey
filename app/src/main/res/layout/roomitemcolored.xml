@@ -80,6 +80,17 @@
             android:src="@drawable/edit"
             android:visibility="visible" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:id="@+id/tvRoomsThings"
+        android:layout_marginStart="@dimen/margin"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:gravity="center|start"
+        android:textColor="@color/colorSecondaryText"
+        android:layout_height="match_parent"/>
 </LinearLayout>
 
 
@@ -114,16 +125,7 @@
     <!--android:textColor="@color/colorSecondaryText"-->
     <!--android:layout_height="match_parent"/>-->
 
-<!--<TextView-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:id="@+id/tvRoomsThings"-->
-    <!--android:layout_marginStart="@dimen/margin"-->
-    <!--android:textAlignment="center"-->
-    <!--android:visibility="gone"-->
-    <!--android:gravity="center|start"-->
-    <!--android:textColor="@color/colorSecondaryText"-->
-    <!--android:layout_height="match_parent"/>-->
+
 <!--<TextView-->
     <!--android:layout_width="0dp"-->
     <!--android:layout_weight="1"-->

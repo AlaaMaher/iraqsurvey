@@ -352,8 +352,11 @@ public class ProjectsActivity extends AppCompatActivity {
             /*}
         }, 3000);*/
 
-                    Log.e("SURVAY DATA -->", Room.databaseBuilder(getApplicationContext(),
-                            Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
+              try {
+                  Log.e("SURVAY DATA -->", Room.databaseBuilder(getApplicationContext(),
+                          Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
+              }
+              catch (Exception f) {}
 
                 }
     }
