@@ -29,6 +29,7 @@ import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.SendingCompleteActivity;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.GpsTracker;
 import com.google.firebase.auth.FirebaseAuth;
@@ -240,6 +241,11 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(NoticeActivity.this, ProjectsActivity.class));
             finish();
+        }
+        else if(id ==R.id.nav_comment){
+            startActivity(new Intent(NoticeActivity.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

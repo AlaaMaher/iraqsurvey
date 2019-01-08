@@ -46,6 +46,7 @@ import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
 import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.FixedGridLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -174,6 +175,10 @@ public class PositionTableScreen extends AppCompatActivity
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(PositionTableScreen.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(PositionTableScreen.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

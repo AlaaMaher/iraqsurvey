@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
 import com.example.asamir.iraqproject.AddFormData.OutdoorPhotos;
 import com.example.asamir.iraqproject.AddFormData.SketchPlace;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -46,6 +47,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Utility;
 import com.google.android.gms.tasks.Continuation;
@@ -193,6 +195,11 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(ViewSketchImageActivity.this, ProjectsActivity.class));
             finish();
+        }
+        else if(id ==R.id.nav_comment){
+            startActivity(new Intent(ViewSketchImageActivity.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
