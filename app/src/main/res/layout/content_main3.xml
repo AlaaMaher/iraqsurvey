@@ -38,7 +38,7 @@
         <LinearLayout
             android:id="@+id/tvp1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="35dp"
@@ -46,13 +46,14 @@
             android:background="@drawable/bluebtn"
             android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layoutDirection="rtl"
-                android:padding="7dp">
+                android:padding="5dp">
 
 
                 <LinearLayout
@@ -61,7 +62,7 @@
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/pro_name"
@@ -71,7 +72,7 @@
                         android:layout_weight="1"
                         android:text=" البريد العراقي "
                         android:textColor="#fff"
-                        android:textSize="80dp" />
+                        android:textSize="70dp" />
 
                     <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
@@ -90,24 +91,24 @@
                     android:layout_height="200dp"
                     android:layout_gravity="left"
                     android:layout_weight="0.5"
-                    android:padding="20dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/ic_lettericon" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layoutDirection="rtl">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:padding="15dp"
+                    android:padding="10dp"
                     android:text="وفر خدمة البريد العراقي الوقت والجهد من أجل تحقيق انجاز مستقبلي يدعو الدوله لتحقيق طموحه"
                     android:textColor="#dcd6d6"
-                    android:textSize="14pt"
+                    android:textSize="11pt"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -117,7 +118,7 @@
         <LinearLayout
             android:id="@+id/tvp2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
@@ -127,10 +128,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
-                android:padding="7dp">
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -138,18 +139,18 @@
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="5dp">
 
                     <TextView
 
+                        android:id="@+id/pro_name2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_weight="1"
                         android:text=" كاتب العدل "
-                        android:id="@+id/pro_name2"
                         android:textColor="#fff"
-                        android:textSize="80dp" />
+                        android:textSize="70dp" />
 
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
@@ -169,7 +170,7 @@
                     android:layout_height="200dp"
                     android:layout_gravity="left"
                     android:layout_weight="0.5"
-                    android:padding="20dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/ic_writericon" />
 
             </LinearLayout>
@@ -183,10 +184,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:padding="15dp"
+                    android:padding="10dp"
                     android:text="توفر خدمة البريد العراقي الوقت والجهد من أجل تحقيق انجاز مستقبلي يدعو الدوله لتحقيق طموحها"
                     android:textColor="#dcd6d6"
-                    android:textSize="14pt"
+                    android:textSize="11pt"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -196,7 +197,7 @@
         <LinearLayout
             android:id="@+id/tvp3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
@@ -205,11 +206,11 @@
             android:layoutDirection="rtl"
             android:orientation="vertical"
             android:layout_marginBottom="20dp"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
                 android:padding="7dp">
 
@@ -231,7 +232,7 @@
                         android:id="@+id/pro_name3"
 
                         android:textColor="#fff"
-                        android:textSize="80dp" />
+                        android:textSize="70dp" />
 
                     <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
@@ -251,7 +252,7 @@
                     android:layout_height="200dp"
                     android:layout_gravity="left"
                     android:layout_weight="0.5"
-                    android:padding="20dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/ic_lettericon" />
 
             </LinearLayout>
@@ -265,10 +266,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:padding="15dp"
+                    android:padding="10dp"
                     android:text="وفر خدمة البريد العراقي الوقت والجهد من أجل تحقيق انجاز مستقبلي يدعو الدوله لتحقيق طموحه"
                     android:textColor="#dcd6d6"
-                    android:textSize="14pt"
+                    android:textSize="11pt"
                     android:textStyle="bold" />
 
             </LinearLayout>
