@@ -13,13 +13,14 @@ public class JobEntity {
 
     private String jobId;
     private String jobName;
-    String projectId;
+    //String projectId;
 
-    public JobEntity( String jobId, String jobName, String projectId) {
+    //public JobEntity( String jobId, String jobName, String projectId) {
+    public JobEntity( String jobId, String jobName) {
 
         this.jobId = jobId;
         this.jobName = jobName;
-        this.projectId=projectId;
+        //this.projectId=projectId;
     }
 
 
@@ -48,13 +49,13 @@ public class JobEntity {
         this.jobName = jobName;
     }
 
-    public String getProjectId() {
+    /*public String getProjectId() {
         return projectId;
     }
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
-    }
+    }*/
 
     @Override
     public String toString() {

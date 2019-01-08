@@ -359,10 +359,10 @@ public class PositionTableScreen extends AppCompatActivity
                 // Do something after 5s = 5000ms*/
                     // Spinner click listener
                     spinnerJobs.setPrompt("أختار الوظيفة");
-                    jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
-                    for (int i = 0; i < jobDataBase.userDao().getJobs(pn).size(); i++) {
-                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs(pn).get(i).toString());
-                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs(pn).get(i).getJobId(), jobDataBase.userDao().getJobs(pn).get(i).getJobName(),pn));
+                    jobList1.add(0,new JobEntity("dummyid","--أختر--"));
+                    for (int i = 0; i < jobDataBase.userDao().getJobs().size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs().get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs().get(i).getJobId(), jobDataBase.userDao().getJobs().get(i).getJobName()));
                     }
                     JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTableScreen.this, R.layout.spinneritem, jobList1);
                     spinnerJobs.setAdapter(govofflineSpinnerAdapter);

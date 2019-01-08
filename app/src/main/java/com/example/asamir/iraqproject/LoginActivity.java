@@ -23,9 +23,11 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.services.MyService;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Sesstion;
@@ -62,6 +64,9 @@ public class LoginActivity extends AppCompatActivity {
     private static String govId;
     List<GovEntity> govList = new ArrayList<>();
     GovofflineSpinnerAdapter govofflineSpinnerAdapter;
+    static String jobId;
+    static Database jobsDataDB;
+    static String pn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,9 @@ public class LoginActivity extends AppCompatActivity {
             userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                     Database.class, "userProjects").allowMainThreadQueries().build();
 
+            jobsDataDB = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "jobTable").allowMainThreadQueries().build();
+
         }
     }
 
@@ -123,6 +131,36 @@ public class LoginActivity extends AppCompatActivity {
                     govId = dataSnapshot1.getKey();
                     govDataBase.userDao().insertGov(new GovEntity(govId, dataSnapshot1.child("name").getValue().toString()));
                     saveCities(govId);
+
+                }
+                Log.e("Gov Database Created"," =====>  Done");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
+
+    public static void getJobs() {
+
+        //pn=ConstMethods.getSavedprogectid(LoginActivity.this);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("positions");
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                    jobId = dataSnapshot1.getKey();
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString()));
+                    //saveCities(govId);
 
                 }
                 Log.e("Gov Database Created"," =====>  Done");
@@ -265,7 +303,7 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setTitle("برجاء الانتظار جاري تسجيل الدخول ... ");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString(), edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -334,6 +372,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
 
                         Toast.makeText(LoginActivity.this, "خطا في البريد  وكلمة المرور ", Toast.LENGTH_LONG).show();
+                      progressDialog.cancel();
                     }
                 }
             });
