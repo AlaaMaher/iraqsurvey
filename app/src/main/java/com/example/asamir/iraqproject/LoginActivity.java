@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                 for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                     jobId = dataSnapshot1.getKey();
-                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString()));
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString(),dataSnapshot1.child("project_id").getValue().toString()));
                     //saveCities(govId);
 
                 }
@@ -366,6 +366,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                             getGoves();
+
+                                            getJobs();
+
                                             Log.e("Projects DB Created "," =====>  Done");
                                             ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));
