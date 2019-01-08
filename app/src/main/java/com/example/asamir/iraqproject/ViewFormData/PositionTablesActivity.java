@@ -49,6 +49,7 @@ import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
+import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.FixedGridLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -274,40 +275,54 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         window.setGravity(Gravity.CENTER);
 
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(PositionTablesActivity.this));
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+            public void run() {
+                // Do something after 5s = 5000ms
+                if (ConnectivityHelper.isConnectedToNetwork(PositionTablesActivity.this)) {
+                    // Spinner click listener
 
-                    projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), ""));
-                }
-                JobsSpinnerAdapter citiesSpinnerAdapter = new JobsSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, projectsModels);
-                spinnerJobs.setAdapter(citiesSpinnerAdapter);
-            }
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("positions").child(ConstMethods.getSavedprogectid(PositionTablesActivity.this));
+                    // Attach a listener to read the data at our posts reference
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            projectsModels.clear();
+                            projectsModels.add(0,new JobsModel("--أختر--", "", "dummyid"));
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+                                projectsModels.add(new JobsModel(dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.child("position_name").getValue().toString(), dataSnapshot1.getKey()));
+                            }
+                            JobsSpinnerAdapter citiesSpinnerAdapter = new JobsSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, projectsModels);
+                            spinnerJobs.setAdapter(citiesSpinnerAdapter);
+                        }
 
-        spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                jobName = projectsModels.get(position).getName();
-            }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //System.out.println("The read failed: " + databaseError.getCode());
+                        }
+                    });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                    spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            jobName = projectsModels.get(position).getName();
+                            if(jobNameList.contains(jobName)) {
+                                Toast.makeText(PositionTablesActivity.this, "هذا الوظيفة مضافة من قبل بالفعل ", Toast.LENGTH_LONG).show();
+                            }
 
-            }
-        });
 
+                        }
 
-        pn=ConstMethods.getSavedprogectid(PositionTablesActivity.this);
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                }else{
+                    pn=ConstMethods.getSavedprogectid(PositionTablesActivity.this);
 
         /*
         final Handler handler = new Handler();
@@ -315,34 +330,35 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
             @Override
             public void run() {
                 // Do something after 5s = 5000ms*/
-                // Spinner click listener
-                spinnerJobs.setPrompt("أختار الوظيفة");
-                jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
-                for (int i = 0; i < jobDataBase.userDao().getJobs(pn).size(); i++) {
-                    Log.e("Gov DATA --->", jobDataBase.userDao().getJobs(pn).get(i).toString());
-                    jobList1.add(new JobEntity(jobDataBase.userDao().getJobs(pn).get(i).getJobId(), jobDataBase.userDao().getJobs(pn).get(i).getJobName(),pn));
+                    // Spinner click listener
+                    spinnerJobs.setPrompt("أختار الوظيفة");
+                    jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
+                    for (int i = 0; i < jobDataBase.userDao().getJobs(pn).size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs(pn).get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs(pn).get(i).getJobId(), jobDataBase.userDao().getJobs(pn).get(i).getJobName(),pn));
+                    }
+                    JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, jobList1);
+                    spinnerJobs.setAdapter(govofflineSpinnerAdapter);
+                    spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            jobName = jobList1.get(position).getJobName();
+                            //Log.e("KEY-->", strGovId);
+                            //citiesList.clear();
+                            //iniCitiesSpinner();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            Toast.makeText(PositionTablesActivity.this, "Please Choose Your Job", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
                 }
-                JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, jobList1);
-                spinnerJobs.setAdapter(govofflineSpinnerAdapter);
-                spinnerJobs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        jobName = jobList1.get(position).getJobName();
-                        //Log.e("KEY-->", strGovId);
-                        //citiesList.clear();
-                        //iniCitiesSpinner();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        Toast.makeText(PositionTablesActivity.this, "Please Choose Your Job", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                });
-
-           /* }
-        }, 1000);*/
+            }
+        }, 1000);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
