@@ -2,22 +2,22 @@ package com.example.asamir.iraqproject.comments;
 
 public class Comment {
 
-    String projectId ;
+    String officeId;
     String projectName ;
     String comment ;
 
-    public Comment(String projectId, String projectName, String comment) {
-        this.projectId = projectId;
+    public Comment(String officeId, String projectName, String comment) {
+        this.officeId = officeId;
         this.projectName = projectName;
         this.comment = comment;
     }
 
-    public String getProjectId() {
-        return projectId;
+    public String getOfficeId() {
+        return officeId;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setOfficeId(String officeId) {
+        this.officeId = officeId;
     }
 
     public String getProjectName() {
