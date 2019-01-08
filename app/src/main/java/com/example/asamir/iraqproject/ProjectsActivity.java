@@ -21,7 +21,6 @@ import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.Models.ProjectsModel;
 import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
-import com.example.asamir.iraqproject.ViewFormData.PositionTablesActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.firebase.auth.FirebaseAuth;
@@ -190,6 +189,26 @@ public class ProjectsActivity extends AppCompatActivity {
                             }
                         }
                     });
+            tvp2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkIfBareedOrNot(pro_name2.getText().toString())) {
+                        ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
+                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
+                    } else {
+                        ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                        ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
+                    }
+                }
+            });
 
                     tvp3.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -212,6 +231,23 @@ public class ProjectsActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    if (checkIfBareedOrNot(pro_name3.getText().toString())) {
+                        ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
+                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
+                    } else {
+                        ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                        editor.putString("pn", projectsModels.get(0).getName());
+                        editor.apply();
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                        ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
+                    }
+                }
+            });
 
                     //Toast.makeText(ProjectsActivity.this, "Test!", Toast.LENGTH_SHORT).show();
 

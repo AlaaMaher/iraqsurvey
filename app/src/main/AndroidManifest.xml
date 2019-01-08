@@ -116,19 +116,20 @@
             android:label=""
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".OfflineWork.BroadCastRecevier.NetworkChangeReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name=".OfflineWork.BroadCastRecevier.NetworkChangeReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
 
-        <service
-            android:name=".services.MyService"
-            android:enabled="true" />
+        <!--<service-->
+            <!--android:name=".services.MyService"-->
+            <!--android:enabled="true" />-->
 
         <activity android:name=".AddFormData.NewUiSurveyScreen"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
             >
 
             <!--<intent-filter>-->
