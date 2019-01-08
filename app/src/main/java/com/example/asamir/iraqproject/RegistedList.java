@@ -17,8 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.Sesstion;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -96,6 +99,10 @@ public class RegistedList extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(RegistedList.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(RegistedList.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -106,6 +113,8 @@ public class RegistedList extends AppCompatActivity implements NavigationView.On
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , RegistedList.this);
+
         startActivity(new Intent(RegistedList.this, LoginActivity.class));
         finish();
         Toast.makeText(getApplicationContext(), "تم تسجيل الخروج بنجاح", Toast.LENGTH_LONG).show();

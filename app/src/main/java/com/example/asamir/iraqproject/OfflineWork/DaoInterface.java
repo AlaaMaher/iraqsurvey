@@ -87,8 +87,10 @@ public interface DaoInterface {
     //--------  gobs work
     @Insert
     void insertJob(JobEntity jobEntity);
+    @Query("SELECT * FROM jobTable ")
+    List<JobEntity> getJobs();
     @Query("SELECT * FROM jobTable where projectId=:projectId")
-    List<JobEntity> getJobs(String projectId);
+    List<JobEntity> getJobsByProject(String projectId);
     @Query("DELETE FROM jobTable")
     void deleteJobData();
 

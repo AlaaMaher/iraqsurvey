@@ -33,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
 import com.example.asamir.iraqproject.LoginActivity;
@@ -45,6 +47,7 @@ import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.SendingCompleteActivity;
 import com.example.asamir.iraqproject.adapter.RecyclerViewAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.Utility;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -170,6 +173,10 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(ViewInDoorPhotosActivity.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(ViewInDoorPhotosActivity.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -180,6 +187,8 @@ public class ViewInDoorPhotosActivity extends AppCompatActivity implements Recyc
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , ViewInDoorPhotosActivity.this);
+
         startActivity(new Intent(ViewInDoorPhotosActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

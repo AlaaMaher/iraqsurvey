@@ -24,27 +24,69 @@
     android:layout_height="match_parent"
     android:layout_marginTop="55dp"
     >
+
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_next"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         tools:context=".FormFragments.SketchPlaceFragment">
 
+
         <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="اضغط علي الصورة لاضافة رسم كروكي للمكان"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/ivPicImage"
-            app:layout_constraintStart_toStartOf="@+id/ivPicImage"
-            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/l"
+            android:layout_width="348dp"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPicImage">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="3"
+                android:text="لأدراج صورة يرجى الضغط على علامة"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="Tajawal"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPicImage" />
+
+            <ImageView
+                android:id="@+id/ivPicAdd"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="180dp"
+                android:layout_weight="1"
+                android:src="@drawable/btnadd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivPicImage"
@@ -53,44 +95,78 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="88dp"
-            android:src="@drawable/blueprint"
+            android:layout_marginBottom="180dp"
+            android:src="@drawable/addfile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.604"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btn_delete_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="80dp"
-            android:background="#660914"
+            android:background="#B22830"
             android:onClick="deleteImage"
             android:text="مسح الصورة"
             android:textColor="#fff"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ivPicImage"
-            app:layout_constraintStart_toStartOf="@+id/ivPicImage"
-            app:layout_constraintTop_toBottomOf="@+id/ivPicImage" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_delete_photo"
+            app:layout_constraintVertical_bias="1.0">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="2"
+                android:background="@color/opengray"
+                android:onClick="goTOBack"
+                android:text="السابق"
+                android:drawableStart="@drawable/backbtn"
+                android:textColor="#999999"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:onClick="goTONext"
+                android:text="التالي"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:drawableEnd="@drawable/next"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="التالي "
-        android:background="@drawable/corner"
-        android:textColor="#fff"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        />
+
+
+
 </RelativeLayout>
     </RelativeLayout>
 

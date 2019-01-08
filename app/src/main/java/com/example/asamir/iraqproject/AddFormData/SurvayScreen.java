@@ -48,7 +48,9 @@ import com.example.asamir.iraqproject.adapter.CitiesSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.OfficeAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
+import com.example.asamir.iraqproject.util.CustomToast;
 import com.google.android.gms.common.internal.Objects;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -602,7 +604,8 @@ public class SurvayScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(SurvayScreen.this)) {
-                startActivity(new Intent(SurvayScreen.this, SurvayScreen.class));
+                //startActivity(new Intent(SurvayScreen.this, SurvayScreen.class));
+                CustomToast customToast = new CustomToast(SurvayScreen.this , "انت موجود في الصفحة بالفعل");
                 finish();
             } else {
                 startActivity(new Intent(SurvayScreen.this, OfflineSurvayActivity.class));
@@ -612,6 +615,10 @@ public class SurvayScreen extends AppCompatActivity
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(SurvayScreen.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(SurvayScreen.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -622,6 +629,8 @@ public class SurvayScreen extends AppCompatActivity
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , SurvayScreen.this);
+
         startActivity(new Intent(SurvayScreen.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

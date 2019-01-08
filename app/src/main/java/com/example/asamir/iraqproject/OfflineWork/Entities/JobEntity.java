@@ -16,6 +16,7 @@ public class JobEntity {
     String projectId;
 
     public JobEntity( String jobId, String jobName, String projectId) {
+    //public JobEntity( String jobId, String jobName) {
 
         this.jobId = jobId;
         this.jobName = jobName;

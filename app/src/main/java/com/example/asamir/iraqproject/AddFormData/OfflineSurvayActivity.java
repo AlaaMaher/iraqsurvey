@@ -48,6 +48,7 @@ import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -588,6 +589,10 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(OfflineSurvayActivity.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(OfflineSurvayActivity.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -598,6 +603,8 @@ public class OfflineSurvayActivity extends AppCompatActivity implements AdapterV
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , OfflineSurvayActivity.this);
+
         startActivity(new Intent(OfflineSurvayActivity.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

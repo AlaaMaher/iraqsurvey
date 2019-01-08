@@ -50,6 +50,7 @@ import com.example.asamir.iraqproject.adapter.CitiesSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.OfficeAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.CustomToast;
 import com.google.firebase.auth.FirebaseAuth;
@@ -127,8 +128,8 @@ public class NewUiSurveyScreen extends AppCompatActivity
     @BindView(R.id.linear_next_click)
     RelativeLayout nextClick;
 
-    @BindView(R.id.imageView_add_new_city)
-    ImageView addNewCity;
+//    @BindView(R.id.imageView_add_new_city)
+//    ImageView addNewCity;
 
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
@@ -144,8 +145,14 @@ public class NewUiSurveyScreen extends AppCompatActivity
     TextView editToN;
 
 
-    @BindView(R.id.imageView_add_new_district)
-    ImageView addNewDistrict;
+//    @BindView(R.id.imageView_add_new_district)
+//    ImageView addNewDistrict;
+//
+    @BindView(R.id.edt_other_cities)
+    EditText edtOtherCities;
+
+    @BindView(R.id.edt_other_district)
+    EditText edtOtherDistrict;
 
 
 
@@ -235,6 +242,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        edtOtherCities.setVisibility(View.GONE);
+        edtOtherDistrict.setVisibility(View.GONE);
+
+
 
 
 
@@ -434,7 +445,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                                     //error11.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
 
                                     editToN.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام ");
-                                    valMor = true;
+                                    valEve = true;
 
                                 } else {
                                     //error1.setError(null);
@@ -926,95 +937,95 @@ public class NewUiSurveyScreen extends AppCompatActivity
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        addNewCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               dialogAddCity = new Dialog(NewUiSurveyScreen.this);
-                dialogAddCity.setContentView(R.layout.add_new_city);
-
-                final EditText cityNameEdit = dialogAddCity.findViewById(R.id.edit_city_name_dialog);
-                Button addNewCityBtnDialog = dialogAddCity.findViewById(R.id.button_add_city_dialog);
-                Button cancelCityDialog = dialogAddCity.findViewById(R.id.button_cancel_city_dialog);
-
-
-
-                addNewCityBtnDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (cityNameEdit.getText().toString().length() != 0) {
-                            otherCity = cityNameEdit.getText().toString();
-                            dialogAddCity.dismiss();
-                        }
-                        else{
-                           cityNameEdit.setError("أدخل اسم مدينة");
-                    }
-                    }
-
-
-                });
-
-
-                cancelCityDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogAddCity.cancel();
-                    }
-                });
-
-                Window window = dialogAddCity.getWindow();
-                window.setLayout(500, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                window.setGravity(Gravity.CENTER);
-
-                dialogAddCity.show();
-            }
-        });
-
-
-
-
-        addNewDistrict.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final Dialog dialog = new Dialog(NewUiSurveyScreen.this);
-                dialog.setContentView(R.layout.add_new_district);
-
-                final EditText districtNameEdit = dialog.findViewById(R.id.edit_district_name_dialog);
-                Button addNewDistrictBtnDialog = dialog.findViewById(R.id.button_add_district_dialog);
-                Button cancelDistrictDialog = dialog.findViewById(R.id.button_cancel_district_dialog);
-
-
-
-                addNewDistrictBtnDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (districtNameEdit.getText().toString().length() != 0){
-                            otherDistrict = districtNameEdit.getText().toString();
-                           dialog.dismiss();
-                        }
-                        else{
-                            districtNameEdit.setError("أدخل اسم الحي");
-                    }}
-                });
-
-
-                cancelDistrictDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.cancel();
-                    }
-                });
-
-                Window window = dialog.getWindow();
-                window.setLayout(500, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                window.setGravity(Gravity.CENTER);
-
-                dialog.show();
-            }
-        });
+//        addNewCity.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//               dialogAddCity = new Dialog(NewUiSurveyScreen.this);
+//                dialogAddCity.setContentView(R.layout.add_new_city);
+//
+//                final EditText cityNameEdit = dialogAddCity.findViewById(R.id.edit_city_name_dialog);
+//                Button addNewCityBtnDialog = dialogAddCity.findViewById(R.id.button_add_city_dialog);
+//                Button cancelCityDialog = dialogAddCity.findViewById(R.id.button_cancel_city_dialog);
+//
+//
+//
+//                addNewCityBtnDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        if (cityNameEdit.getText().toString().length() != 0) {
+//                            otherCity = cityNameEdit.getText().toString();
+//                            dialogAddCity.dismiss();
+//                        }
+//                        else{
+//                           cityNameEdit.setError("أدخل اسم مدينة");
+//                    }
+//                    }
+//
+//
+//                });
+//
+//
+//                cancelCityDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialogAddCity.cancel();
+//                    }
+//                });
+//
+//                Window window = dialogAddCity.getWindow();
+//                window.setLayout(500, DrawerLayout.LayoutParams.WRAP_CONTENT);
+//                window.setGravity(Gravity.CENTER);
+//
+//                dialogAddCity.show();
+//            }
+//        });
+//
+//
+//
+//
+//        addNewDistrict.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                final Dialog dialog = new Dialog(NewUiSurveyScreen.this);
+//                dialog.setContentView(R.layout.add_new_district);
+//
+//                final EditText districtNameEdit = dialog.findViewById(R.id.edit_district_name_dialog);
+//                Button addNewDistrictBtnDialog = dialog.findViewById(R.id.button_add_district_dialog);
+//                Button cancelDistrictDialog = dialog.findViewById(R.id.button_cancel_district_dialog);
+//
+//
+//
+//                addNewDistrictBtnDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        if (districtNameEdit.getText().toString().length() != 0){
+//                            otherDistrict = districtNameEdit.getText().toString();
+//                           dialog.dismiss();
+//                        }
+//                        else{
+//                            districtNameEdit.setError("أدخل اسم الحي");
+//                    }}
+//                });
+//
+//
+//                cancelDistrictDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//                Window window = dialog.getWindow();
+//                window.setLayout(500, DrawerLayout.LayoutParams.WRAP_CONTENT);
+//                window.setGravity(Gravity.CENTER);
+//
+//                dialog.show();
+//            }
+//        });
 
     }
 
@@ -1055,8 +1066,9 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(NewUiSurveyScreen.this)) {
-                startActivity(new Intent(NewUiSurveyScreen.this, SurvayScreen.class));
-                finish();
+               // startActivity(new Intent(NewUiSurveyScreen.this, SurvayScreen.class));
+                //finish();
+                customToast = new CustomToast(NewUiSurveyScreen.this , "انت موجود في الصفحة بالفعل");
             } else {
                 startActivity(new Intent(NewUiSurveyScreen.this, OfflineSurvayActivity.class));
                 finish();
@@ -1065,6 +1077,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(NewUiSurveyScreen.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(NewUiSurveyScreen.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -1075,7 +1091,14 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(NewUiSurveyScreen.this, LoginActivity.class));
+        ConstMethods.saveUserLoginInfo(null , null , NewUiSurveyScreen.this);
+
+        Intent intent =new Intent(NewUiSurveyScreen.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+
+        finish();
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),
@@ -1259,6 +1282,12 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
 
     else if(valMor == true)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل قت الانصراف صحيح ");
+
+    }
+
+    else if(valEve == true)
     {
         customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل قت الانصراف صحيح ");
 
@@ -1704,6 +1733,8 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                         citiesList.add(new CitiesModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                     }
+                    citiesList.add(new CitiesModels("otherCity","اخـــرى"));
+
 
 
                     CitiesSpinnerAdapter citiesSpinnerAdapter = new CitiesSpinnerAdapter(NewUiSurveyScreen.this, R.layout.spinneritem, citiesList);
@@ -1730,15 +1761,14 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 if (citiesList.size() != 0) {
                     cityName=citiesList.get(position).getName();
 
-                    String city = citiesList.get(position).getName();
-                    String other = new String("اخري");
+                    String cityIdOther = citiesList.get(position).getId();
 
                     strCityId = citiesList.get(position).getId();
                     districsList.clear();
 
                     iniDistrictsSpinner();
-                    /*
-                    if (city.equals(other)) {
+
+                    if (cityIdOther.equals("otherCity")) {
 
                         edtOtherCities.setVisibility(View.VISIBLE);
                         edtOtherCities.requestFocus();
@@ -1749,6 +1779,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                             databaseDisReference.child(cityId).setValue(new DistrictsModels(cityId, edtOtherCities.getText().toString()));
                             strCityId = cityId;
 
+
                         }
                     } else {
 
@@ -1758,7 +1789,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                         iniDistrictsSpinner();
                     }
 
-*/
+
                 }
 
             }
@@ -1790,6 +1821,8 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                         districsList.add(new DistrictsModels(dataSnapshot1.getKey(), dataSnapshot1.child("name").getValue().toString()));
                     }
+                    districsList.add(new DistrictsModels("otherDistrict","اخـــرى"));
+
 
 
                 }
@@ -1814,15 +1847,16 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                     disName = districsList.get(position).getName();
 
-                    String dist = districsList.get(position).getName();
-                    String other = new String("اخرى");
+                    String dist = districsList.get(position).getId();
                     strDisrtric = districsList.get(position).getId();
                     iniOfficesSpinner();
-/*
-                    if (dist.equals(other)) {
+
+                    if (dist.equals("otherDistrict")) {
+                        edtOtherDistrict.setVisibility(View.VISIBLE);
+                        edtOtherDistrict.requestFocus();
 
 
-                        if (edtOtherDistrict.hasFocus()) {
+                        if (!edtOtherDistrict.hasFocus()) {
 
                             String Disid = databaseDisReference.push().getKey();
                             databaseDisReference.child(Disid).setValue(new DistrictsModels(Disid, edtOtherDistrict.getText().toString()));
@@ -1835,7 +1869,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                         strDisrtric = districsList.get(position).getId();
                         iniOfficesSpinner();
                     }
-*/
+
                 }
 
             }
@@ -1874,6 +1908,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                                 //officesList.remove(new OfficeModel(dataSnapshot1.getKey(), dataSnapshot1.child("visited").getValue().toString(), visit));
                             }
+                            
 
                         }
 

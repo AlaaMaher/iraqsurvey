@@ -32,6 +32,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -49,6 +51,7 @@ import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.adapter.JobsSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.JobsTableAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.FixedGridLayoutManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -188,6 +191,10 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(PositionTablesActivity.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(PositionTablesActivity.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -198,6 +205,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , PositionTablesActivity.this);
+
         startActivity(new Intent(PositionTablesActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
@@ -333,9 +342,9 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                     // Spinner click listener
                     spinnerJobs.setPrompt("أختار الوظيفة");
                     jobList1.add(0,new JobEntity("dummyid","--أختر--",""));
-                    for (int i = 0; i < jobDataBase.userDao().getJobs(pn).size(); i++) {
-                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobs(pn).get(i).toString());
-                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobs(pn).get(i).getJobId(), jobDataBase.userDao().getJobs(pn).get(i).getJobName(),pn));
+                    for (int i = 0; i < jobDataBase.userDao().getJobsByProject(pn).size(); i++) {
+                        Log.e("Gov DATA --->", jobDataBase.userDao().getJobsByProject(pn).get(i).toString());
+                        jobList1.add(new JobEntity(jobDataBase.userDao().getJobsByProject(pn).get(i).getJobId(), jobDataBase.userDao().getJobsByProject(pn).get(i).getJobName(),pn));
                     }
                     JobsOfflineSpinnerAdapter govofflineSpinnerAdapter = new JobsOfflineSpinnerAdapter(PositionTablesActivity.this, R.layout.spinneritem, jobList1);
                     spinnerJobs.setAdapter(govofflineSpinnerAdapter);

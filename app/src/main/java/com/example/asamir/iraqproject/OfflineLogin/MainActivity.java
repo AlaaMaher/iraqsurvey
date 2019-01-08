@@ -1,7 +1,7 @@
 package com.example.asamir.iraqproject.OfflineLogin;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Get a new or existing ViewModel from the ViewModelProvider.
 
-        mUsersViewModel = ViewModelProviders.of(this).get(UsersViewModel.class);
+        //mUsersViewModel = ViewModelProviders.of(this).get(UsersViewModel.class);
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.

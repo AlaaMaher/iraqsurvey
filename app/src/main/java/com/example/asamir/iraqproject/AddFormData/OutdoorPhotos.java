@@ -42,6 +42,7 @@ import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
 import com.example.asamir.iraqproject.adapter.RecyclerViewAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Utility;
 import com.google.android.gms.tasks.Continuation;
@@ -153,7 +154,7 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(OutdoorPhotos.this))
             {
-                startActivity(new Intent(OutdoorPhotos.this, SurvayScreen.class));
+                startActivity(new Intent(OutdoorPhotos.this, NewUiSurveyScreen.class));
                 finish();
             }else {
                 startActivity(new Intent(OutdoorPhotos.this, OfflineSurvayActivity.class));
@@ -162,6 +163,10 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
         }else if (id == R.id.nav_change_project) {
             startActivity(new Intent(OutdoorPhotos.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(OutdoorPhotos.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -171,6 +176,8 @@ public class OutdoorPhotos extends AppCompatActivity implements RecyclerViewAdap
     }
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , OutdoorPhotos.this);
+
         startActivity(new Intent(OutdoorPhotos.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,9 +24,11 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.OfflineWork.Entities.CityEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.DistricEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.GovEntity;
+import com.example.asamir.iraqproject.OfflineWork.Entities.JobEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.OfficeEntity;
 import com.example.asamir.iraqproject.OfflineWork.Entities.UserProjectsEntity;
 import com.example.asamir.iraqproject.OfflineWork.OfflineAdapters.GovofflineSpinnerAdapter;
+import com.example.asamir.iraqproject.ViewFormData.SavedDataListActivity;
 import com.example.asamir.iraqproject.services.MyService;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Sesstion;
@@ -62,10 +65,14 @@ public class LoginActivity extends AppCompatActivity {
     private static String govId;
     List<GovEntity> govList = new ArrayList<>();
     GovofflineSpinnerAdapter govofflineSpinnerAdapter;
+    static String jobId;
+    static Database jobsDataDB;
+    static String pn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if(ConstMethods.getUserLoginInfo(LoginActivity.this) != null)
         {
@@ -107,6 +114,9 @@ public class LoginActivity extends AppCompatActivity {
             userProjectsDB = Room.databaseBuilder(getApplicationContext(),
                     Database.class, "userProjects").allowMainThreadQueries().build();
 
+            jobsDataDB = Room.databaseBuilder(getApplicationContext(),
+                    Database.class, "jobTable").allowMainThreadQueries().build();
+
         }
     }
 
@@ -123,6 +133,36 @@ public class LoginActivity extends AppCompatActivity {
                     govId = dataSnapshot1.getKey();
                     govDataBase.userDao().insertGov(new GovEntity(govId, dataSnapshot1.child("name").getValue().toString()));
                     saveCities(govId);
+
+                }
+                Log.e("Gov Database Created"," =====>  Done");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+    }
+
+    public static void getJobs() {
+
+        //pn=ConstMethods.getSavedprogectid(LoginActivity.this);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("positions");
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                    jobId = dataSnapshot1.getKey();
+                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot1.child("position_name").getValue().toString(),dataSnapshot1.child("project_id").getValue().toString()));
+                    //saveCities(govId);
 
                 }
                 Log.e("Gov Database Created"," =====>  Done");
@@ -172,6 +212,29 @@ public class LoginActivity extends AppCompatActivity {
 
         // }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setMessage("هل تريد الخروج من الابلكشن ؟") ;
+        builder.setCancelable(false);
+        builder.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+                LoginActivity.this.finish();
+            }
+        });
+        builder.setNegativeButton("الغاء", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     public static void saveDistrict(String id)
@@ -260,11 +323,23 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
 
         }
+      else   if(edit_user_name.getText().toString().contains(" ") && edit_user_name.getText().toString().length()==1)
+        {
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال اسم المستخدم ", Toast.LENGTH_LONG).show();
+
+        }
+        else   if(edtPass.getText().toString().contains(" "))
+        {
+            Toast.makeText(LoginActivity.this, "الرجاء ادخال كلمة المرور ", Toast.LENGTH_LONG).show();
+
+        }
+
         else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("برجاء الانتظار جاري تسجيل الدخول ... ");
             progressDialog.setCancelable(false);
             progressDialog.show();
+
             mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -291,6 +366,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                             getGoves();
+
+                                            getJobs();
+
                                             Log.e("Projects DB Created "," =====>  Done");
                                             ConstMethods.saveUserLoginInfo(edit_user_name.getText().toString() , edtPass.getText().toString() , LoginActivity.this);
                                             startActivity(new Intent(LoginActivity.this, ProjectsActivity.class));

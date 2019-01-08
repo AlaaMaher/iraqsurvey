@@ -41,6 +41,7 @@ import com.example.asamir.iraqproject.OfflineWork.Database;
 import com.example.asamir.iraqproject.ProjectsActivity;
 import com.example.asamir.iraqproject.R;
 import com.example.asamir.iraqproject.RegistedList;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.Utility;
 import com.google.android.gms.tasks.Continuation;
@@ -156,7 +157,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
                     .show();
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this)) {
-                startActivity(new Intent(SketchPlace.this, SurvayScreen.class));
+                startActivity(new Intent(SketchPlace.this, NewUiSurveyScreen.class));
                 finish();
             } else {
                 startActivity(new Intent(SketchPlace.this, OfflineSurvayActivity.class));
@@ -165,6 +166,10 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(SketchPlace.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(SketchPlace.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,6 +180,8 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , SketchPlace.this);
+
         startActivity(new Intent(SketchPlace.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
