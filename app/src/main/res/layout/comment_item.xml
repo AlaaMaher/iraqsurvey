@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="460dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.9"
+        android:layoutDirection="rtl"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/project_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="7dp"
+            android:text=" مشروع كاتب العدل "
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="7dp">
+
+            <ImageView
+                android:id="@+id/asd"
+                android:layout_width="wrap_content"
+                android:src="@drawable/fffffffff"
+                 android:layout_height="20dp" />
+
+
+            <TextView
+                android:id="@+id/tvRoomNums"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/asd"
+                android:text="التعليق"
+                android:textSize="10dp"
+                android:textColor="#B92D00" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/comment_id"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="7dp"
+            android:text="بلتنيب تابلا نبللاابلا ةنيبلانميبلابانىبللااةتبلؤلا ةبلىانبلةلاابلىبلىانمبللااةلنتىلاةللاانمبلىانلا بلةانم"
+            android:textColor="@color/colorSecondaryText" />
+
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight=".5"
+            android:src="@drawable/delete"
+            android:visibility="gone"
+
+            />
+
+        <ImageView
+            android:id="@+id/commentEdit"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".5"
+            android:src="@drawable/edit"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="top"
+        android:layout_marginRight="20dp"
+        android:layout_weight="0.1"
+        android:src="@drawable/checkbox"/>
+</LinearLayout>
+
