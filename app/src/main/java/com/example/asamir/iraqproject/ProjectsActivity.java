@@ -79,7 +79,8 @@ public class ProjectsActivity extends AppCompatActivity {
         tvp1.setVisibility(View.GONE);
         tvp2.setVisibility(View.GONE);
         tvp3.setVisibility(View.GONE);
-
+        userProjectsDB = Room.databaseBuilder(getApplicationContext(),
+                Database.class, "userProjects").allowMainThreadQueries().build();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String id = FirebaseAuth.getInstance().getUid();
 
@@ -189,26 +190,6 @@ public class ProjectsActivity extends AppCompatActivity {
                             }
                         }
                     });
-            tvp2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (checkIfBareedOrNot(pro_name2.getText().toString())) {
-                        ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                        editor.putString("pn", projectsModels.get(0).getName());
-                        editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                        ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
-                    } else {
-                        ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                        editor.putString("pn", projectsModels.get(0).getName());
-                        editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                        ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
-                    }
-                }
-            });
 
                     tvp3.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -231,40 +212,23 @@ public class ProjectsActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    if (checkIfBareedOrNot(pro_name3.getText().toString())) {
-                        ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                        editor.putString("pn", projectsModels.get(0).getName());
-                        editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                        ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
-                    } else {
-                        ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                        editor.putString("pn", projectsModels.get(0).getName());
-                        editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                        ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
-                    }
-                }
-            });
 
                     //Toast.makeText(ProjectsActivity.this, "Test!", Toast.LENGTH_SHORT).show();
 
                 } else {
 
                     Log.e("FromOffline", "OFFFFFFFFFFFFF");
-            for (int i = 0; i < userProjectsDB.userDao().getAllUserProjects().size(); i++) {
+                    for (int i = 0; i < userProjectsDB.userDao().getAllUserProjects().size(); i++) {
 
-                userProjectsEntities.add(new UserProjectsEntity(userProjectsDB.userDao().getAllUserProjects().get(i).getProject_id(),
-                        userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name(),
-                        userProjectsDB.userDao().getAllUserProjects().get(i).getUserId())
-                );
+                        userProjectsEntities.add(new UserProjectsEntity(userProjectsDB.userDao().getAllUserProjects().get(i).getProject_id(),
+                                userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name(),
+                                userProjectsDB.userDao().getAllUserProjects().get(i).getUserId())
+                        );
 
-                Log.e("PRO NAME", userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name());
+                        Log.e("PRO NAME", userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name());
 
 
-            }
+                    }
 
             /*
                     uid = ConstMethods.getSavedUserId(ProjectsActivity.this);
