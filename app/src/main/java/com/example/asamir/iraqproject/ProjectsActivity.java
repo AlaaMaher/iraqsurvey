@@ -284,6 +284,8 @@ public class ProjectsActivity extends AppCompatActivity {
                     }
 
 
+                    /////////////
+
                     tvp1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
