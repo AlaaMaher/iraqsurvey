@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     static String jobId;
     static Database jobsDataDB;
     static String pn;
+    private String projid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,11 +149,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public static void getJobs() {
+    public  void getJobs() {
 
         //pn=ConstMethods.getSavedprogectid(LoginActivity.this);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        /*final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("positions");
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
@@ -174,7 +175,64 @@ public class LoginActivity extends AppCompatActivity {
 
             }
 
-        });
+        });*/
+
+
+
+        try {
+            DatabaseReference userProjectsRef = firebaseDatabase.getReference("Project_user").child(FirebaseAuth.getInstance().getUid());
+            userProjectsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                    //progressDialog.cancel();
+                    for (final DataSnapshot dataSnapshotProjects : dataSnapshot.getChildren()) {
+                        Log.e("PROJECTNAME-->", dataSnapshotProjects.child("project_name").getValue().toString());
+                        userProjectsDB.userDao().insertProjects(new UserProjectsEntity(dataSnapshotProjects.child("project_id").getValue().toString(),
+                                dataSnapshotProjects.child("project_name").getValue().toString(), FirebaseAuth.getInstance().getUid()));
+                        //Toast.makeText(LoginActivity.this,edit_user_name.getText().toString()+"مرحبا - ",Toast.LENGTH_LONG).show();
+
+
+                        projid = dataSnapshotProjects.child("project_id").getValue().toString();
+
+
+                        final FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+                        DatabaseReference ref2 = database2.getReference("positions");
+                        // Attach a listener to read the data at our posts reference
+                        ref2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot5) {
+                                for (final DataSnapshot dataSnapshot12 : dataSnapshot5.getChildren()) {
+
+                                    jobId = dataSnapshot12.getKey();
+                                    jobsDataDB.userDao().insertJob(new JobEntity(jobId, dataSnapshot12.child("position_name").getValue().toString(), projid));
+                                    //saveCities(govId);
+
+                                }
+                                Log.e("Gov Database Created", " =====>  Done");
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+                        });
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // progressDialog.cancel();
+                }
+            });
+        }catch (Exception ex){
+            Log.e("ex",ex.getMessage().toString());
+        }
+
+
 
     }
 
