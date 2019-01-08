@@ -50,6 +50,7 @@ import com.example.asamir.iraqproject.adapter.CitiesSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.DistricSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.GovSpinnerAdapter;
 import com.example.asamir.iraqproject.adapter.OfficeAdapter;
+import com.example.asamir.iraqproject.comments.CommentsActivity;
 import com.example.asamir.iraqproject.util.ConnectivityHelper;
 import com.example.asamir.iraqproject.util.CustomToast;
 import com.google.firebase.auth.FirebaseAuth;
@@ -1065,6 +1066,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
         } else if (id == R.id.nav_change_project) {
             startActivity(new Intent(NewUiSurveyScreen.this, ProjectsActivity.class));
             finish();
+        }else if(id ==R.id.nav_comment){
+            startActivity(new Intent(NewUiSurveyScreen.this, CommentsActivity.class));
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
