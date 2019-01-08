@@ -12,19 +12,20 @@ import android.widget.TextView;
 import com.example.asamir.iraqproject.R;
 
 import java.util.Collections;
+import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private LayoutInflater inflater;
-    public List<Patient> data = Collections.emptyList();
-    Patient current;
+    public List<Comment> data = Collections.emptyList();
+    Comment current;
     int currentPos = 0;
-    private PatientItemClick lOnClickListener;
-    public PatientAdapter(PatientItemClick listener) {
+    private CommentItemClick lOnClickListener;
+    public CommentAdapter(CommentItemClick listener) {
         lOnClickListener = listener;
     }
-    public void setProductData(List<Patient> recipesIn, Context context) {
+    public void setCommentData(List<Comment> recipesIn, Context context) {
         data = recipesIn;
         mContext = context;
         notifyDataSetChanged();
@@ -33,7 +34,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForListItem = R.layout.patient_item_list;
+        int layoutIdForListItem = R.layout.comment_item;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, parent, false);
@@ -45,25 +46,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MyHolder myHolder = (MyHolder) holder;
         current = data.get(position);
-        myHolder.name.setText(current.getPat_name());
-        myHolder.delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lOnClickListener.deleteBtn(v, position);
-            }
-        });
+        myHolder.project_name.setText(current.getProjectName());
 
-        myHolder.show_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lOnClickListener.showBtn(v, position);
-            }
-        });
+        myHolder.comment_id.setText(current.getComment());
 
-        myHolder.message_btn.setOnClickListener(new View.OnClickListener() {
+        myHolder.commentEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lOnClickListener.messageBtn(v, position);
+                lOnClickListener.EditBtn(v, position);
             }
         });
     }
@@ -72,15 +62,15 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return data.size();
     }
     class MyHolder extends RecyclerView.ViewHolder {
-        ImageView message_btn, show_btn, delete_btn;
-        TextView name;
+
+        TextView project_name ,comment_id ;
+        ImageView commentEdit ;
 
         public MyHolder(View itemView) {
             super(itemView);
-            message_btn = (ImageView) itemView.findViewById(R.id.message_btn);
-            show_btn = (ImageView) itemView.findViewById(R.id.show_btn);
-            delete_btn = (ImageView) itemView.findViewById(R.id.delete_btn);
-            name = (TextView) itemView.findViewById(R.id.patient_name);
+            project_name = (TextView) itemView.findViewById(R.id.project_name);
+            comment_id = (TextView) itemView.findViewById(R.id.comment_id);
+            commentEdit = (ImageView) itemView.findViewById(R.id.commentEdit);
         }
     }
     public void clear() {
