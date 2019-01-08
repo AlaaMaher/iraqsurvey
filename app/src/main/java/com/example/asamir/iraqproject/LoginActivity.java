@@ -265,7 +265,7 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setTitle("برجاء الانتظار جاري تسجيل الدخول ... ");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString(), edtPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(edit_user_name.getText().toString().trim(), edtPass.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
@@ -334,6 +334,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
 
                         Toast.makeText(LoginActivity.this, "خطا في البريد  وكلمة المرور ", Toast.LENGTH_LONG).show();
+                      progressDialog.cancel();
                     }
                 }
             });

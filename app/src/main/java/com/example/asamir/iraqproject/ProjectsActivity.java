@@ -174,7 +174,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
@@ -196,7 +196,7 @@ public class ProjectsActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
                         editor.putString("pn", projectsModels.get(0).getName());
                         editor.apply();
-                        startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
+                        startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
                         ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
                     } else {
                         ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
