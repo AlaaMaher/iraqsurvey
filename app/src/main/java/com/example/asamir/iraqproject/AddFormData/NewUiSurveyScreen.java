@@ -133,6 +133,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
 
+    @BindView(R.id.edit_from)
+    TextView editFrom;
+    @BindView(R.id.edit_to)
+    TextView editTo;
 
 
     @BindView(R.id.imageView_add_new_district)
@@ -248,6 +252,138 @@ public class NewUiSurveyScreen extends AppCompatActivity
             }
         });
 
+
+
+
+
+
+
+        //TODO Edit From
+        editFrom.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+
+                // Single tap here.
+                cal = Calendar.getInstance();
+                currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                currentMinute = cal.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                    //  @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = " " + " PM";
+                        } else {
+                            amPm = " " + " AM";
+                        }
+                        editFrom.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+                        editTo.setFocusable(true);
+
+                        try {
+                            inTime = sdf.parse(editFrom.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                    }
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+                clicked=true;
+
+
+
+            }
+
+            @Override
+            public void onDoubleClick(View view) {
+
+
+
+            }
+
+        }));
+
+        editTo.setOnClickListener( new DoubleClick(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                if (clicked) {
+
+                    cal = Calendar.getInstance();
+                    currentHour = cal.get(Calendar.HOUR_OF_DAY);
+                    currentMinute = cal.get(Calendar.MINUTE);
+
+
+                    timePickerDialog = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
+                        //    @RequiresApi(api = Build.VERSION_CODES.O)
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                            if (hourOfDay >= 12) {
+                                amPm = " " + " PM";
+                            } else {
+                                amPm = " " + " AM";
+                            }
+                            editTo.setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+
+                            try {
+                                outTime = sdf.parse(editTo.getText().toString());
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            Log.e("H---ASI-->", String.valueOf(outTime.getHours()));
+                            Log.e("H---ASI-->", String.valueOf(amPm));
+                            if (outTime.getHours() == 0 && amPm.equals("  PM")) {
+                                //error1.setError(null);
+                                //error11.setError(null);
+
+                            } else {
+                                if (!isTimeAfter(inTime, outTime)) {
+                                    //error1.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    //error11.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+
+                                    editTo.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
+                                    valMor = true;
+
+                                } else {
+                                    //error1.setError(null);
+                                    //error11.setError(null);
+
+
+                                }
+                            }
+
+
+                        }
+                    }, currentHour, currentMinute, false);
+                    timePickerDialog.show();
+
+
+                }
+                else
+                {
+                    Toast.makeText(NewUiSurveyScreen.this, "من فضلك ادخل بدايه العمل اولا", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onDoubleClick(View view) {
+
+
+
+
+            }
+        }));
+
+
+
+
         morningShift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,10 +413,20 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 strShiftType = "1";
 
 
+
+                editFrom.setVisibility(View.VISIBLE);
+                editFrom.setHint("أدخل وقت الحضور صباحا");
+                editTo.setVisibility(View.VISIBLE);
+                editTo.setHint("أدخل وقت الانصراف صباحا");
+
+
+
+                /*
                 // Single tap here.
                 cal = Calendar.getInstance();
                 currentHour = cal.get(Calendar.HOUR_OF_DAY);
                 currentMinute = cal.get(Calendar.MINUTE);
+
 
                 timePickerDialogMorningFrom = new TimePickerDialog(NewUiSurveyScreen.this, new TimePickerDialog.OnTimeSetListener() {
                     //  @RequiresApi(api = Build.VERSION_CODES.O)
@@ -291,7 +437,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                         } else {
                             amPm = " " + " AM";
                         }
-                        morningShiftTxtFrom = String.format("%02d:%02d", hourOfDay, minutes) + amPm;
+                           morningShiftTxtFrom = String.format("%02d:%02d", hourOfDay, minutes) + amPm;
 
 
                         try {
@@ -400,6 +546,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
                 timePickerDialogMorningFrom.show();
 
+*/
 
             }
 
@@ -433,6 +580,12 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
 
 
+                editFrom.setVisibility(View.VISIBLE);
+                editFrom.setHint("أدخل وقت الحضور مساء");
+                editTo.setVisibility(View.VISIBLE);
+                editTo.setHint("أدخل وقت الانصراف مساء");
+
+/*
                 calendar = Calendar.getInstance();
                 currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 currentMinute = calendar.get(Calendar.MINUTE);
@@ -578,6 +731,9 @@ public class NewUiSurveyScreen extends AppCompatActivity
                 morningShift.setBackgroundResource(R.drawable.sun_non);
                 nightShift.setBackgroundResource(R.drawable.moon_nun);
                 bothShift.setBackgroundResource(R.drawable.sun_active);
+
+                editFrom.setVisibility(View.GONE);
+                editTo.setVisibility(View.GONE);
 
                 /*
                 if (isSecondOne) {
@@ -781,6 +937,10 @@ public class NewUiSurveyScreen extends AppCompatActivity
     private  void setDefault()
     {
 
+
+        editFrom.setVisibility(View.GONE);
+        editTo.setVisibility(View.GONE);
+
         edt_phone.setFocusable(false);
         if(strOwnerShipType.equals("1"))
 
@@ -895,18 +1055,11 @@ public class NewUiSurveyScreen extends AppCompatActivity
     }
 
 
-  else  if(hasInternet.equals("1"))
-    {
-        if(editInternetSpeed.getText().toString().length() == 0 )
-        {
-            customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل سرعة الانترنت  ");
 
-        }
-    }
 
     else if(strShiftType .equals("+"))
     {
-        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك وقت الدوام  ");
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل وقت الدوام  ");
 
     }
     else if(edt_computer_count.getText().toString().length() == 0)
@@ -927,6 +1080,23 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
     }
 
+
+    else if(valMor == true)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل قت الانصراف صحيح ");
+
+    }
+
+    else  if(hasInternet.equals("1"))
+    {
+        if(editInternetSpeed.getText().toString().length() == 0 )
+        {
+            customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل سرعة الانترنت  ");
+
+        }
+    }
+
+
     else
     {
         saveData();
@@ -935,10 +1105,11 @@ public class NewUiSurveyScreen extends AppCompatActivity
     }
 
 
+
     }
 
 
-    public void goTONext(View view) {
+//    public void goTONext(View view) {
 
 
         /**
@@ -1029,7 +1200,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
 
 */
-    }
+//    }
     //
 
 
