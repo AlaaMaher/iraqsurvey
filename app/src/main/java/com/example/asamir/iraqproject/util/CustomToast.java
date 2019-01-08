@@ -28,7 +28,7 @@ public class CustomToast {
         toastView = toast.getView();
       /* And now you can get the TextView of the default View of the Toast. */
         TextView toastMessage = (TextView) toastView.findViewById(android.R.id.message);
-        toastMessage.setTextSize(22);
+        toastMessage.setTextSize(24);
         toastMessage.setTextColor(Color.WHITE);
         toastMessage.setGravity(Gravity.CENTER);
         toastMessage.setCompoundDrawablePadding(16);
