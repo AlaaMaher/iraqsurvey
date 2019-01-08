@@ -153,7 +153,7 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(RoomTable.this))
             {
-                startActivity(new Intent(RoomTable.this, SurvayScreen.class));
+                startActivity(new Intent(RoomTable.this, NewUiSurveyScreen.class));
                 finish();
             }else {
                 startActivity(new Intent(RoomTable.this, OfflineSurvayActivity.class));
@@ -175,6 +175,8 @@ public class RoomTable extends AppCompatActivity implements NavigationView.OnNav
     }
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , RoomTable.this);
+
         startActivity(new Intent(RoomTable.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

@@ -435,7 +435,7 @@ public class NewUiSurveyScreen extends AppCompatActivity
                                     //error11.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام الصباحى");
 
                                     editToN.setError("قم بادخال وقت الانتهاء من العمل الصحيح للدوام ");
-                                    valMor = true;
+                                    valEve = true;
 
                                 } else {
                                     //error1.setError(null);
@@ -1056,8 +1056,9 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(NewUiSurveyScreen.this)) {
-                startActivity(new Intent(NewUiSurveyScreen.this, SurvayScreen.class));
-                finish();
+               // startActivity(new Intent(NewUiSurveyScreen.this, SurvayScreen.class));
+                //finish();
+                customToast = new CustomToast(NewUiSurveyScreen.this , "انت موجود في الصفحة بالفعل");
             } else {
                 startActivity(new Intent(NewUiSurveyScreen.this, OfflineSurvayActivity.class));
                 finish();
@@ -1080,7 +1081,14 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(NewUiSurveyScreen.this, LoginActivity.class));
+        ConstMethods.saveUserLoginInfo(null , null , NewUiSurveyScreen.this);
+
+        Intent intent =new Intent(NewUiSurveyScreen.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+
+        finish();
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),
@@ -1264,6 +1272,12 @@ public class NewUiSurveyScreen extends AppCompatActivity
 
 
     else if(valMor == true)
+    {
+        customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل قت الانصراف صحيح ");
+
+    }
+
+    else if(valEve == true)
     {
         customToast = new CustomToast(NewUiSurveyScreen .this , "من فضلك أدخل قت الانصراف صحيح ");
 

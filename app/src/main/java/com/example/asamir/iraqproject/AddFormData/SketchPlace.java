@@ -157,7 +157,7 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
                     .show();
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(SketchPlace.this)) {
-                startActivity(new Intent(SketchPlace.this, SurvayScreen.class));
+                startActivity(new Intent(SketchPlace.this, NewUiSurveyScreen.class));
                 finish();
             } else {
                 startActivity(new Intent(SketchPlace.this, OfflineSurvayActivity.class));
@@ -180,6 +180,8 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , SketchPlace.this);
+
         startActivity(new Intent(SketchPlace.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

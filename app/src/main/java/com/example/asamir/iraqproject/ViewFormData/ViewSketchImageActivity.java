@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OutdoorPhotos;
 import com.example.asamir.iraqproject.AddFormData.SketchPlace;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -211,6 +212,8 @@ public class ViewSketchImageActivity extends AppCompatActivity implements Naviga
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , ViewSketchImageActivity.this);
+
         startActivity(new Intent(ViewSketchImageActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

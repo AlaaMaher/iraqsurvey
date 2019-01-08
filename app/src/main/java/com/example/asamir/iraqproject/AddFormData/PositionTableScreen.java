@@ -166,7 +166,7 @@ public class PositionTableScreen extends AppCompatActivity
 
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
-                startActivity(new Intent(PositionTableScreen.this, SurvayScreen.class));
+                startActivity(new Intent(PositionTableScreen.this, NewUiSurveyScreen.class));
                 finish();
             } else {
                 startActivity(new Intent(PositionTableScreen.this, OfflineSurvayActivity.class));
@@ -189,6 +189,8 @@ public class PositionTableScreen extends AppCompatActivity
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , PositionTableScreen.this);
+
         startActivity(new Intent(PositionTableScreen.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

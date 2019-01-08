@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.OfflineSurvayActivity;
 import com.example.asamir.iraqproject.AddFormData.PositionTableScreen;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
@@ -204,6 +205,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , PositionTablesActivity.this);
+
         startActivity(new Intent(PositionTablesActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();

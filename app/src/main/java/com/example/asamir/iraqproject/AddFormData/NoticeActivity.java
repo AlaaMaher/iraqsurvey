@@ -232,7 +232,7 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_add_new) {
             if (ConnectivityHelper.isConnectedToNetwork(NoticeActivity.this))
             {
-                startActivity(new Intent(NoticeActivity.this, SurvayScreen.class));
+                startActivity(new Intent(NoticeActivity.this, NewUiSurveyScreen.class));
                 finish();
             }else {
                 startActivity(new Intent(NoticeActivity.this, OfflineSurvayActivity.class));
@@ -256,6 +256,8 @@ public class NoticeActivity extends AppCompatActivity implements NavigationView.
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , NoticeActivity.this);
+
         startActivity(new Intent(NoticeActivity.this, LoginActivity.class));Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
         Database citiesDataBase = Room.databaseBuilder(getApplicationContext(),

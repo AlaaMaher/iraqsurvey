@@ -1,5 +1,6 @@
 package com.example.asamir.iraqproject.ViewFormData;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asamir.iraqproject.AddFormData.IndoorPhotos;
+import com.example.asamir.iraqproject.AddFormData.NewUiSurveyScreen;
 import com.example.asamir.iraqproject.AddFormData.RoomTable;
 import com.example.asamir.iraqproject.AddFormData.SurvayScreen;
 import com.example.asamir.iraqproject.ConstMethods;
@@ -169,6 +171,8 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , RoomsTableActivity.this);
+
         startActivity(new Intent(RoomsTableActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
@@ -228,7 +232,7 @@ public class RoomsTableActivity extends AppCompatActivity implements NavigationV
                 .setPositiveButton("إضافة",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                EditText edt_roomName = promptsView.findViewById(R.id.edt_roomName);
+                                @SuppressLint("WrongViewCast") EditText edt_roomName = promptsView.findViewById(R.id.edt_roomName);
                                 final String roomName = edt_roomName.getText().toString();
                                 EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
                                 final String roomCount = edt_rooms_count.getText().toString();

@@ -92,143 +92,157 @@ public class ProjectsActivity extends AppCompatActivity {
                 // Do something after 5s = 5000ms*/
 
                 if (ConnectivityHelper.isConnectedToNetwork(ProjectsActivity.this)) {
-                    //   progressBar.setVisibility(View.VISIBLE);
-                    DatabaseReference ref = database.getReference("Project_user").child(id);
-                    // Attach a listener to read the data at our posts reference
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            //    progressBar.setVisibility(View.GONE);
-                            tvp1.setVisibility(View.GONE);
-                            tvp2.setVisibility(View.GONE);
-                            tvp3.setVisibility(View.GONE);
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                Log.e("DATA-->", dataSnapshot1.child("project_id").getValue().toString());
-                                projectsModels.add(new ProjectsModel(dataSnapshot1.child("project_id").getValue().toString(), dataSnapshot1.child("project_name").getValue().toString()));
-                            }
+                    if (id != null) {
+                        //   progressBar.setVisibility(View.VISIBLE);
+                        DatabaseReference ref = database.getReference("Project_user").child(id);
+                        // Attach a listener to read the data at our posts reference
+                        if (ref != null)
+                            ref.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //    progressBar.setVisibility(View.GONE);
+                                    tvp1.setVisibility(View.GONE);
+                                    tvp2.setVisibility(View.GONE);
+                                    tvp3.setVisibility(View.GONE);
+                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                        Log.e("DATA-->", dataSnapshot1.child("project_id").getValue().toString());
+                                        projectsModels.add(new ProjectsModel(dataSnapshot1.child("project_id").getValue().toString(), dataSnapshot1.child("project_name").getValue().toString()));
+                                    }
 
-                            if (projectsModels.size() == 3) {
-                                tvp1.setVisibility(View.VISIBLE);
-                                tvp2.setVisibility(View.VISIBLE);
-                                tvp3.setVisibility(View.VISIBLE);
-                                //TODO
+                                    if (projectsModels.size() == 3) {
+                                        tvp1.setVisibility(View.VISIBLE);
+                                        tvp2.setVisibility(View.VISIBLE);
+                                        tvp3.setVisibility(View.VISIBLE);
+                                        //TODO
 
-                                pro_name.setText(projectsModels.get(0).getName());
-                                pro_name2.setText(projectsModels.get(1).getName());
-                                pro_name3.setText(projectsModels.get(2).getName());
+                                        pro_name.setText(projectsModels.get(0).getName());
+                                        pro_name2.setText(projectsModels.get(1).getName());
+                                        pro_name3.setText(projectsModels.get(2).getName());
 
-                            } else if (projectsModels.size() == 2) {
-                                tvp1.setVisibility(View.VISIBLE);
-                                tvp2.setVisibility(View.VISIBLE);
+                                    } else if (projectsModels.size() == 2) {
+                                        tvp1.setVisibility(View.VISIBLE);
+                                        tvp2.setVisibility(View.VISIBLE);
 //TODO
 
-                                pro_name.setText(projectsModels.get(0).getName());
-                                pro_name2.setText(projectsModels.get(1).getName());
+                                        pro_name.setText(projectsModels.get(0).getName());
+                                        pro_name2.setText(projectsModels.get(1).getName());
 
-                                tvp3.setVisibility(View.GONE);
-                            } else if (projectsModels.size() == 1) {
-                                tvp1.setVisibility(View.VISIBLE);
+                                        tvp3.setVisibility(View.GONE);
+                                    } else if (projectsModels.size() == 1) {
+                                        tvp1.setVisibility(View.VISIBLE);
 
                                 /* tvp1.setText(projectsModels.get(0).getName());*/
-                                tvp3.setVisibility(View.GONE);
-                                tvp2.setVisibility(View.GONE);
+                                        tvp3.setVisibility(View.GONE);
+                                        tvp2.setVisibility(View.GONE);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    //     progressBar.setVisibility(View.GONE);
+                                    System.out.println("The read failed: " + databaseError.getCode());
+
+                                }
+                            });
+
+
+                        tvp1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (checkIfBareedOrNot(pro_name.getText().toString())) {
+                                    ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    //Intent i=new Intent(ProjectsActivity.this, SurvayScreen.class);
+                                    //i.putExtra("pn",projectsModels.get(0).getName());
+                                    //startActivity(i);
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+
+                                    finish();
+
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                                    finish();
+
+                                    ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
+                                }
+
                             }
-                        }
+                        });
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //     progressBar.setVisibility(View.GONE);
-                            System.out.println("The read failed: " + databaseError.getCode());
+                        tvp2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (checkIfBareedOrNot(pro_name2.getText().toString())) {
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                                    finish();
 
-                        }
-                    });
+                                    ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                                    finish();
 
-
-                    tvp1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkIfBareedOrNot(pro_name.getText().toString())) {
-                                ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                //Intent i=new Intent(ProjectsActivity.this, SurvayScreen.class);
-                                //i.putExtra("pn",projectsModels.get(0).getName());
-                                //startActivity(i);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
-                                ConstMethods.SaveProjectId(projectsModels.get(0).getId(), ProjectsActivity.this);
+                                    ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
+                                }
                             }
+                        });
 
-                        }
-                    });
+                        tvp3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                    tvp2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkIfBareedOrNot(pro_name2.getText().toString())) {
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                                ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                                ConstMethods.SaveProjectId(projectsModels.get(1).getId(), ProjectsActivity.this);
+                                if (checkIfBareedOrNot(pro_name3.getText().toString())) {
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                                    finish();
+
+                                    ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                                    SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                                    editor.putString("pn", projectsModels.get(0).getName());
+                                    editor.apply();
+                                    startActivity(new Intent(ProjectsActivity.this, NewUiSurveyScreen.class));
+                                    finish();
+
+                                    ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
+                                }
                             }
+                        });
+
+                        //Toast.makeText(ProjectsActivity.this, "Test!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        for (int i = 0; i < userProjectsDB.userDao().getAllUserProjects().size(); i++) {
+
+                            userProjectsEntities.add(new UserProjectsEntity(userProjectsDB.userDao().getAllUserProjects().get(i).getProject_id(),
+                                    userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name(),
+                                    userProjectsDB.userDao().getAllUserProjects().get(i).getUserId())
+                            );
+
+                            Log.e("PRO NAME", userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name());
+
+
                         }
-                    });
-
-                    tvp3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (checkIfBareedOrNot(pro_name3.getText().toString())) {
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                                ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
-                                editor.putString("pn", projectsModels.get(0).getName());
-                                editor.apply();
-                                startActivity(new Intent(ProjectsActivity.this, SurvayScreen.class));
-                                ConstMethods.SaveProjectId(projectsModels.get(2).getId(), ProjectsActivity.this);
-                            }
-                        }
-                    });
-
-                    //Toast.makeText(ProjectsActivity.this, "Test!", Toast.LENGTH_SHORT).show();
-
-                } else {
-
-                    Log.e("FromOffline", "OFFFFFFFFFFFFF");
-                    for (int i = 0; i < userProjectsDB.userDao().getAllUserProjects().size(); i++) {
-
-                        userProjectsEntities.add(new UserProjectsEntity(userProjectsDB.userDao().getAllUserProjects().get(i).getProject_id(),
-                                userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name(),
-                                userProjectsDB.userDao().getAllUserProjects().get(i).getUserId())
-                        );
-
-                        Log.e("PRO NAME", userProjectsDB.userDao().getAllUserProjects().get(i).getProject_name());
-
-
-                    }
 
             /*
                     uid = ConstMethods.getSavedUserId(ProjectsActivity.this);
@@ -251,96 +265,97 @@ public class ProjectsActivity extends AppCompatActivity {
                     */
 
 
-                    if (userProjectsEntities.size() == 3) {
-                        tvp1.setVisibility(View.VISIBLE);
-                        tvp2.setVisibility(View.VISIBLE);
-                        tvp3.setVisibility(View.VISIBLE);
-                        //TODO
+                        if (userProjectsEntities.size() == 3) {
+                            tvp1.setVisibility(View.VISIBLE);
+                            tvp2.setVisibility(View.VISIBLE);
+                            tvp3.setVisibility(View.VISIBLE);
+                            //TODO
 
-                        pro_name.setText(userProjectsEntities.get(0).getProject_name());
-                        pro_name2.setText(userProjectsEntities.get(1).getProject_name());
-                        pro_name3.setText(userProjectsEntities.get(2).getProject_name());
+                            pro_name.setText(userProjectsEntities.get(0).getProject_name());
+                            pro_name2.setText(userProjectsEntities.get(1).getProject_name());
+                            pro_name3.setText(userProjectsEntities.get(2).getProject_name());
 
-                    } else if (userProjectsEntities.size() == 2) {
-                        tvp1.setVisibility(View.VISIBLE);
-                        tvp2.setVisibility(View.VISIBLE);
-                        tvp3.setVisibility(View.GONE);
-                        //TODO
+                        } else if (userProjectsEntities.size() == 2) {
+                            tvp1.setVisibility(View.VISIBLE);
+                            tvp2.setVisibility(View.VISIBLE);
+                            tvp3.setVisibility(View.GONE);
+                            //TODO
 
-                        pro_name.setText(userProjectsEntities.get(0).getProject_name());
-                        pro_name2.setText(userProjectsEntities.get(1).getProject_name());
+                            pro_name.setText(userProjectsEntities.get(0).getProject_name());
+                            pro_name2.setText(userProjectsEntities.get(1).getProject_name());
 
-                        tvp3.setVisibility(View.GONE);
-                    } else if (userProjectsEntities.size() == 1) {
-                        tvp1.setVisibility(View.VISIBLE);
-                        tvp2.setVisibility(View.GONE);
-                        tvp3.setVisibility(View.GONE);
-                        //TODO
+                            tvp3.setVisibility(View.GONE);
+                        } else if (userProjectsEntities.size() == 1) {
+                            tvp1.setVisibility(View.VISIBLE);
+                            tvp2.setVisibility(View.GONE);
+                            tvp3.setVisibility(View.GONE);
+                            //TODO
 
-                        pro_name.setText(userProjectsEntities.get(0).getProject_name());
+                            pro_name.setText(userProjectsEntities.get(0).getProject_name());
 
-                        tvp3.setVisibility(View.GONE);
-                        tvp2.setVisibility(View.GONE);
+                            tvp3.setVisibility(View.GONE);
+                            tvp2.setVisibility(View.GONE);
+                        }
+
+
+                        /////////////
+
+                        tvp1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (checkIfBareedOrNot(pro_name.getText().toString())) {
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(0).getProject_id(), ProjectsActivity.this);
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(0).getProject_id(), ProjectsActivity.this);
+                                }
+
+                            }
+                        });
+
+                        tvp2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (checkIfBareedOrNot(pro_name2.getText().toString())) {
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(1).getProject_id(), ProjectsActivity.this);
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(1).getProject_id(), ProjectsActivity.this);
+                                }
+                            }
+                        });
+
+                        tvp3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                if (checkIfBareedOrNot(pro_name3.getText().toString())) {
+                                    ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(2).getProject_id(), ProjectsActivity.this);
+                                } else {
+                                    ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
+                                    startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
+                                    ConstMethods.SaveProjectId(userProjectsEntities.get(2).getProject_id(), ProjectsActivity.this);
+                                }
+                            }
+                        });
                     }
-
-
-                    /////////////
-
-                    tvp1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkIfBareedOrNot(pro_name.getText().toString())) {
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(0).getProject_id(), ProjectsActivity.this);
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(0).getProject_id(), ProjectsActivity.this);
-                            }
-
-                        }
-                    });
-
-                    tvp2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkIfBareedOrNot(pro_name2.getText().toString())) {
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(1).getProject_id(), ProjectsActivity.this);
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(1).getProject_id(), ProjectsActivity.this);
-                            }
-                        }
-                    });
-
-                    tvp3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if (checkIfBareedOrNot(pro_name3.getText().toString())) {
-                                ConstMethods.SaveIsBareed("Yes", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(2).getProject_id(), ProjectsActivity.this);
-                            } else {
-                                ConstMethods.SaveIsBareed("No", ProjectsActivity.this);
-                                startActivity(new Intent(ProjectsActivity.this, OfflineSurvayActivity.class));
-                                ConstMethods.SaveProjectId(userProjectsEntities.get(2).getProject_id(), ProjectsActivity.this);
-                            }
-                        }
-                    });
-                }
 
             /*}
         }, 3000);*/
 
-        Log.e("SURVAY DATA -->",Room.databaseBuilder(getApplicationContext(),
-                Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
+                    Log.e("SURVAY DATA -->", Room.databaseBuilder(getApplicationContext(),
+                            Database.class, "survayTable").allowMainThreadQueries().build().userDao().getAllSurvies().toString());
 
+                }
     }
 
     public void btnNext(View view) {
@@ -365,6 +380,8 @@ public class ProjectsActivity extends AppCompatActivity {
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
+        ConstMethods.saveUserLoginInfo(null , null , ProjectsActivity.this);
+
         startActivity(new Intent(ProjectsActivity.this, LoginActivity.class));
         Database govDataBase = Room.databaseBuilder(getApplicationContext(),
                 Database.class, "govTable").allowMainThreadQueries().build();
