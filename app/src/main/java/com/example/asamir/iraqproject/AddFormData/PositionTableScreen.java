@@ -302,10 +302,10 @@ public class PositionTableScreen extends AppCompatActivity
         final EditText edt_job_note = dialog.findViewById(R.id.edt_job_note);
         final Spinner spinnerJobs = dialog.findViewById(R.id.spinnerJobs);
 
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
-            public void run() {
+            public void run() {*/
                 // Do something after 5s = 5000ms
                 if (ConnectivityHelper.isConnectedToNetwork(PositionTableScreen.this)) {
                     // Spinner click listener
@@ -384,8 +384,8 @@ public class PositionTableScreen extends AppCompatActivity
                     });
 
                 }
-            }
-        }, 1000);
+            /*}
+        }, 1000);*/
 
                     addBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -275,10 +275,10 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
         window.setGravity(Gravity.CENTER);
 
 
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
-            public void run() {
+            public void run() {*/
                 // Do something after 5s = 5000ms
                 if (ConnectivityHelper.isConnectedToNetwork(PositionTablesActivity.this)) {
                     // Spinner click listener
@@ -357,8 +357,8 @@ public class PositionTablesActivity extends AppCompatActivity implements Navigat
                     });
 
                 }
-            }
-        }, 1000);
+            /*}
+        }, 1000);*/
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
