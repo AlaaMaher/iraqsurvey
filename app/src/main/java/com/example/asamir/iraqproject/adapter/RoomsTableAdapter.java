@@ -1,5 +1,6 @@
 package com.example.asamir.iraqproject.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -190,61 +192,68 @@ public class RoomsTableAdapter extends RecyclerView.Adapter<RoomsTableAdapter.Cl
     public void showAddDialog(String roomName, String  roomNum, String roomFer, final int pos) {
 
 
-        LayoutInflater li = LayoutInflater.from(context);
-        final View promptsView = li.inflate(R.layout.addroomdialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setView(promptsView);
-        final EditText edt_roomName = promptsView.findViewById(R.id.edt_roomName);
-        edt_roomName.setText(roomName);
-        final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
-        edt_rooms_count.setText(roomNum);
-        final EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
-        edt_roomFre.setText(roomFer);
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("تعديل ",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                roomList.remove(pos);
-                                final String roomName = edt_roomName.getText().toString();
 
-                                final String roomCount = edt_rooms_count.getText().toString();
+            LayoutInflater li = LayoutInflater.from(context);
+            final View promptsView = li.inflate(R.layout.addroomdialog, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder.setView(promptsView);
+             final EditText edt_roomName = promptsView.findViewById(R.id.edt_room_name);
+            edt_roomName.setText(roomName);
 
-                                final String roomFer = edt_roomFre.getText().toString();
+            Button addBtn = promptsView.findViewById(R.id.button_add_dialog11);
+            Button cancelBtn = promptsView.findViewById(R.id.button_cancel_dialog11);
 
-                                if (roomName.trim().isEmpty())
-                                {
-                                    Toast.makeText(context,"برجاء ادخال اسم الغرفه ! ",Toast.LENGTH_LONG).show();
+            addBtn.setVisibility(View.GONE);
+            cancelBtn.setVisibility(View.GONE);
+            
+            final EditText edt_rooms_count = promptsView.findViewById(R.id.edt_roomCount);
+            edt_rooms_count.setText(roomNum);
+            final EditText edt_roomFre = promptsView.findViewById(R.id.edt_roomFre);
+            edt_roomFre.setText(roomFer);
+            // set dialog message
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("تعديل ",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    roomList.remove(pos);
+                                    final String roomName = edt_roomName.getText().toString();
 
-                                } else if (roomCount.trim().isEmpty()) {
-                                    Toast.makeText(context,"برجاء ادخال عدد الغرف ! ",Toast.LENGTH_LONG).show();
-                                }
+                                    final String roomCount = edt_rooms_count.getText().toString();
+
+                                    final String roomFer = edt_roomFre.getText().toString();
+
+                                    if (roomName.trim().isEmpty()) {
+                                        Toast.makeText(context, "برجاء ادخال اسم الغرفه ! ", Toast.LENGTH_LONG).show();
+
+                                    } else if (roomCount.trim().isEmpty()) {
+                                        Toast.makeText(context, "برجاء ادخال عدد الغرف ! ", Toast.LENGTH_LONG).show();
+                                    }
 //                                else if (roomFer.trim().isEmpty()) {
 //                                    Toast.makeText(context,"برجاء ادخال الاثاث الموجود في الغرفه ! ",Toast.LENGTH_LONG).show();
 //                                }
-                                else {
-                                    // final String roomDisc = edt_desc.getText().toString();
-                                    roomList.add(new RoomsModel(roomName, roomCount, roomFer));
-                                    notifyData(roomList);
+                                    else {
+                                        // final String roomDisc = edt_desc.getText().toString();
+                                        roomList.add(new RoomsModel(roomName, roomCount, roomFer));
+                                        notifyData(roomList);
 
+                                        dialog.cancel();
+                                    }
+                                }
+                            })
+                    .setNegativeButton("إلغاء",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
-                            }
-                        })
-                .setNegativeButton("إلغاء",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                            });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
 
-        // show it
-        alertDialog.show();
-    }
+            // show it
+            alertDialog.show();
+        }
 
 
 }

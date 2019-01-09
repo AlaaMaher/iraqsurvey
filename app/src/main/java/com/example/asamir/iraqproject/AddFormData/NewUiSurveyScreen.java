@@ -125,8 +125,13 @@ public class NewUiSurveyScreen extends AppCompatActivity
     TextView nightShift;
     @BindView(R.id.text_both_shift)
     TextView bothShift;
-    @BindView(R.id.linear_next_click)
-    RelativeLayout nextClick;
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+
+
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
 
 //    @BindView(R.id.imageView_add_new_city)
 //    ImageView addNewCity;
@@ -257,6 +262,24 @@ public class NewUiSurveyScreen extends AppCompatActivity
         setDefault();
 
 
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(NewUiSurveyScreen.this)
+                        .setMessage("سوف يتم فقد جميع البيانات المسجله هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(NewUiSurveyScreen.this, RegistedList.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
 
         databaseDisReference = FirebaseDatabase.getInstance().getReference("District");
         ////////////////////////////////////////////////////////////////////////////////////////

@@ -88,6 +88,7 @@
     <!--</LinearLayout>-->
 
     <FrameLayout
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
@@ -132,21 +133,23 @@
                 android:textSize="18dp" />
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_fab"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom|start"
-            android:layout_margin="50dp"
-            android:onClick="add_fad"
-            app:backgroundTint="#216C9F"
-            app:useCompatPadding="true">
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/add_fab"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:onClick="add_fad"-->
+            <!--android:layout_margin="50dp"-->
+            <!--android:background="@drawable/plus"-->
+               <!--&gt;-->
 
-        </android.support.design.widget.FloatingActionButton>
+        <!--</android.support.design.widget.FloatingActionButton>-->
+
+
     </FrameLayout>
 
 </LinearLayout>
     <Button
+        android:visibility="gone"
         android:id="@+id/btnSendData"
         android:layout_width="600dp"
         android:layout_height="wrap_content"
@@ -158,6 +161,7 @@
         android:text="التالي" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/back"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -168,6 +172,60 @@
         android:text="رجوع  >"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorBlue"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" >
+
+        <TextView
+            android:id="@+id/text_next_click"
+            android:layout_weight="1"
+            android:layout_marginRight="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="التالي"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp" />
+
+        <!--<ImageView-->
+        <!--android:layout_marginRight="40dp"-->
+        <!--android:layout_centerVertical="true"-->
+
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--app:srcCompat="@drawable/ic_nexticon" />-->
+
+        <TextView
+            android:id="@+id/text_back_click"
+            android:layout_weight="1"
+            android:layout_marginRight="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="الرجوع"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp" />
+
+        <!--<TextView-->
+        <!--android:layout_marginRight="700dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:textSize="30dp"-->
+        <!--android:textColor="#fff"-->
+        <!--android:text="<"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--/>-->
+        <!---->
+
+    </LinearLayout>
+
+
 </RelativeLayout>
     </RelativeLayout>
 

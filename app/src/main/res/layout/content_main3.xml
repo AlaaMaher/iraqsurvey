@@ -13,11 +13,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="240dp"
+            android:gravity="center"
+            android:layout_width="340dp"
             android:layout_height="68dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="150dp"
-            android:text="أختار الخدمة"
+            android:text="اختر المشاريع"
             android:textColor="#58585B"
             android:textSize="49dp"
             android:textStyle="bold" />

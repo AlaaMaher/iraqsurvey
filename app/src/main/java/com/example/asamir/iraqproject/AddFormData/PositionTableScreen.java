@@ -88,6 +88,13 @@ public class PositionTableScreen extends AppCompatActivity
     private String pn;
     private Database jobDataBase;
 
+
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +140,39 @@ public class PositionTableScreen extends AppCompatActivity
             }
         });
         myDialog = new Dialog(getApplicationContext());
+
+    nextClick.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (jobList.size()==0)
+            {
+                Toast.makeText(getApplicationContext(), "يجب ادخال وظيفة واحدة علي الاقل ", Toast.LENGTH_LONG).show();
+            }else {
+                saveData();
+                startActivity(new Intent(PositionTableScreen.this, RoomTable.class));
+            }
+        }
+    });
+
+
+    backClick.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            new AlertDialog.Builder(PositionTableScreen.this)
+                    .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                    .setCancelable(false)
+                    .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("الغاء", null)
+                    .show();
+
+        }
+    });
     }
 
     @Override

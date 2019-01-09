@@ -89,6 +89,11 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
     @BindView(R.id.tvTootBarTitle)
     TextView tvTootBarTitle;
 
+    @BindView(R.id.text_next_click)
+    TextView nextClick;
+    @BindView(R.id.text_back_click)
+    TextView backClick;
+
 
     private String userChoosenTask;
     private Uri picUri;
@@ -125,6 +130,34 @@ public class SketchPlace extends AppCompatActivity implements NavigationView.OnN
         storageReference = FirebaseStorage.getInstance().getReference();
         // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+
+        nextClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                saveData();
+                startActivity(new Intent(SketchPlace.this, OutdoorPhotos.class));
+
+            }
+        });
+
+        backClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(SketchPlace.this)
+                        .setMessage("سوف يتم فقد بيانات مسجلة بهذه الصفحة هل أنت متاكد من الخروج من الصفحة ؟ ")
+                        .setCancelable(false)
+                        .setPositiveButton("متابعة", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("الغاء", null)
+                        .show();
+            }
+        });
+
+
     }
 
     @Override
